@@ -1,11 +1,16 @@
 'use strict';
 
+const {
+    ConstructorError,
+    ArgumentsError
+} = require('../src/errors');
+
 /** @type {HapifySyntax} Syntax parser */
 module.exports = class HapifySyntax {
 
     /** Constructor */
     constructor() {
-        throw new Error('[HapifySyntax] Cannot be instanced');
+        throw new ConstructorError('[HapifySyntax] Cannot be instanced');
     }
 
     /**
@@ -18,15 +23,15 @@ module.exports = class HapifySyntax {
 
         // Check how many arguments
         if (arguments.length !== 2) {
-            throw new Error('[HapifySyntax.single] Requires two arguments');
+            throw new ArgumentsError('[HapifySyntax.single] Requires two arguments');
         }
         
         // Check arguments
         if (typeof template !== 'string') {
-            throw new Error('[HapifySyntax.single] template must be a string');
+            throw new ArgumentsError('[HapifySyntax.single] template must be a string');
         }
         if (typeof model !== 'object') {
-            throw new Error('[HapifySyntax.single] model must be an object');
+            throw new ArgumentsError('[HapifySyntax.single] model must be an object');
         }
         
         return template;
