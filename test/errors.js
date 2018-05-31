@@ -11,13 +11,18 @@ const {
 const HapifySyntax = require('../src');
 
 const Model = require('./models/video.json');
-const Simple = Fs.readFileSync(`${__dirname}/masks/simple.hpf`);
+const Simple = Fs.readFileSync(`${__dirname}/masks/simple.hpf`, 'utf8');
 
 lab.test('constructor', async () => {
     expect(() => new HapifySyntax()).to.throw(ConstructorError);
 });
 
 lab.test('single', async () => {
+    
+    //Test input validity
+    expect(Simple).to.be.a.string();
+    expect(Model).to.be.an.object();
+    
     expect(() => HapifySyntax.single()).to.throw(ArgumentsError);
     
     expect(() => HapifySyntax.single(Simple)).to.throw(ArgumentsError);
@@ -34,6 +39,6 @@ lab.test('single', async () => {
     expect(() => HapifySyntax.single(4, Model)).to.throw(ArgumentsError);
     expect(() => HapifySyntax.single({}, Model)).to.throw(ArgumentsError);
     
-    expect(() => HapifySyntax.single(Simple, Model)).to.be.a.srting();
+    expect(HapifySyntax.single(Simple, Model)).to.be.a.string();
     
 });

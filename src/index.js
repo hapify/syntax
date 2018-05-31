@@ -33,6 +33,9 @@ module.exports = class HapifySyntax {
         if (typeof model !== 'object') {
             throw new ArgumentsError('[HapifySyntax.single] model must be an object');
         }
+        if (model === null) {
+            throw new ArgumentsError('[HapifySyntax.single] model cannot be null');
+        }
         
         return template;
     }
