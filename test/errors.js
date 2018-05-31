@@ -34,4 +34,6 @@ lab.test('single', async () => {
     expect(() => HapifySyntax.single(4, Model)).to.throw(ArgumentsError);
     expect(() => HapifySyntax.single({}, Model)).to.throw(ArgumentsError);
     
+    expect(() => HapifySyntax.single(Simple, Model)).to.be.a.srting();
+    
 });
