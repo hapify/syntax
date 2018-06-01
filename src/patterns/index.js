@@ -1,5 +1,7 @@
 'use strict';
 
 module.exports = {
-    Escape: require('./escape')
+    Conditional: require('./conditional'),
+    Escape: require('./escape'),
+    Interpolate: require('./interpolate')
 };

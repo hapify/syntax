@@ -19,10 +19,9 @@ module.exports = class ConditionalPattern extends BasePattern {
     /**
      * Parser method
      * @param {string} template
-     * @param {{}} model
      * @return {string}
      */
-    static execute(template, model) {
+    static execute(template) {
         return template
             .replace(Start.find, Start.replace)
             .replace(End.find, End.replace);

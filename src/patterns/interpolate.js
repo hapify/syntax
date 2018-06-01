@@ -1,17 +1,10 @@
 'use strict';
 
 const BasePattern = require('./base');
+const { ParsingError } = require('../errors');
 
-/** @type {{}} Start pattern and replacer */
-const Start = {
-    find: /\\<\\</g,
-    replace: '<<'
-};
-/** @type {{}} end pattern and replacer */
-const End = {
-    find: /\\>\\>/g,
-    replace: '>>'
-};
+/** @type {RegExp} Interpolation pattern */
+const RegEx = /<<([a-zA-Z_]+)\s+([aA_\-R]+)>>/gm;
 
 /** @type {BasePattern} Interpolate pattern */
 module.exports = class InterpolatePattern extends BasePattern {
@@ -19,13 +12,30 @@ module.exports = class InterpolatePattern extends BasePattern {
     /**
      * Parser method
      * @param {string} template
-     * @param {{}} model
      * @return {string}
      */
-    static execute(template, model) {
-        return template
-            .replace(Start.find, Start.replace)
-            .replace(End.find, End.replace);
+    static execute(template) {
+        
+        return template.replace(RegEx, (match, _variable, _property) => {
+            
+            // Get the var
+            let variable = _variable;
+            if (variable === '_') variable = 'model';
+            
+            // Get the property
+            let property = _property;
+            if (property === 'aA') property = 'lowerCamel';
+            else if (property === 'AA') property = 'upperCamel';
+            else if (property === 'a') property = 'wordsLower';
+            else if (property === 'A') property = 'wordsUpper';
+            else if (property === 'a-a') property = 'hyphen';
+            else if (property === 'a_a') property = 'underscore';
+            else if (property === 'aa') property = 'oneWord';
+            else if (property === 'R') property = 'raw';
+            else throw new ParsingError(`[InterpolatePattern.execute] Unknown name property: ${property}`);
+            
+            return `\${${variable}.names.${property}}`;
+        });
     }
 
 };

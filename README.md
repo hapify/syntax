@@ -45,6 +45,33 @@ By default, in a case of a single model template:
 - `D` refers to the models list: `model.dependencies.list`
 - `R` refers to the models list: `model.referencedIn`
 
+### Interpolation
+
+To echo the name of a variable (model or field), we omit the operator.
+
+Example for the root model name as upper camel:
+
+```
+<<_ AA>>
+```
+
+Example for field name as hyphen:
+
+```
+<<f a-a>>
+```
+
+The values for the name are:
+
+- `aA` for `names.lowerCamel`;
+- `AA` for `names.upperCamel`;
+- `a` for `names.wordsLower`;
+- `A` for `names.wordsUpper`;
+- `a-a` for `names.hyphen`;
+- `a_a` for `names.underscore`;
+- `aa` for `names.oneWord`;
+- `R` for `names.raw`;
+
 ### Loop operator
 
 The loop operation (foreach) is `@`. It applies only to an array.
