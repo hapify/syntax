@@ -1,0 +1,22 @@
+Conditional testing.
+
+
+This model has a primary internal field
+
+
+
+This model has no private or nullable fields
+
+
+
+This model has exactly one searchable and sortable field
+
+
+
+
+
+
+This model has some fields
+
+
+End

@@ -1,0 +1,23 @@
+Conditional testing.
+
+<<? F pr*in >>
+This model has a primary internal field
+<<?>>
+
+<<?  F  !(ip+nl)  >>
+This model has no private or nullable fields
+<<?>>
+
+<<?1 F se*so>>
+This model has exactly one searchable and sortable field
+<<?>>
+
+<<? F un >>
+This model has a unique field
+<<?>>
+
+<<? F>>
+This model has some fields
+<<?>>
+
+End

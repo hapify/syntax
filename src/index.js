@@ -10,6 +10,7 @@ const Patterns = require('./patterns');
 /** @type {BasePattern[]} Ordered patterns */
 const PatternsStack = [
     Patterns.Interpolate,
+    Patterns.Conditional,
     Patterns.Escape
 ];
 
@@ -68,10 +69,10 @@ module.exports = class HapifySyntax {
     /**
      * Eval the generated script
      * @param {string} template
-     * @param {{}} model
+     * @param {{}|{}[]} root
      * @private
      */
-    static _eval(template, model) { // eslint-disable-line no-unused-vars
+    static _eval(template, root) { // eslint-disable-line no-unused-vars
         const final = `module.exports = \`${template}\`;`;
 
         try {

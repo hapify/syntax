@@ -4,7 +4,7 @@ const BasePattern = require('./base');
 const { ParsingError } = require('../errors');
 
 /** @type {RegExp} Interpolation pattern */
-const RegEx = /<<([a-zA-Z_]+)\s+([aA_\-R]+)>>/gm;
+const RegEx = /<<([a-zA-Z_]+)\s+([aA_\-R]+)\s*>>/gm;
 
 /** @type {BasePattern} Interpolate pattern */
 module.exports = class InterpolatePattern extends BasePattern {
@@ -20,7 +20,7 @@ module.exports = class InterpolatePattern extends BasePattern {
             
             // Get the var
             let variable = _variable;
-            if (variable === '_') variable = 'model';
+            if (variable === '_') variable = 'root';
             
             // Get the property
             let property = _property;
