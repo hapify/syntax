@@ -13,8 +13,8 @@ const End = {
     replace: '>>'
 };
 
-/** @type {BasePattern} Escape pattern */
-module.exports = class EscapePattern extends BasePattern {
+/** @type {BasePattern} Interpolate pattern */
+module.exports = class InterpolatePattern extends BasePattern {
 
     /**
      * Parser method

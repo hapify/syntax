@@ -1,6 +1,6 @@
 {
   "id": "0b5fec90-e484-f736-f4c9-81bdad35d4ba",
-  "name": "Video",
+  "name": "Youtube Video",
   "fields": {
     "list": [
       {
@@ -7240,14 +7240,14 @@
     ]
   },
   "names": {
-    "raw": "Video",
-    "hyphen": "video",
-    "underscore": "video",
-    "oneWord": "video",
-    "wordsUpper": "Video",
-    "wordsLower": "video",
-    "upperCamel": "Video",
-    "lowerCamel": "video"
+    "raw": "Youtube Video",
+    "hyphen": "youtube-video",
+    "underscore": "youtube_video",
+    "oneWord": "youtubevideo",
+    "wordsUpper": "Youtube Video",
+    "wordsLower": "youtube video",
+    "upperCamel": "YoutubeVideo",
+    "lowerCamel": "youtubeVideo"
   },
   "properties": {
     "fieldsCount": 6,
