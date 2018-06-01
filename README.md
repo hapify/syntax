@@ -10,7 +10,7 @@ Open: `<<`
 Close: `>>`
 
 Usually used for binary operations. Should be escapable:
-Ignore `\<<` (and maybe `\>>`) and replace it by `<<`
+Ignore `\<\<` (and maybe `\>\>`) and replace it by `<<`
 
 ### Raw inputs
 

@@ -4,6 +4,12 @@ const {
     ConstructorError,
     ArgumentsError
 } = require('../src/errors');
+const Patterns = require('./patterns');
+
+/** @type {BasePattern[]} Ordered patterns */
+const PatternsStack = [
+    Patterns.Escape
+];
 
 /** @type {HapifySyntax} Syntax parser */
 module.exports = class HapifySyntax {
@@ -37,7 +43,13 @@ module.exports = class HapifySyntax {
             throw new ArgumentsError('[HapifySyntax.single] model cannot be null');
         }
         
-        return template;
+        // Execute all patterns
+        let output = template;
+        for (const pattern of PatternsStack) {
+            output = pattern.execute(output, model);
+        }
+        
+        return output;
     }
 
 };
