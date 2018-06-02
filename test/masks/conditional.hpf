@@ -30,6 +30,14 @@ This has something else
 This model has a unique field
 <<?>>
 
+<<? F lb/pr/un/nu/ml*se*so/ip/in >>
+Big condition
+<<?>>
+
+<<?2 F pr+lb >>
+At least 2 primary or label
+<<?>>
+
 <<? F>>
 This model has some fields
 <<?>>
