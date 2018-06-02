@@ -4,12 +4,12 @@ Conditional testing.
 This model has a primary internal field
 <<?>>
 
-<<?  F  !(ip+nl)  >>
+<<?  F  !(ip+nu)  >>
 This model has no private or nullable fields
 <<?>>
 
-<<?1 F se*so>>
-This model has exactly one searchable and sortable field
+<<?2 F so>>
+This model has at least two sortable fields
 <<?>>
 
 <<? F un >>

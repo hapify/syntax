@@ -19,4 +19,14 @@ module.exports = class BasePattern {
         return template;
     }
 
+    /**
+     * Escape string and insert js code
+     * @param {string} js
+     * @return {string}
+     * @private
+     */
+    static _dynamic(js) {
+        return `\`; ${js} out += \``;
+    }
+
 };

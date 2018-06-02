@@ -73,7 +73,7 @@ module.exports = class HapifySyntax {
      * @private
      */
     static _eval(template, root) { // eslint-disable-line no-unused-vars
-        const final = `module.exports = \`${template}\`;`;
+        const final = `let out = \`${template}\`; module.exports = out;`;
 
         try {
             return eval(final);

@@ -9,8 +9,7 @@ This model has no private or nullable fields
 
 
 
-This model has exactly one searchable and sortable field
-
+This model has at least two sortable fields
 
 
 
