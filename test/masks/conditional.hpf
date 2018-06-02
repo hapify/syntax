@@ -12,6 +12,20 @@ This model has no private or nullable fields
 This model has at least two sortable fields
 <<?>>
 
+<<?4 F so>>
+This model has at least 4 sortable fields
+<<??2 F so>>
+This model has at least 2 sortable fields
+<<?>>
+
+<<?4 F so>>
+This model has at least 4 sortable fields
+<<??3 F so>>
+This model has at least 3 sortable fields
+<<??>>
+This has something else
+<<?>>
+
 <<? F un >>
 This model has a unique field
 <<?>>

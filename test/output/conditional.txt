@@ -13,6 +13,11 @@ This model has at least two sortable fields
 
 
 
+This model has at least 2 sortable fields
+
+
+
+This has something else
 
 
 This model has some fields
