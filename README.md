@@ -72,6 +72,48 @@ The values for the name are:
 - `aa` for `names.oneWord`;
 - `R` for `names.raw`;
 
+## Conditional operator
+
+This operator can be used over an object or an array of object.
+If used over an array it will test the length of the array filtered by the condition.
+
+Example to test if the model has some searchable and sortable but private fields:
+
+```
+<<? F se*so/ip>>
+    ...
+<<?>>
+```
+
+Is equivalent to
+```javascript
+if (model.fields.list.filter(f => f.searchable && f.sortable && !f.isPrivate).length > 0) {
+    out += '...';
+}
+```
+
+Example to test if the model has at least two label fields
+
+```
+<<?2 F lb>>
+    ...
+<<?>>
+```
+
+Example over an array:
+```
+<<? F se*so>>
+    .....
+<<?>>
+```
+
+Is equivalent to
+```javascript
+if (model.fields.list.filter((f) => f.searchable && f.sortable).length) {
+    out += '.....';
+}
+```
+
 ### Loop operator
 
 The loop operation (foreach) is `@`. It applies only to an array.
@@ -133,43 +175,6 @@ This will loop over dependencies
     .....
 <<@>>
 ```
-
-## Conditional operator
-
-This operator can be used over an object or an array of object.
-If used over an array it will test the length of the array filtered by the condition.
-
-Example:
-```
-<<? f se*so>>
-    .....
-<<?>>
-```
-
-Is equivalent to
-```javascript
-if (f.searchable && f.sortable) {
-    out += '.....';
-}
-```
-
-Example over an array:
-```
-<<? F se*so>>
-    .....
-<<?>>
-```
-
-Is equivalent to
-```javascript
-if (model.fields.list.filter((f) => f.searchable && f.sortable).length) {
-    out += '.....';
-}
-```
-
-## Names printing
-
-`<<f A>>`
 
 ## Fields operators & filters
 
