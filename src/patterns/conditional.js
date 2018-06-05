@@ -53,26 +53,11 @@ const Repalcements = [
 const ForRegExp = (r) => `${r.escape ? '\\' : ''}${r.search}`;
 /** @type {RegExp} Dynamic regex for replacements */
 const Condition = new RegExp(`(${Repalcements.map(ForRegExp).join('|')})`, 'g');
+/** @type {[]} Testers caching */
+const Testers = {};
 
 /** @type {ConditionalPattern} Conditional pattern */
 module.exports = class ConditionalPattern extends BasePattern {
-
-    /**
-     * Getter for subclasses
-     * @return {[{}]}
-     * @private
-     */
-    static _getReplacements() {
-        return Repalcements;
-    }
-    /**
-     * Getter for subclasses
-     * @return {RegExp}
-     * @private
-     */
-    static _getCondition() {
-        return Condition;
-    }
 
     /**
      * Parser method
@@ -125,23 +110,34 @@ module.exports = class ConditionalPattern extends BasePattern {
      * @return {string}
      */
     static _tester(_condition) {
+        
+        // Short exit
+        if (typeof _condition === 'undefined') {
+            return '((i) => i)';
+        }
+        
+        const trimed = _condition.trim();
+        
+        if (typeof Testers[trimed] === 'undefined') {
 
-        const condition = typeof _condition === 'undefined' ? 'i' : _condition
-            .trim()
-            .replace(Condition, (match) => {
-                const replacement = Repalcements.find((l) => l.search === match);
-                if (!replacement) {
-                    throw new InternalError(`[ConditionalPattern._condition] Cannot find condition replacement for ${match}`);
-                }
+            const condition = trimed
+                .replace(Condition, (match) => {
+                    const replacement = Repalcements.find((l) => l.search === match);
+                    if (!replacement) {
+                        throw new InternalError(`[ConditionalPattern._condition] Cannot find condition replacement for ${match}`);
+                    }
 
-                return replacement.replace;
-            })
-            .trim()
-            .replace(/^&&/g, '')
-            .replace(/^\|\|/g, '')
-            .trim();
+                    return replacement.replace;
+                })
+                .trim()
+                .replace(/^&&/g, '')
+                .replace(/^\|\|/g, '')
+                .trim();
 
-        return `((i) => ${condition})`;
+            Testers[trimed] = `((i) => ${condition})`;
+        }
+        
+        return Testers[trimed];
     }
 
     /**
