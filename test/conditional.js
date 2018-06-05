@@ -22,8 +22,9 @@ lab.test('single', async () => {
 });
 
 lab.test('unit', async () => {
-    
-    const condition = (test, length = 0) => `\`; if ((root.fields.list instanceof Array && root.fields.list.filter((i) => ${test}).length > ${length}) || (!(root.fields.list instanceof Array) && ((i) => ${test})(root.fields.list))) { out += \``
+
+    const condition = (test, length = 0) => `\`; if ((root.fields.list instanceof Array && root.fields.list.filter((i) => ${test}).length > ${length}) || (!(root.fields.list instanceof Array) && ((i) => ${test})(root.fields.list))) { out += \``;
+    const conditionElse = (test, length = 0) => `\`; } else if ((root.fields.list instanceof Array && root.fields.list.filter((i) => ${test}).length > ${length}) || (!(root.fields.list instanceof Array) && ((i) => ${test})(root.fields.list))) { out += \``;
 
     //Start with not
     const notSe = condition('!i.searchable', 3);
@@ -31,8 +32,10 @@ lab.test('unit', async () => {
     expect(ConditionalPattern.execute('<<?4 F -se  >>')).to.equal(notSe);
     expect(ConditionalPattern.execute('<<?4 F  /se>>')).to.equal(notSe);
     
-    expect(ConditionalPattern.execute('<<? F !(se+so)*pr/ip>>')).to.equal(condition('!(i.searchable || i.sortable) && i.primary && !i.isPrivate'));
+    // operator
+    expect(ConditionalPattern.execute('<<? F !(se+so-lb)*pr/ip>>')).to.equal(condition('!(i.searchable || i.sortable || !i.label) && i.primary && !i.isPrivate'));
     
+    // properties
     expect(ConditionalPattern.execute('<<? F pr>>')).to.equal(condition('i.primary'));
     expect(ConditionalPattern.execute('<<? F un>>')).to.equal(condition('i.unique'));
     expect(ConditionalPattern.execute('<<? F lb>>')).to.equal(condition('i.label'));
@@ -62,6 +65,17 @@ lab.test('unit', async () => {
 
     expect(ConditionalPattern.execute('<<? F tE>>')).to.equal(condition('i.type === \'entity\''));
 
+    // spaces
+    expect(ConditionalPattern.execute('<<?   F   pr  >>')).to.equal(condition('i.primary'));
 
+    // Else if
+    expect(ConditionalPattern.execute('<<?? F pr>>')).to.equal(conditionElse('i.primary'));
+    expect(ConditionalPattern.execute('<<??6 F pr>>')).to.equal(conditionElse('i.primary', 5));
+    
+    // Else
+    expect(ConditionalPattern.execute('<<??>>')).to.equal('`; } else { out += `');
+
+    // Closure
+    expect(ConditionalPattern.execute('<<?>>')).to.equal('`; } out += `');
 
 });
