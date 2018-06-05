@@ -54,7 +54,7 @@ const ForRegExp = (r) => `${r.escape ? '\\' : ''}${r.search}`;
 /** @type {RegExp} Dynamic regex for replacements */
 const Condition = new RegExp(`(${Repalcements.map(ForRegExp).join('|')})`, 'g');
 
-/** @type {BasePattern} Conditional pattern */
+/** @type {ConditionalPattern} Conditional pattern */
 module.exports = class ConditionalPattern extends BasePattern {
 
     /**

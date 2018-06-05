@@ -13,7 +13,7 @@ const End = {
     replace: '>>'
 };
 
-/** @type {BasePattern} Escape pattern */
+/** @type {EscapePattern} Escape pattern */
 module.exports = class EscapePattern extends BasePattern {
 
     /**
