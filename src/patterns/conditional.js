@@ -7,9 +7,9 @@ const BasePattern = require('./base');
 const { InternalError } = require('../errors');
 
 /** @type {RegExp} if () { pattern */
-const IfPattern = /<<\?(\d)?\s+([a-zA-Z_]+)(\s+[a-zA-Z\(\)\!\+\*\-\/]+)?\s*>>/gm;
+const IfPattern = /<<\?(\d)?\s+([a-zA-Z_]+)(\s+[a-zA-Z()!+*\-/]+)?\s*>>/gm;
 /** @type {RegExp} else if () { pattern */
-const ElseIfPattern = /<<\?\?(\d)?\s+([a-zA-Z_]+)(\s+[a-zA-Z\(\)\!\+\*\-\/]+)?\s*>>/gm;
+const ElseIfPattern = /<<\?\?(\d)?\s+([a-zA-Z_]+)(\s+[a-zA-Z()!+*\-/]+)?\s*>>/gm;
 /** @type {RegExp} else pattern */
 const ElsePattern = /<<\?\?>>/gm;
 /** @type {RegExp} } pattern */
@@ -29,6 +29,25 @@ const Repalcements = [
     { search: 'so', replace: 'i.sortable' },
     { search: 'ip', replace: 'i.isPrivate' },
     { search: 'in', replace: 'i.internal' },
+
+    { search: 'tSe', replace: 'i.type === \'string\' && i.subtype === \'email\'' },
+    { search: 'tSp', replace: 'i.type === \'string\' && i.subtype === \'password\'' },
+    { search: 'tSt', replace: 'i.type === \'string\' && i.subtype === \'text\'' },
+    { search: 'tS', replace: 'i.type === \'string\'' },
+
+    { search: 'tNi', replace: 'i.type === \'number\' && i.subtype === \'integer\'' },
+    { search: 'tNf', replace: 'i.type === \'number\' && i.subtype === \'float\'' },
+    { search: 'tNt', replace: 'i.type === \'number\' && i.subtype === \'latitude\'' },
+    { search: 'tNg', replace: 'i.type === \'number\' && i.subtype === \'longitude\'' },
+    { search: 'tN', replace: 'i.type === \'number\'' },
+
+    { search: 'tB', replace: 'i.type === \'boolean\'' },
+    
+    { search: 'tDd', replace: 'i.type === \'datetime\' && i.subtype === \'date\'' },
+    { search: 'tDt', replace: 'i.type === \'datetime\' && i.subtype === \'time\'' },
+    { search: 'tD', replace: 'i.type === \'datetime\'' },
+    
+    { search: 'tE', replace: 'i.type === \'entity\'' },
 ];
 /** @type {Function} Convert replacement search for regexp */
 const ForRegExp = (r) => `${r.escape ? '\\' : ''}${r.search}`;
@@ -116,7 +135,11 @@ module.exports = class ConditionalPattern extends BasePattern {
                 }
 
                 return replacement.replace;
-            });
+            })
+            .trim()
+            .replace(/^&&/g, '')
+            .replace(/^\|\|/g, '')
+            .trim();
 
         return `((i) => ${condition})`;
     }
