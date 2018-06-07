@@ -7,13 +7,13 @@ const BasePattern = require('./base');
 const { InternalError } = require('../errors');
 
 /** @type {RegExp} if () { pattern */
-const IfPattern = /<<\?(\d)?\s+([a-zA-Z_]+)(\s+[a-zA-Z()!+*\-/]+)?\s*>>/gm;
+const IfPattern = /<<\?(\d)?\s+([a-zA-Z_]+)(\s+[a-zA-Z()!+*\-/]+)?\s*>>/g;
 /** @type {RegExp} else if () { pattern */
-const ElseIfPattern = /<<\?\?(\d)?\s+([a-zA-Z_]+)(\s+[a-zA-Z()!+*\-/]+)?\s*>>/gm;
+const ElseIfPattern = /<<\?\?(\d)?\s+([a-zA-Z_]+)(\s+[a-zA-Z()!+*\-/]+)?\s*>>/g;
 /** @type {RegExp} else pattern */
-const ElsePattern = /<<\?\?>>/gm;
+const ElsePattern = /<<\?\?>>/g;
 /** @type {RegExp} } pattern */
-const EndPattern = /<<\?>>/gm;
+const EndPattern = /<<\?>>/g;
 /** @type {[{}]} Conditions short codes & operators */
 const Repalcements = [
     { search: '*', replace: ' && ', escape: true },
