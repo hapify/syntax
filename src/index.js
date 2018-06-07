@@ -11,7 +11,8 @@ const Patterns = require('./patterns');
 const PatternsStack = [
     Patterns.Interpolate,
     Patterns.Conditional,
-    Patterns.Escape
+    Patterns.Escape,
+    Patterns.Iteration
 ];
 
 /** @type {HapifySyntax} Syntax parser */

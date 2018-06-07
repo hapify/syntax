@@ -8,8 +8,8 @@ const HapifySyntax = require('../src');
 const IterationPattern = require('../src/patterns/iteration');
 
 const Model = require('./models/video.json');
-const Input = Fs.readFileSync(`${__dirname}/masks/conditional.hpf`, 'utf8');
-const Output = Fs.readFileSync(`${__dirname}/output/conditional.txt`, 'utf8');
+const Input = Fs.readFileSync(`${__dirname}/masks/iteration.hpf`, 'utf8');
+const Output = Fs.readFileSync(`${__dirname}/output/iteration.txt`, 'utf8');
 
 lab.test('single', async () => {
 
