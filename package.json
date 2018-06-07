@@ -4,7 +4,8 @@
   "description": "Templating syntax optimized for Hapify models handling.",
   "main": "src/index.js",
   "scripts": {
-    "test": "lab test"
+    "test": "lab test",
+    "build": "rm dist/*.js; browserify src/index.js -t babelify -o dist/index.js; uglifyjs dist/index.js -o dist/index.min.js"
   },
   "repository": {
     "type": "git",
@@ -18,12 +19,17 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/tractrs/hapify-syntax#readme",
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-env": "^1.7.0",
+    "babelify": "^8.0.0",
+    "browserify": "^16.2.2",
     "code": "^5.2.0",
     "eslint": "^4.7.1",
     "eslint-config-hapi": "^11.1.0",
     "eslint-plugin-hapi": "^4.0.0",
     "eslint-plugin-immutable": "^1.0.0",
     "eslint-plugin-perf-standard": "^1.0.3",
-    "lab": "^15.4.5"
+    "lab": "^15.4.5",
+    "uglify-js": "^3.4.0"
   }
 }
