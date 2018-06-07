@@ -29,4 +29,13 @@ module.exports = class BasePattern {
         return `\`; ${js} out += \``;
     }
 
+    /**
+     * Reverse escape quotes `
+     * @param {string} code
+     * @return {string}
+     */
+    static _unescape(code) {
+        return code.replace(/\\`/g, '`');
+    }
+
 };

@@ -11,8 +11,9 @@ const Patterns = require('./patterns');
 const PatternsStack = [
     Patterns.Interpolate,
     Patterns.Conditional,
+    Patterns.Iteration,
+    Patterns.Evaluate,
     Patterns.Escape,
-    Patterns.Iteration
 ];
 
 /** @type {HapifySyntax} Syntax parser */
@@ -64,7 +65,7 @@ module.exports = class HapifySyntax {
      * @private
      */
     static _escape(template) {
-        return template.replace(/`/g, /\\`/);
+        return template.replace(/`/g, '\\`');
     }
 
     /**
