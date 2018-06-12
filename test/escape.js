@@ -11,14 +11,14 @@ const Model = require('./models/video.json');
 const Input = Fs.readFileSync(`${__dirname}/masks/escape.hpf`, 'utf8');
 const Output = Fs.readFileSync(`${__dirname}/output/escape.txt`, 'utf8');
 
-lab.test('single', async () => {
+lab.test('run', async () => {
     
     //Test input validity
     expect(Input).to.be.a.string();
     expect(Output).to.be.a.string();
     expect(Model).to.be.an.object();
     
-    expect(HapifySyntax.single(Input, Model)).to.equal(Output);
+    expect(HapifySyntax.run(Input, Model)).to.equal(Output);
 });
 
 lab.test('unit', async () => {

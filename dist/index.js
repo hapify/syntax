@@ -108,23 +108,23 @@ module.exports = function () {
 
 
     _createClass(HapifySyntax, null, [{
-        key: 'single',
-        value: function single(template, model) {
+        key: 'run',
+        value: function run(template, model) {
 
             // Check how many arguments
             if (arguments.length !== 2) {
-                throw new ArgumentsError('[HapifySyntax.single] Requires two arguments');
+                throw new ArgumentsError('[HapifySyntax.run] Requires two arguments');
             }
 
             // Check arguments
             if (typeof template !== 'string') {
-                throw new ArgumentsError('[HapifySyntax.single] template must be a string');
+                throw new ArgumentsError('[HapifySyntax.run] template must be a string');
             }
             if ((typeof model === 'undefined' ? 'undefined' : _typeof(model)) !== 'object') {
-                throw new ArgumentsError('[HapifySyntax.single] model must be an object');
+                throw new ArgumentsError('[HapifySyntax.run] model must be an object');
             }
             if (model === null) {
-                throw new ArgumentsError('[HapifySyntax.single] model cannot be null');
+                throw new ArgumentsError('[HapifySyntax.run] model cannot be null');
             }
 
             // Escape quotes

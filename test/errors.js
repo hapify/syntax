@@ -17,28 +17,28 @@ lab.test('constructor', async () => {
     expect(() => new HapifySyntax()).to.throw(ConstructorError);
 });
 
-lab.test('single', async () => {
+lab.test('run', async () => {
     
     //Test input validity
     expect(Simple).to.be.a.string();
     expect(Model).to.be.an.object();
     
-    expect(() => HapifySyntax.single()).to.throw(ArgumentsError);
+    expect(() => HapifySyntax.run()).to.throw(ArgumentsError);
     
-    expect(() => HapifySyntax.single(Simple)).to.throw(ArgumentsError);
+    expect(() => HapifySyntax.run(Simple)).to.throw(ArgumentsError);
 
-    expect(() => HapifySyntax.single(Simple, undefined)).to.throw(ArgumentsError);
-    expect(() => HapifySyntax.single(Simple, null)).to.throw(ArgumentsError);
-    expect(() => HapifySyntax.single(Simple, true)).to.throw(ArgumentsError);
-    expect(() => HapifySyntax.single(Simple, 3)).to.throw(ArgumentsError);
-    expect(() => HapifySyntax.single(Simple, 'string')).to.throw(ArgumentsError);
+    expect(() => HapifySyntax.run(Simple, undefined)).to.throw(ArgumentsError);
+    expect(() => HapifySyntax.run(Simple, null)).to.throw(ArgumentsError);
+    expect(() => HapifySyntax.run(Simple, true)).to.throw(ArgumentsError);
+    expect(() => HapifySyntax.run(Simple, 3)).to.throw(ArgumentsError);
+    expect(() => HapifySyntax.run(Simple, 'string')).to.throw(ArgumentsError);
 
-    expect(() => HapifySyntax.single(undefined, Model)).to.throw(ArgumentsError);
-    expect(() => HapifySyntax.single(null, Model)).to.throw(ArgumentsError);
-    expect(() => HapifySyntax.single(false, Model)).to.throw(ArgumentsError);
-    expect(() => HapifySyntax.single(4, Model)).to.throw(ArgumentsError);
-    expect(() => HapifySyntax.single({}, Model)).to.throw(ArgumentsError);
+    expect(() => HapifySyntax.run(undefined, Model)).to.throw(ArgumentsError);
+    expect(() => HapifySyntax.run(null, Model)).to.throw(ArgumentsError);
+    expect(() => HapifySyntax.run(false, Model)).to.throw(ArgumentsError);
+    expect(() => HapifySyntax.run(4, Model)).to.throw(ArgumentsError);
+    expect(() => HapifySyntax.run({}, Model)).to.throw(ArgumentsError);
     
-    expect(HapifySyntax.single(Simple, Model)).to.be.a.string();
+    expect(HapifySyntax.run(Simple, Model)).to.be.a.string();
     
 });

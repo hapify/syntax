@@ -30,22 +30,22 @@ module.exports = class HapifySyntax {
      * @param {{}} model
      * @return {string}
      */
-    static single(template, model) {
+    static run(template, model) {
 
         // Check how many arguments
         if (arguments.length !== 2) {
-            throw new ArgumentsError('[HapifySyntax.single] Requires two arguments');
+            throw new ArgumentsError('[HapifySyntax.run] Requires two arguments');
         }
         
         // Check arguments
         if (typeof template !== 'string') {
-            throw new ArgumentsError('[HapifySyntax.single] template must be a string');
+            throw new ArgumentsError('[HapifySyntax.run] template must be a string');
         }
         if (typeof model !== 'object') {
-            throw new ArgumentsError('[HapifySyntax.single] model must be an object');
+            throw new ArgumentsError('[HapifySyntax.run] model must be an object');
         }
         if (model === null) {
-            throw new ArgumentsError('[HapifySyntax.single] model cannot be null');
+            throw new ArgumentsError('[HapifySyntax.run] model cannot be null');
         }
         
         // Escape quotes

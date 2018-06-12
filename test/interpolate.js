@@ -13,14 +13,14 @@ const Input = Fs.readFileSync(`${__dirname}/masks/interpolate.hpf`, 'utf8');
 const InputError = Fs.readFileSync(`${__dirname}/masks/interpolate-error.hpf`, 'utf8');
 const Output = Fs.readFileSync(`${__dirname}/output/interpolate.txt`, 'utf8');
 
-lab.test('single', async () => {
+lab.test('run', async () => {
 
     //Test input validity
     expect(Input).to.be.a.string();
     expect(Output).to.be.a.string();
     expect(Model).to.be.an.object();
 
-    expect(HapifySyntax.single(Input, Model)).to.equal(Output);
+    expect(HapifySyntax.run(Input, Model)).to.equal(Output);
 });
 
 lab.test('error', async () => {
@@ -29,7 +29,7 @@ lab.test('error', async () => {
     expect(InputError).to.be.a.string();
     expect(Model).to.be.an.object();
 
-    expect(() => HapifySyntax.single(InputError, Model)).to.throw(ParsingError);
+    expect(() => HapifySyntax.run(InputError, Model)).to.throw(ParsingError);
 });
 
 lab.test('unit', async () => {
