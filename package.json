@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "test": "lab test",
-    "build": "rm dist/*.js; browserify src/index.js -t babelify -d | exorcist dist/index.js.map > dist/index.js; uglifyjs dist/index.js -o dist/index.min.js --source-map"
+    "build": "rm dist/*.js; browserify src/index.js -t babelify -d -s HapifySyntax | exorcist dist/index.js.map > dist/index.js; uglifyjs dist/index.js -o dist/index.min.js --source-map"
   },
   "repository": {
     "type": "git",
@@ -32,5 +32,6 @@
     "exorcist": "^1.0.1",
     "lab": "^15.4.5",
     "uglify-js": "^3.4.0"
-  }
+  },
+  "dependencies": {}
 }
