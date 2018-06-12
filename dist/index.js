@@ -671,4 +671,5 @@ module.exports = function (_ConditionalPattern) {
     return IterationPattern;
 }(ConditionalPattern);
 
-},{"./conditional":4}]},{},[2]);
+},{"./conditional":4}]},{},[2])
+//# sourceMappingURL=index.js.map
