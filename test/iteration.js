@@ -73,4 +73,7 @@ lab.test('unit', async () => {
     // Closure
     expect(IterationPattern.execute('<<@>>')).to.equal('`; } out += `');
 
+    // Sub fields
+    expect(IterationPattern.execute('<<@ m.f f>>')).to.equal(`\`; for (const f of m.f.filter((i) => i)) { out += \``);
+
 });

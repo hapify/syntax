@@ -294,9 +294,9 @@ var _require = require('../errors'),
 /** @type {RegExp} if () { pattern */
 
 
-var IfPattern = /<<\?(\d)?\s+([a-zA-Z_]+)(\s+[a-zA-Z()!+*\-/]+)?\s*>>/g;
+var IfPattern = /<<\?(\d)?\s+([a-zA-Z_.]+)(\s+[a-zA-Z()!+*\-/]+)?\s*>>/g;
 /** @type {RegExp} else if () { pattern */
-var ElseIfPattern = /<<\?\?(\d)?\s+([a-zA-Z_]+)(\s+[a-zA-Z()!+*\-/]+)?\s*>>/g;
+var ElseIfPattern = /<<\?\?(\d)?\s+([a-zA-Z_.]+)(\s+[a-zA-Z()!+*\-/]+)?\s*>>/g;
 /** @type {RegExp} else pattern */
 var ElsePattern = /<<\?\?>>/g;
 /** @type {RegExp} } pattern */
@@ -421,7 +421,7 @@ module.exports = function (_BasePattern) {
         value: function _variable(_variable2) {
 
             var variable = _variable2;
-            if (variable === '_') variable = 'root';else if (variable === 'F') variable = 'root.fields.list';else if (variable === 'D') variable = 'root.dependencies.list';else if (variable === 'R') variable = 'root.referencedIn';
+            if (variable === '_') variable = 'root';else if (variable === 'F') variable = 'root.fields.list';else if (variable === 'D') variable = 'root.dependencies.list';else if (variable === 'R') variable = 'root.referencedIn';else if (variable === 'P') variable = 'root.fields.primary';
 
             return variable;
         }
@@ -556,7 +556,7 @@ var _require = require('../errors'),
 /** @type {RegExp} Interpolation pattern */
 
 
-var RegEx = /<<([a-zA-Z_]+)\s+([aA_\-R]+)\s*>>/g;
+var RegEx = /<<([a-zA-Z_.]+)\s+([aA_\-R]+)\s*>>/g;
 
 /** @type {InterpolatePattern} Interpolate pattern */
 module.exports = function (_BasePattern) {
@@ -583,7 +583,7 @@ module.exports = function (_BasePattern) {
 
                 // Get the var
                 var variable = _variable;
-                if (variable === '_') variable = 'root';
+                if (variable === '_') variable = 'root';else if (variable === 'P') variable = 'root.fields.primary';
 
                 // Get the property
                 var property = _property;
@@ -613,7 +613,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 var ConditionalPattern = require('./conditional');
 
 /** @type {RegExp} for() { pattern */
-var ForPattern = /<<@(\d)?\s+([a-zA-Z_]+)(\s+[a-zA-Z()!+*\-/]+)?\s*([a-zA-Z_]+)\s*>>/g;
+var ForPattern = /<<@(\d)?\s+([a-zA-Z_.]+)(\s+[a-zA-Z()!+*\-/]+)?\s*([a-zA-Z_]+)\s*>>/g;
 /** @type {RegExp} } pattern */
 var EndPattern = /<<@>>/g;
 

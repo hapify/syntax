@@ -7,9 +7,9 @@ const BasePattern = require('./base');
 const { InternalError } = require('../errors');
 
 /** @type {RegExp} if () { pattern */
-const IfPattern = /<<\?(\d)?\s+([a-zA-Z_]+)(\s+[a-zA-Z()!+*\-/]+)?\s*>>/g;
+const IfPattern = /<<\?(\d)?\s+([a-zA-Z_.]+)(\s+[a-zA-Z()!+*\-/]+)?\s*>>/g;
 /** @type {RegExp} else if () { pattern */
-const ElseIfPattern = /<<\?\?(\d)?\s+([a-zA-Z_]+)(\s+[a-zA-Z()!+*\-/]+)?\s*>>/g;
+const ElseIfPattern = /<<\?\?(\d)?\s+([a-zA-Z_.]+)(\s+[a-zA-Z()!+*\-/]+)?\s*>>/g;
 /** @type {RegExp} else pattern */
 const ElsePattern = /<<\?\?>>/g;
 /** @type {RegExp} } pattern */
@@ -152,6 +152,7 @@ module.exports = class ConditionalPattern extends BasePattern {
         else if (variable === 'F') variable = 'root.fields.list';
         else if (variable === 'D') variable = 'root.dependencies.list';
         else if (variable === 'R') variable = 'root.referencedIn';
+        else if (variable === 'P') variable = 'root.fields.primary';
         
         return variable;
     }

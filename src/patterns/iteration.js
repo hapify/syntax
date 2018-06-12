@@ -5,7 +5,7 @@
 const ConditionalPattern = require('./conditional');
 
 /** @type {RegExp} for() { pattern */
-const ForPattern = /<<@(\d)?\s+([a-zA-Z_]+)(\s+[a-zA-Z()!+*\-/]+)?\s*([a-zA-Z_]+)\s*>>/g;
+const ForPattern = /<<@(\d)?\s+([a-zA-Z_.]+)(\s+[a-zA-Z()!+*\-/]+)?\s*([a-zA-Z_]+)\s*>>/g;
 /** @type {RegExp} } pattern */
 const EndPattern = /<<@>>/g;
 

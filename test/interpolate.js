@@ -46,4 +46,10 @@ lab.test('unit', async () => {
     expect(InterpolatePattern.execute('<<f aA>>')).to.equal('${f.names.lowerCamel}');
     // Spaces
     expect(InterpolatePattern.execute('<<f   aA>>')).to.equal('${f.names.lowerCamel}');
+
+    // Primary field
+    expect(InterpolatePattern.execute('<<P aA>>')).to.equal('${root.fields.primary.names.lowerCamel}');
+    
+    // Sub field
+    expect(InterpolatePattern.execute('<<root.fields.primary aA>>')).to.equal('${root.fields.primary.names.lowerCamel}');
 });

@@ -77,5 +77,7 @@ lab.test('unit', async () => {
 
     // Closure
     expect(ConditionalPattern.execute('<<?>>')).to.equal('`; } out += `');
-
+    
+    // Sub fields
+    expect(ConditionalPattern.execute('<<? m.f>>')).to.equal(`\`; if ((m.f instanceof Array && m.f.filter((i) => i).length > 0) || (!(m.f instanceof Array) && ((i) => i)(m.f))) { out += \``);
 });
