@@ -65,7 +65,7 @@ module.exports = class HapifySyntax {
      * @private
      */
     static _escape(template) {
-        return template.replace(/`/g, '\\`');
+        return template.replace(/`/g, '\\`').replace(/\$/g, '\\$');
     }
 
     /**
