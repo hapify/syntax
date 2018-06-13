@@ -168,7 +168,7 @@ module.exports = function () {
     }, {
         key: '_escape',
         value: function _escape(template) {
-            return template.replace(/`/g, '\\`');
+            return template.replace(/`/g, '\\`').replace(/\$/g, '\\$');
         }
 
         /**
@@ -421,7 +421,7 @@ module.exports = function (_BasePattern) {
         value: function _variable(_variable2) {
 
             var variable = _variable2;
-            if (variable === '_') variable = 'root';else if (variable === 'F') variable = 'root.fields.list';else if (variable === 'D') variable = 'root.dependencies.list';else if (variable === 'R') variable = 'root.referencedIn';else if (variable === 'P') variable = 'root.fields.primary';
+            if (variable === 'M') variable = 'root';else if (variable === 'F') variable = 'root.fields.list';else if (variable === 'D') variable = 'root.dependencies.list';else if (variable === 'R') variable = 'root.referencedIn';else if (variable === 'P') variable = 'root.fields.primary';
 
             return variable;
         }
@@ -583,7 +583,7 @@ module.exports = function (_BasePattern) {
 
                 // Get the var
                 var variable = _variable;
-                if (variable === '_') variable = 'root';else if (variable === 'P') variable = 'root.fields.primary';
+                if (variable === 'M') variable = 'root';else if (variable === 'P') variable = 'root.fields.primary';
 
                 // Get the property
                 var property = _property;
