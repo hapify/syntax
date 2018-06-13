@@ -34,14 +34,14 @@ lab.test('error', async () => {
 
 lab.test('unit', async () => {
     // Names
-    expect(InterpolatePattern.execute('<<_ aA>>')).to.equal('${root.names.lowerCamel}');
-    expect(InterpolatePattern.execute('<<_ AA>>')).to.equal('${root.names.upperCamel}');
-    expect(InterpolatePattern.execute('<<_ a>>')).to.equal('${root.names.wordsLower}');
-    expect(InterpolatePattern.execute('<<_ A>>')).to.equal('${root.names.wordsUpper}');
-    expect(InterpolatePattern.execute('<<_ a-a>>')).to.equal('${root.names.hyphen}');
-    expect(InterpolatePattern.execute('<<_ a_a>>')).to.equal('${root.names.underscore}');
-    expect(InterpolatePattern.execute('<<_ aa>>')).to.equal('${root.names.oneWord}');
-    expect(InterpolatePattern.execute('<<_ R>>')).to.equal('${root.names.raw}');
+    expect(InterpolatePattern.execute('<<M aA>>')).to.equal('${root.names.lowerCamel}');
+    expect(InterpolatePattern.execute('<<M AA>>')).to.equal('${root.names.upperCamel}');
+    expect(InterpolatePattern.execute('<<M a>>')).to.equal('${root.names.wordsLower}');
+    expect(InterpolatePattern.execute('<<M A>>')).to.equal('${root.names.wordsUpper}');
+    expect(InterpolatePattern.execute('<<M a-a>>')).to.equal('${root.names.hyphen}');
+    expect(InterpolatePattern.execute('<<M a_a>>')).to.equal('${root.names.underscore}');
+    expect(InterpolatePattern.execute('<<M aa>>')).to.equal('${root.names.oneWord}');
+    expect(InterpolatePattern.execute('<<M R>>')).to.equal('${root.names.raw}');
     // Variable
     expect(InterpolatePattern.execute('<<f aA>>')).to.equal('${f.names.lowerCamel}');
     // Spaces

@@ -148,7 +148,7 @@ module.exports = class ConditionalPattern extends BasePattern {
     static _variable(_variable) {
 
         let variable = _variable;
-        if (variable === '_') variable = 'root';
+        if (variable === 'M') variable = 'root';
         else if (variable === 'F') variable = 'root.fields.list';
         else if (variable === 'D') variable = 'root.dependencies.list';
         else if (variable === 'R') variable = 'root.referencedIn';

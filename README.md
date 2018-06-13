@@ -37,7 +37,7 @@ Explanations:
 We use lower case for an object (ie a specific field or a model)
 We use upper case for an array of object (ie a field list or a model list)
 
-To refer to the root variable, we use `_`.
+To refer to the root variable, we use `M` (model or models).
 This will refer to the model in a single model template and to the models list in a multiple model template.
 
 By default, in a case of a single model template:
@@ -52,7 +52,7 @@ To echo the name of a variable (model or field), we omit the operator.
 Example for the root model name as upper camel:
 
 ```
-<<_ AA>>
+<<M AA>>
 ```
 
 Example for field name as hyphen:
@@ -157,7 +157,7 @@ This will loop over all fields.
 In a multiple models template, to loop over all models (root variable), the syntax will be:
 
 ```
-<<@ _ m>>
+<<@ M m>>
     .....
 <<@>>
 ```

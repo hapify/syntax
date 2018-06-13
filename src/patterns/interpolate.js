@@ -20,7 +20,7 @@ module.exports = class InterpolatePattern extends BasePattern {
             
             // Get the var
             let variable = _variable;
-            if (variable === '_') variable = 'root';
+            if (variable === 'M') variable = 'root';
             else if (variable === 'P') variable = 'root.fields.primary';
             
             // Get the property
