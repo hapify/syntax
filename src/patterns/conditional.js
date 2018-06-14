@@ -110,8 +110,8 @@ module.exports = class ConditionalPattern extends BasePattern {
      */
     static _condition(_count, variable, tester) {
         const threshold = typeof _count === 'undefined' ? 0 : _count - 1;
-        const arrayTest = `(${variable} instanceof Array && ${variable}.filter${tester}.length > ${threshold})`;
-        const objectTest = `(!(${variable} instanceof Array) && ${tester}(${variable}))`;
+        const arrayTest = `(${variable}.filter && ${variable}.filter${tester}.length > ${threshold})`;
+        const objectTest = `(!(${variable}.filter) && ${tester}(${variable}))`;
         
         return `${arrayTest} || ${objectTest}`;
     }

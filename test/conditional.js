@@ -23,9 +23,9 @@ lab.test('run', async () => {
 
 lab.test('unit', async () => {
 
-    const condition = (test, length = 0) => `\`; if ((root.fields.list instanceof Array && root.fields.list.filter((i) => ${test}).length > ${length}) || (!(root.fields.list instanceof Array) && ((i) => ${test})(root.fields.list))) { out += \``;
-    const conditionElse = (test, length = 0) => `\`; } else if ((root.fields.list instanceof Array && root.fields.list.filter((i) => ${test}).length > ${length}) || (!(root.fields.list instanceof Array) && ((i) => ${test})(root.fields.list))) { out += \``;
-    const conditionModel = (test, length = 0) => `\`; if ((root instanceof Array && root.filter((i) => ${test}).length > ${length}) || (!(root instanceof Array) && ((i) => ${test})(root))) { out += \``;
+    const condition = (test, length = 0) => `\`; if ((root.fields.list.filter && root.fields.list.filter((i) => ${test}).length > ${length}) || (!(root.fields.list.filter) && ((i) => ${test})(root.fields.list))) { out += \``;
+    const conditionElse = (test, length = 0) => `\`; } else if ((root.fields.list.filter && root.fields.list.filter((i) => ${test}).length > ${length}) || (!(root.fields.list.filter) && ((i) => ${test})(root.fields.list))) { out += \``;
+    const conditionModel = (test, length = 0) => `\`; if ((root.filter && root.filter((i) => ${test}).length > ${length}) || (!(root.filter) && ((i) => ${test})(root))) { out += \``;
 
     //Start with not
     const notSe = condition('!i.searchable', 3);
@@ -85,5 +85,5 @@ lab.test('unit', async () => {
     expect(ConditionalPattern.execute('<<?>>')).to.equal('`; } out += `');
     
     // Sub fields
-    expect(ConditionalPattern.execute('<<? m.f>>')).to.equal('`; if ((m.f instanceof Array && m.f.filter((i) => i).length > 0) || (!(m.f instanceof Array) && ((i) => i)(m.f))) { out += `');
+    expect(ConditionalPattern.execute('<<? m.f>>')).to.equal('`; if ((m.f.filter && m.f.filter((i) => i).length > 0) || (!(m.f.filter) && ((i) => i)(m.f))) { out += `');
 });
