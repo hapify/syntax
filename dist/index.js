@@ -302,7 +302,22 @@ var ElsePattern = /<<\?\?>>/g;
 /** @type {RegExp} } pattern */
 var EndPattern = /<<\?>>/g;
 /** @type {[{}]} Conditions short codes & operators */
-var Repalcements = [{ search: '*', replace: ' && ', escape: true }, { search: '/', replace: ' && !', escape: true }, { search: '+', replace: ' || ', escape: true }, { search: '-', replace: ' || !', escape: true }, { search: 'pr', replace: 'i.primary' }, { search: 'un', replace: 'i.unique' }, { search: 'lb', replace: 'i.label' }, { search: 'nu', replace: 'i.nullable' }, { search: 'ml', replace: 'i.multiple' }, { search: 'se', replace: 'i.searchable' }, { search: 'so', replace: 'i.sortable' }, { search: 'ip', replace: 'i.isPrivate' }, { search: 'in', replace: 'i.internal' }, { search: 'tSe', replace: 'i.type === \'string\' && i.subtype === \'email\'' }, { search: 'tSp', replace: 'i.type === \'string\' && i.subtype === \'password\'' }, { search: 'tSt', replace: 'i.type === \'string\' && i.subtype === \'text\'' }, { search: 'tS', replace: 'i.type === \'string\'' }, { search: 'tNi', replace: 'i.type === \'number\' && i.subtype === \'integer\'' }, { search: 'tNf', replace: 'i.type === \'number\' && i.subtype === \'float\'' }, { search: 'tNt', replace: 'i.type === \'number\' && i.subtype === \'latitude\'' }, { search: 'tNg', replace: 'i.type === \'number\' && i.subtype === \'longitude\'' }, { search: 'tN', replace: 'i.type === \'number\'' }, { search: 'tB', replace: 'i.type === \'boolean\'' }, { search: 'tDd', replace: 'i.type === \'datetime\' && i.subtype === \'date\'' }, { search: 'tDt', replace: 'i.type === \'datetime\' && i.subtype === \'time\'' }, { search: 'tD', replace: 'i.type === \'datetime\'' }, { search: 'tE', replace: 'i.type === \'entity\'' }];
+var Repalcements = [
+
+// Operators
+{ search: '*', replace: ' && ', escape: true }, { search: '/', replace: ' && !', escape: true }, { search: '+', replace: ' || ', escape: true }, { search: '-', replace: ' || !', escape: true },
+
+// Fields properties
+{ search: 'pr', replace: 'i.primary' }, { search: 'un', replace: 'i.unique' }, { search: 'lb', replace: 'i.label' }, { search: 'nu', replace: 'i.nullable' }, { search: 'ml', replace: 'i.multiple' }, { search: 'se', replace: 'i.searchable' }, { search: 'so', replace: 'i.sortable' }, { search: 'ip', replace: 'i.isPrivate' }, { search: 'in', replace: 'i.internal' },
+
+// Fields types
+{ search: 'tSe', replace: 'i.type === \'string\' && i.subtype === \'email\'' }, { search: 'tSp', replace: 'i.type === \'string\' && i.subtype === \'password\'' }, { search: 'tSt', replace: 'i.type === \'string\' && i.subtype === \'text\'' }, { search: 'tS', replace: 'i.type === \'string\'' },
+
+// Fields sub-types
+{ search: 'tNi', replace: 'i.type === \'number\' && i.subtype === \'integer\'' }, { search: 'tNf', replace: 'i.type === \'number\' && i.subtype === \'float\'' }, { search: 'tNt', replace: 'i.type === \'number\' && i.subtype === \'latitude\'' }, { search: 'tNg', replace: 'i.type === \'number\' && i.subtype === \'longitude\'' }, { search: 'tN', replace: 'i.type === \'number\'' }, { search: 'tB', replace: 'i.type === \'boolean\'' }, { search: 'tDd', replace: 'i.type === \'datetime\' && i.subtype === \'date\'' }, { search: 'tDt', replace: 'i.type === \'datetime\' && i.subtype === \'time\'' }, { search: 'tD', replace: 'i.type === \'datetime\'' }, { search: 'tE', replace: 'i.type === \'entity\'' },
+
+// Models computed properties
+{ search: 'pMPr', replace: 'i.properties.mainlyPrivate' }, { search: 'pMIn', replace: 'i.properties.mainlyInternal' }, { search: 'pGeo', replace: 'i.properties.isGeolocated' }];
 /** @type {Function} Convert replacement search for regexp */
 var ForRegExp = function ForRegExp(r) {
     return '' + (r.escape ? '\\' : '') + r.search;

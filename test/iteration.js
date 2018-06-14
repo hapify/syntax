@@ -23,11 +23,9 @@ lab.test('run', async () => {
 
 lab.test('unit', async () => {
 
-    const condition = (test, length = 0, v = 'f') => {
-        return length ?
-            `\`; for (const ${v} of root.fields.list.filter((i) => ${test}).slice(0, ${length})) { out += \`` :
-            `\`; for (const ${v} of root.fields.list.filter((i) => ${test})) { out += \``;
-    };
+    const condition = (test, length = 0, v = 'f') => length ?
+        `\`; for (const ${v} of root.fields.list.filter((i) => ${test}).slice(0, ${length})) { out += \`` :
+        `\`; for (const ${v} of root.fields.list.filter((i) => ${test})) { out += \``;
     
     //Start with not
     expect(IterationPattern.execute('<<@ F -se*so f>>')).to.equal(condition('!i.searchable && i.sortable'));
@@ -74,6 +72,6 @@ lab.test('unit', async () => {
     expect(IterationPattern.execute('<<@>>')).to.equal('`; } out += `');
 
     // Sub fields
-    expect(IterationPattern.execute('<<@ m.f f>>')).to.equal(`\`; for (const f of m.f.filter((i) => i)) { out += \``);
+    expect(IterationPattern.execute('<<@ m.f f>>')).to.equal('`; for (const f of m.f.filter((i) => i)) { out += `');
 
 });
