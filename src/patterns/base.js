@@ -35,7 +35,7 @@ module.exports = class BasePattern {
      * @return {string}
      */
     static _unescape(code) {
-        return code.replace(/\\`/g, '`');
+        return code.replace(/\\`/g, '`').replace(/\\\$/g, '$');
     }
 
 };
