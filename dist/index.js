@@ -266,7 +266,7 @@ module.exports = function () {
     }, {
         key: '_unescape',
         value: function _unescape(code) {
-            return code.replace(/\\`/g, '`');
+            return code.replace(/\\`/g, '`').replace(/\\\$/g, '$');
         }
     }]);
 
@@ -383,8 +383,8 @@ module.exports = function (_BasePattern) {
         key: '_condition',
         value: function _condition(_count, variable, tester) {
             var threshold = typeof _count === 'undefined' ? 0 : _count - 1;
-            var arrayTest = '(' + variable + ' instanceof Array && ' + variable + '.filter' + tester + '.length > ' + threshold + ')';
-            var objectTest = '(!(' + variable + ' instanceof Array) && ' + tester + '(' + variable + '))';
+            var arrayTest = '(' + variable + '.filter && ' + variable + '.filter' + tester + '.length > ' + threshold + ')';
+            var objectTest = '(!(' + variable + '.filter) && ' + tester + '(' + variable + '))';
 
             return arrayTest + ' || ' + objectTest;
         }
