@@ -16,10 +16,14 @@ const ElsePattern = /<<\?\?>>/g;
 const EndPattern = /<<\?>>/g;
 /** @type {[{}]} Conditions short codes & operators */
 const Repalcements = [
+    
+    // Operators
     { search: '*', replace: ' && ', escape: true },
     { search: '/', replace: ' && !', escape: true },
     { search: '+', replace: ' || ', escape: true },
     { search: '-', replace: ' || !', escape: true },
+    
+    // Fields properties
     { search: 'pr', replace: 'i.primary' },
     { search: 'un', replace: 'i.unique' },
     { search: 'lb', replace: 'i.label' },
@@ -29,12 +33,14 @@ const Repalcements = [
     { search: 'so', replace: 'i.sortable' },
     { search: 'ip', replace: 'i.isPrivate' },
     { search: 'in', replace: 'i.internal' },
-
+    
+    // Fields types
     { search: 'tSe', replace: 'i.type === \'string\' && i.subtype === \'email\'' },
     { search: 'tSp', replace: 'i.type === \'string\' && i.subtype === \'password\'' },
     { search: 'tSt', replace: 'i.type === \'string\' && i.subtype === \'text\'' },
     { search: 'tS', replace: 'i.type === \'string\'' },
-
+    
+    // Fields sub-types
     { search: 'tNi', replace: 'i.type === \'number\' && i.subtype === \'integer\'' },
     { search: 'tNf', replace: 'i.type === \'number\' && i.subtype === \'float\'' },
     { search: 'tNt', replace: 'i.type === \'number\' && i.subtype === \'latitude\'' },
@@ -48,6 +54,12 @@ const Repalcements = [
     { search: 'tD', replace: 'i.type === \'datetime\'' },
     
     { search: 'tE', replace: 'i.type === \'entity\'' },
+    
+    // Models computed properties
+    { search: 'pMPr', replace: 'i.properties.mainlyPrivate' },
+    { search: 'pMIn', replace: 'i.properties.mainlyInternal' },
+    { search: 'pGeo', replace: 'i.properties.isGeolocated' },
+    
 ];
 /** @type {Function} Convert replacement search for regexp */
 const ForRegExp = (r) => `${r.escape ? '\\' : ''}${r.search}`;

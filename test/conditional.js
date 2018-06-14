@@ -25,6 +25,7 @@ lab.test('unit', async () => {
 
     const condition = (test, length = 0) => `\`; if ((root.fields.list instanceof Array && root.fields.list.filter((i) => ${test}).length > ${length}) || (!(root.fields.list instanceof Array) && ((i) => ${test})(root.fields.list))) { out += \``;
     const conditionElse = (test, length = 0) => `\`; } else if ((root.fields.list instanceof Array && root.fields.list.filter((i) => ${test}).length > ${length}) || (!(root.fields.list instanceof Array) && ((i) => ${test})(root.fields.list))) { out += \``;
+    const conditionModel = (test, length = 0) => `\`; if ((root instanceof Array && root.filter((i) => ${test}).length > ${length}) || (!(root instanceof Array) && ((i) => ${test})(root))) { out += \``;
 
     //Start with not
     const notSe = condition('!i.searchable', 3);
@@ -64,6 +65,11 @@ lab.test('unit', async () => {
     expect(ConditionalPattern.execute('<<? F tDt>>')).to.equal(condition('i.type === \'datetime\' && i.subtype === \'time\''));
 
     expect(ConditionalPattern.execute('<<? F tE>>')).to.equal(condition('i.type === \'entity\''));
+
+    // properties
+    expect(ConditionalPattern.execute('<<? M pMPr>>')).to.equal(conditionModel('i.properties.mainlyPrivate'));
+    expect(ConditionalPattern.execute('<<? M pMIn>>')).to.equal(conditionModel('i.properties.mainlyInternal'));
+    expect(ConditionalPattern.execute('<<? M pGeo>>')).to.equal(conditionModel('i.properties.isGeolocated'));
 
     // spaces
     expect(ConditionalPattern.execute('<<?   F   pr  >>')).to.equal(condition('i.primary'));
