@@ -5,5 +5,6 @@ module.exports = {
     Escape: require('./escape'),
     Interpolate: require('./interpolate'),
     Evaluate: require('./evaluate'),
-    Iteration: require('./iteration')
+    Iteration: require('./iteration'),
+    Comment: require('./comment')
 };

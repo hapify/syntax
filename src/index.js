@@ -14,6 +14,7 @@ const PatternsStack = [
     Patterns.Iteration,
     Patterns.Evaluate,
     Patterns.Escape,
+    Patterns.Comment,
 ];
 
 /** @type {HapifySyntax} Syntax parser */

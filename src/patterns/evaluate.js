@@ -2,7 +2,7 @@
 
 const BasePattern = require('./base');
 
-/** @type {RegExp} Interpolation pattern */
+/** @type {RegExp} Evaluation pattern */
 const RegEx = /<<<([\s\S]+?)>>>/g;
 
 /** @type {EvaluatePattern} Evaluate pattern */
