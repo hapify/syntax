@@ -34,25 +34,28 @@ const Repalcements = [
     { search: 'ip', replace: 'i.isPrivate' },
     { search: 'in', replace: 'i.internal' },
     
-    // Fields types
+    // Fields types for string
     { search: 'tSe', replace: 'i.type === \'string\' && i.subtype === \'email\'' },
     { search: 'tSp', replace: 'i.type === \'string\' && i.subtype === \'password\'' },
     { search: 'tSt', replace: 'i.type === \'string\' && i.subtype === \'text\'' },
     { search: 'tS', replace: 'i.type === \'string\'' },
-    
-    // Fields sub-types
+
+    // Fields types for number
     { search: 'tNi', replace: 'i.type === \'number\' && i.subtype === \'integer\'' },
     { search: 'tNf', replace: 'i.type === \'number\' && i.subtype === \'float\'' },
     { search: 'tNt', replace: 'i.type === \'number\' && i.subtype === \'latitude\'' },
     { search: 'tNg', replace: 'i.type === \'number\' && i.subtype === \'longitude\'' },
     { search: 'tN', replace: 'i.type === \'number\'' },
 
+    // Fields types for boolean
     { search: 'tB', replace: 'i.type === \'boolean\'' },
-    
+
+    // Fields types for datetime
     { search: 'tDd', replace: 'i.type === \'datetime\' && i.subtype === \'date\'' },
     { search: 'tDt', replace: 'i.type === \'datetime\' && i.subtype === \'time\'' },
     { search: 'tD', replace: 'i.type === \'datetime\'' },
-    
+
+    // Fields types for entity
     { search: 'tE', replace: 'i.type === \'entity\'' },
     
     // Models computed properties
