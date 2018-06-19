@@ -87,7 +87,7 @@ var _require = require('../src/errors'),
 var Patterns = require('./patterns');
 
 /** @type {BasePattern[]} Ordered patterns */
-var PatternsStack = [Patterns.Interpolate, Patterns.Conditional, Patterns.Iteration, Patterns.Evaluate, Patterns.Escape];
+var PatternsStack = [Patterns.NameInterpolation, Patterns.Conditional, Patterns.Iteration, Patterns.Evaluate, Patterns.Escape, Patterns.Comment];
 
 /** @type {HapifySyntax} Syntax parser */
 module.exports = function () {
@@ -209,7 +209,7 @@ module.exports = function () {
     return HapifySyntax;
 }();
 
-},{"../src/errors":1,"./patterns":7}],3:[function(require,module,exports){
+},{"../src/errors":1,"./patterns":8}],3:[function(require,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -274,6 +274,49 @@ module.exports = function () {
 }();
 
 },{"../errors":1}],4:[function(require,module,exports){
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var BasePattern = require('./base');
+
+/** @type {RegExp} Comment pattern */
+var RegEx = /<<#([\s\S]+?)>>/g;
+
+/** @type {CommentPattern} Comment pattern */
+module.exports = function (_BasePattern) {
+    _inherits(CommentPattern, _BasePattern);
+
+    function CommentPattern() {
+        _classCallCheck(this, CommentPattern);
+
+        return _possibleConstructorReturn(this, (CommentPattern.__proto__ || Object.getPrototypeOf(CommentPattern)).apply(this, arguments));
+    }
+
+    _createClass(CommentPattern, null, [{
+        key: 'execute',
+
+
+        /**
+         * Parser method
+         * @param {string} template
+         * @return {string}
+         */
+        value: function execute(template) {
+            return template.replace(RegEx, '');
+        }
+    }]);
+
+    return CommentPattern;
+}(BasePattern);
+
+},{"./base":3}],5:[function(require,module,exports){
 'use strict';
 /* eslint-disable object-curly-newline */
 /* eslint-disable object-property-newline */
@@ -445,7 +488,7 @@ module.exports = function (_BasePattern) {
     return ConditionalPattern;
 }(BasePattern);
 
-},{"../errors":1,"./base":3}],5:[function(require,module,exports){
+},{"../errors":1,"./base":3}],6:[function(require,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -496,7 +539,7 @@ module.exports = function (_BasePattern) {
     return EscapePattern;
 }(BasePattern);
 
-},{"./base":3}],6:[function(require,module,exports){
+},{"./base":3}],7:[function(require,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -509,7 +552,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 var BasePattern = require('./base');
 
-/** @type {RegExp} Interpolation pattern */
+/** @type {RegExp} Evaluation pattern */
 var RegEx = /<<<([\s\S]+?)>>>/g;
 
 /** @type {EvaluatePattern} Evaluate pattern */
@@ -541,78 +584,19 @@ module.exports = function (_BasePattern) {
     return EvaluatePattern;
 }(BasePattern);
 
-},{"./base":3}],7:[function(require,module,exports){
+},{"./base":3}],8:[function(require,module,exports){
 'use strict';
 
 module.exports = {
     Conditional: require('./conditional'),
     Escape: require('./escape'),
-    Interpolate: require('./interpolate'),
+    NameInterpolation: require('./name-interpolation'),
     Evaluate: require('./evaluate'),
-    Iteration: require('./iteration')
+    Iteration: require('./iteration'),
+    Comment: require('./comment')
 };
 
-},{"./conditional":4,"./escape":5,"./evaluate":6,"./interpolate":8,"./iteration":9}],8:[function(require,module,exports){
-'use strict';
-
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var BasePattern = require('./base');
-
-var _require = require('../errors'),
-    ParsingError = _require.ParsingError;
-
-/** @type {RegExp} Interpolation pattern */
-
-
-var RegEx = /<<([a-zA-Z_.]+)\s+([aA_\-R]+)\s*>>/g;
-
-/** @type {InterpolatePattern} Interpolate pattern */
-module.exports = function (_BasePattern) {
-    _inherits(InterpolatePattern, _BasePattern);
-
-    function InterpolatePattern() {
-        _classCallCheck(this, InterpolatePattern);
-
-        return _possibleConstructorReturn(this, (InterpolatePattern.__proto__ || Object.getPrototypeOf(InterpolatePattern)).apply(this, arguments));
-    }
-
-    _createClass(InterpolatePattern, null, [{
-        key: 'execute',
-
-
-        /**
-         * Parser method
-         * @param {string} template
-         * @return {string}
-         */
-        value: function execute(template) {
-
-            return template.replace(RegEx, function (match, _variable, _property) {
-
-                // Get the var
-                var variable = _variable;
-                if (variable === 'M') variable = 'root';else if (variable === 'P') variable = 'root.fields.primary';
-
-                // Get the property
-                var property = _property;
-                if (property === 'aA') property = 'lowerCamel';else if (property === 'AA') property = 'upperCamel';else if (property === 'a') property = 'wordsLower';else if (property === 'A') property = 'wordsUpper';else if (property === 'a-a') property = 'hyphen';else if (property === 'a_a') property = 'underscore';else if (property === 'aa') property = 'oneWord';else if (property === 'R') property = 'raw';else throw new ParsingError('[InterpolatePattern.execute] Unknown name property: ' + property);
-
-                return '${' + variable + '.names.' + property + '}';
-            });
-        }
-    }]);
-
-    return InterpolatePattern;
-}(BasePattern);
-
-},{"../errors":1,"./base":3}],9:[function(require,module,exports){
+},{"./comment":4,"./conditional":5,"./escape":6,"./evaluate":7,"./iteration":9,"./name-interpolation":10}],9:[function(require,module,exports){
 'use strict';
 /* eslint-disable object-curly-newline */
 /* eslint-disable object-property-newline */
@@ -686,6 +670,66 @@ module.exports = function (_ConditionalPattern) {
     return IterationPattern;
 }(ConditionalPattern);
 
-},{"./conditional":4}]},{},[2])(2)
+},{"./conditional":5}],10:[function(require,module,exports){
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var BasePattern = require('./base');
+
+var _require = require('../errors'),
+    ParsingError = _require.ParsingError;
+
+/** @type {RegExp} Name interpolation pattern */
+
+
+var RegEx = /<<([a-zA-Z_.]+)\s+([aA_\-R]+)\s*>>/g;
+
+/** @type {NameInterpolationPattern} NameInterpolation pattern */
+module.exports = function (_BasePattern) {
+    _inherits(NameInterpolationPattern, _BasePattern);
+
+    function NameInterpolationPattern() {
+        _classCallCheck(this, NameInterpolationPattern);
+
+        return _possibleConstructorReturn(this, (NameInterpolationPattern.__proto__ || Object.getPrototypeOf(NameInterpolationPattern)).apply(this, arguments));
+    }
+
+    _createClass(NameInterpolationPattern, null, [{
+        key: 'execute',
+
+
+        /**
+         * Parser method
+         * @param {string} template
+         * @return {string}
+         */
+        value: function execute(template) {
+
+            return template.replace(RegEx, function (match, _variable, _property) {
+
+                // Get the var
+                var variable = _variable;
+                if (variable === 'M') variable = 'root';else if (variable === 'P') variable = 'root.fields.primary';
+
+                // Get the property
+                var property = _property;
+                if (property === 'aA') property = 'lowerCamel';else if (property === 'AA') property = 'upperCamel';else if (property === 'a') property = 'wordsLower';else if (property === 'A') property = 'wordsUpper';else if (property === 'a-a') property = 'hyphen';else if (property === 'a_a') property = 'underscore';else if (property === 'aa') property = 'oneWord';else if (property === 'R') property = 'raw';else throw new ParsingError('[NameInterpolationPattern.execute] Unknown name property: ' + property);
+
+                return '${' + variable + '.names.' + property + '}';
+            });
+        }
+    }]);
+
+    return NameInterpolationPattern;
+}(BasePattern);
+
+},{"../errors":1,"./base":3}]},{},[2])(2)
 });
 //# sourceMappingURL=index.js.map

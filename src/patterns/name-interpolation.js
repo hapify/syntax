@@ -3,11 +3,11 @@
 const BasePattern = require('./base');
 const { ParsingError } = require('../errors');
 
-/** @type {RegExp} Interpolation pattern */
+/** @type {RegExp} Name interpolation pattern */
 const RegEx = /<<([a-zA-Z_.]+)\s+([aA_\-R]+)\s*>>/g;
 
-/** @type {InterpolatePattern} Interpolate pattern */
-module.exports = class InterpolatePattern extends BasePattern {
+/** @type {NameInterpolationPattern} NameInterpolation pattern */
+module.exports = class NameInterpolationPattern extends BasePattern {
 
     /**
      * Parser method
@@ -33,7 +33,7 @@ module.exports = class InterpolatePattern extends BasePattern {
             else if (property === 'a_a') property = 'underscore';
             else if (property === 'aa') property = 'oneWord';
             else if (property === 'R') property = 'raw';
-            else throw new ParsingError(`[InterpolatePattern.execute] Unknown name property: ${property}`);
+            else throw new ParsingError(`[NameInterpolationPattern.execute] Unknown name property: ${property}`);
             
             return `\${${variable}.names.${property}}`;
         });

@@ -9,7 +9,7 @@ const Patterns = require('./patterns');
 
 /** @type {BasePattern[]} Ordered patterns */
 const PatternsStack = [
-    Patterns.Interpolate,
+    Patterns.NameInterpolation,
     Patterns.Conditional,
     Patterns.Iteration,
     Patterns.Evaluate,
