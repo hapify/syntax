@@ -46,24 +46,24 @@ lab.test('unit', async () => {
     expect(IterationPattern.execute('<<@ F ip f>>')).to.equal(condition('i.isPrivate'));
     expect(IterationPattern.execute('<<@ F in f>>')).to.equal(condition('i.internal'));
 
-    expect(IterationPattern.execute('<<@ F tS f>>')).to.equal(condition('i.type === \'string\''));
-    expect(IterationPattern.execute('<<@ F tSe f>>')).to.equal(condition('i.type === \'string\' && i.subtype === \'email\''));
-    expect(IterationPattern.execute('<<@ F tSp f>>')).to.equal(condition('i.type === \'string\' && i.subtype === \'password\''));
-    expect(IterationPattern.execute('<<@ F tSt f>>')).to.equal(condition('i.type === \'string\' && i.subtype === \'text\''));
+    expect(IterationPattern.execute('<<@ F tS f>>')).to.equal(condition('(i.type === \'string\')'));
+    expect(IterationPattern.execute('<<@ F tSe f>>')).to.equal(condition('(i.type === \'string\' && i.subtype === \'email\')'));
+    expect(IterationPattern.execute('<<@ F tSp f>>')).to.equal(condition('(i.type === \'string\' && i.subtype === \'password\')'));
+    expect(IterationPattern.execute('<<@ F tSt f>>')).to.equal(condition('(i.type === \'string\' && i.subtype === \'text\')'));
 
-    expect(IterationPattern.execute('<<@ F tN f>>')).to.equal(condition('i.type === \'number\''));
-    expect(IterationPattern.execute('<<@ F tNi f>>')).to.equal(condition('i.type === \'number\' && i.subtype === \'integer\''));
-    expect(IterationPattern.execute('<<@ F tNf f>>')).to.equal(condition('i.type === \'number\' && i.subtype === \'float\''));
-    expect(IterationPattern.execute('<<@ F tNt f>>')).to.equal(condition('i.type === \'number\' && i.subtype === \'latitude\''));
-    expect(IterationPattern.execute('<<@ F tNg f>>')).to.equal(condition('i.type === \'number\' && i.subtype === \'longitude\''));
+    expect(IterationPattern.execute('<<@ F tN f>>')).to.equal(condition('(i.type === \'number\')'));
+    expect(IterationPattern.execute('<<@ F tNi f>>')).to.equal(condition('(i.type === \'number\' && i.subtype === \'integer\')'));
+    expect(IterationPattern.execute('<<@ F tNf f>>')).to.equal(condition('(i.type === \'number\' && i.subtype === \'float\')'));
+    expect(IterationPattern.execute('<<@ F tNt f>>')).to.equal(condition('(i.type === \'number\' && i.subtype === \'latitude\')'));
+    expect(IterationPattern.execute('<<@ F tNg f>>')).to.equal(condition('(i.type === \'number\' && i.subtype === \'longitude\')'));
 
-    expect(IterationPattern.execute('<<@ F tB f>>')).to.equal(condition('i.type === \'boolean\''));
+    expect(IterationPattern.execute('<<@ F tB f>>')).to.equal(condition('(i.type === \'boolean\')'));
 
-    expect(IterationPattern.execute('<<@ F tD f>>')).to.equal(condition('i.type === \'datetime\''));
-    expect(IterationPattern.execute('<<@ F tDd f>>')).to.equal(condition('i.type === \'datetime\' && i.subtype === \'date\''));
-    expect(IterationPattern.execute('<<@ F tDt f>>')).to.equal(condition('i.type === \'datetime\' && i.subtype === \'time\''));
+    expect(IterationPattern.execute('<<@ F tD f>>')).to.equal(condition('(i.type === \'datetime\')'));
+    expect(IterationPattern.execute('<<@ F tDd f>>')).to.equal(condition('(i.type === \'datetime\' && i.subtype === \'date\')'));
+    expect(IterationPattern.execute('<<@ F tDt f>>')).to.equal(condition('(i.type === \'datetime\' && i.subtype === \'time\')'));
 
-    expect(IterationPattern.execute('<<@ F tE f>>')).to.equal(condition('i.type === \'entity\''));
+    expect(IterationPattern.execute('<<@ F tE f>>')).to.equal(condition('(i.type === \'entity\')'));
     
     // spaces
     expect(IterationPattern.execute('<<@    F    pr    f  >>')).to.equal(condition('i.primary'));
