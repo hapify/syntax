@@ -9,12 +9,13 @@ const Patterns = require('./patterns');
 
 /** @type {BasePattern[]} Ordered patterns */
 const PatternsStack = [
+    Patterns.Comment,
     Patterns.NameInterpolation,
+    Patterns.Interpolation,
     Patterns.Conditional,
     Patterns.Iteration,
     Patterns.Evaluate,
     Patterns.Escape,
-    Patterns.Comment,
 ];
 
 /** @type {HapifySyntax} Syntax parser */

@@ -87,7 +87,7 @@ var _require = require('../src/errors'),
 var Patterns = require('./patterns');
 
 /** @type {BasePattern[]} Ordered patterns */
-var PatternsStack = [Patterns.NameInterpolation, Patterns.Conditional, Patterns.Iteration, Patterns.Evaluate, Patterns.Escape, Patterns.Comment];
+var PatternsStack = [Patterns.Comment, Patterns.NameInterpolation, Patterns.Interpolation, Patterns.Conditional, Patterns.Iteration, Patterns.Evaluate, Patterns.Escape];
 
 /** @type {HapifySyntax} Syntax parser */
 module.exports = function () {
@@ -591,12 +591,58 @@ module.exports = {
     Conditional: require('./conditional'),
     Escape: require('./escape'),
     NameInterpolation: require('./name-interpolation'),
+    Interpolation: require('./interpolation'),
     Evaluate: require('./evaluate'),
     Iteration: require('./iteration'),
     Comment: require('./comment')
 };
 
-},{"./comment":4,"./conditional":5,"./escape":6,"./evaluate":7,"./iteration":9,"./name-interpolation":10}],9:[function(require,module,exports){
+},{"./comment":4,"./conditional":5,"./escape":6,"./evaluate":7,"./interpolation":9,"./iteration":10,"./name-interpolation":11}],9:[function(require,module,exports){
+'use strict';
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var BasePattern = require('./base');
+
+/** @type {RegExp} Interpolation pattern */
+var RegEx = /<<=([\s\S]+?)>>/g;
+
+/** @type {InterpolationPattern} Interpolation pattern */
+module.exports = function (_BasePattern) {
+    _inherits(InterpolationPattern, _BasePattern);
+
+    function InterpolationPattern() {
+        _classCallCheck(this, InterpolationPattern);
+
+        return _possibleConstructorReturn(this, (InterpolationPattern.__proto__ || Object.getPrototypeOf(InterpolationPattern)).apply(this, arguments));
+    }
+
+    _createClass(InterpolationPattern, null, [{
+        key: 'execute',
+
+
+        /**
+         * Parser method
+         * @param {string} template
+         * @return {string}
+         */
+        value: function execute(template) {
+            return template.replace(RegEx, function (match, _code) {
+                return InterpolationPattern._dynamic('out += ' + InterpolationPattern._unescape(_code) + ';');
+            });
+        }
+    }]);
+
+    return InterpolationPattern;
+}(BasePattern);
+
+},{"./base":3}],10:[function(require,module,exports){
 'use strict';
 /* eslint-disable object-curly-newline */
 /* eslint-disable object-property-newline */
@@ -670,7 +716,7 @@ module.exports = function (_ConditionalPattern) {
     return IterationPattern;
 }(ConditionalPattern);
 
-},{"./conditional":5}],10:[function(require,module,exports){
+},{"./conditional":5}],11:[function(require,module,exports){
 'use strict';
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
