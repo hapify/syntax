@@ -488,7 +488,7 @@ module.exports = function (_BasePattern) {
         value: function _variable(_variable2) {
 
             var variable = _variable2;
-            if (variable === 'M') variable = 'root';else if (variable === 'F') variable = 'root.fields.list';else if (variable === 'D') variable = 'root.dependencies.list';else if (variable === 'R') variable = 'root.referencedIn';else if (variable === 'P') variable = 'root.fields.primary';
+            if (variable === 'M') variable = 'root';else if (variable === 'F') variable = 'root.fields.list';else if (variable === 'D') variable = 'root.dependencies';else if (variable === 'R') variable = 'root.referencedIn';else if (variable === 'P') variable = 'root.fields.primary';
 
             return variable;
         }
