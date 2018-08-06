@@ -44,6 +44,7 @@ By default, in a case of a single model template:
 - `F` refers to the fields list: `model.fields.list`
 - `D` refers to the models list: `model.dependencies.list`
 - `R` refers to the models list: `model.referencedIn`
+- `P` refers to the models primary field: `model.fileds.primary`
 
 ### Interpolation
 
