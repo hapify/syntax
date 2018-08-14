@@ -47,12 +47,12 @@ By default, in a case of a single model template:
 
 ## Conditional operator
 
-This operator can be used over an object or an array of object.
-If used over an array it will test the length of the array filtered by the condition.
+This operator can be used over an object or an array of objects.
+If used over an array, this will test the length of the array filtered by the condition.
 
 As an array, it can be used over any object containing a method `filter` that receives a callback returning a boolean.
 In the model structure, `root.dependencies` is an object that contains a `filter` method.
-Then, this operator can test if a model has dependencies that has fields with specific conditions.
+Then, this operator can test if a model has dependencies that has fields with a specific condition.
 
 ### Syntax
 
@@ -65,12 +65,12 @@ This will test if the model has at least one multiple entity.
 
 ### Operators
 
-We use algebra operator to represent logical operations.
+We use algebra operands to represent logical operations.
 
-- `*` is an intersection: `se*lb` => `se ∩ lb` => `se && lb`.
-- `+` is an union: `se+lb` => `se ∪ lb` => `se || se`.
-- `/` is an intersection with the complementary: `se/lb` => `se ∩ !lb` => `se && !lb`.
-- `-` is an union with the complementary: `se-lb` => `se ∪ !lb` => `se || !lb`.
+- `*` is an intersection: `se ∩ lb` => `se*lb` => `se && lb`.
+- `+` is an union: `se ∪ lb` => `se+lb` => `se || se`.
+- `/` is an intersection with the complementary: `se ∩ !lb` => `se/lb` => `se && !lb`.
+- `-` is an union with the complementary: `se ∪ !lb` => `se-lb` => `se || !lb`.
 
 If the condition starts with `-` or `/` it will be assimilated to `!`.
 Therefore, `-se*so` and `/se*so` are equivalent to `!se*so`.
@@ -147,23 +147,23 @@ else {
 
 #### Analysis of `<<?4 F ip>>`
 
-This is the if statement: `if (condition) {`.
+This is the **if** statement: `if (condition) {`.
 
 - `<<?` is the opener.
 - `4` is the minimum length of the filtered array. This value is optional and only usable if the variable is an array. If omitted, we assume the required length is 1.
-- `F` is the variable to test. It can me and array or an object.
+- `F` is the variable to test. It can be and array or an object.
 - `ip` is the condition to test the object or the items of an array.
 - `>>` closes the tag
 
 #### Analysis of `<<??2 F lb+tB>>`
 
-This is an else if statement: `} else if (condition) {`.
+This is an **else if** statement: `} else if (condition) {`.
 
-It follows the same rules as an if statement, unless its opener is `<<??`.
+It follows the same rules as an **if** statement, unless its opener is `<<??`.
 
 #### Analysis of `<<??>>`
 
-This is an else statement: `} else {`.
+This is an **else** statement: `} else {`.
 
 #### Analysis of `<<?>>`
 
@@ -223,8 +223,9 @@ if (root.fields.list.filter((f) => f.label).length >= 2) {
 ## Iteration operator
 
 The loop operation (foreach) is `@`. It applies only to an array.
-It use the same conditions processing as the conditional operator.
-Actually it inherits from the conditional operator.
+It uses the same conditions syntax as the conditional operator.
+
+Actually, it inherits from the conditional operator.
 
 ### Syntax
 
@@ -239,7 +240,7 @@ This will loop over all fields of type entity and multiple and assign the curren
 
 ### Structure
 
-A complete conditional writing will look like this:
+A complete iteration will look like this:
 
 ```
 <<@4 F ip f>>
@@ -257,11 +258,11 @@ for(let f of root.fields.list.filter((f) => f.isPrivate).slice(0, 4)) {
 
 #### Analysis of `<<@4 F ip>>`
 
-This is the if statement: `for (condition + assigment) {`.
+This is the **loop** statement: `for (assigment + condition) {`.
 
 - `<<@` is the opener.
 - `4` is the maximum length of the filtered array. This value is optional. If omitted, we do not slice the filtered array.
-- `F` is the variable to filter and to loop. It must be iterable.
+- `F` is the variable to filter and to loop on. It must be iterable.
 - `ip` is the condition to test the items of the array.
 - `f` is the assignment variable. This variable will be available inside the loop's scope.
 - `>>` closes the tag.
@@ -291,7 +292,7 @@ for(let f of root.fields.list.filter((f) => f.searchable && f.type === 'entity')
 
 #### Example with conditions over models:
 
-In the context of a multi-models template, this loops over all models that are geo-located.
+In the context of a multiple models template, this loops over all models that are geo-located.
 
 ```
 <<@ M pGeo m>>
@@ -340,17 +341,18 @@ for(let f of root.fields.list) {
 }
 ```
 
-## Names interpolation
+## Name interpolation
 
-To print the name of a variable (model or field), we omit the operator.
+Name interpolation is the default operation.
+To print the name of a variable (model or field), we omit the operation.
 
-Example for the root model name as upper camel:
+Example for the root model's name as upper camel:
 
 ```
 <<M AA>>
 ```
 
-Example for field name as hyphen:
+Example for field's name as hyphen:
 
 ```
 <<f a-a>>
@@ -373,11 +375,12 @@ This operator allows you to write pure Javascript.
 
 ### Syntax
 
-Opener: `<<<`
-Closer: `>>>`
+- Opener: `<<<`
+- Closer: `>>>`
 
 Those tags are also escapable.
-Between those tags you can write pure Javascript code to inject new variables and new functions to the template scope.
+
+Between those tags you can write pure Javascript code to inject new variables and new functions into the template scope.
 
 ### Output
 
@@ -414,7 +417,7 @@ This is equivalent to write `<<< out += myFunction(); >>>`.
 ### Error
 
 Do not write this: `<<= JSON.stringify(root) >>`.
-The `root` object has recessive properties. Therefore this command will enter an infinite loop.
+The `root` object has recursive properties. Therefore this command will enter an infinite loop.
 
 ## Comments
 
