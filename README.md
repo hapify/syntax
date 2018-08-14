@@ -7,15 +7,11 @@ https://bitbucket.org/tractrs/hapify-web-app/src/master/README.md
 
 ## Wrappers
 
-### Operators
-
 Open: `<<`
 Close: `>>`
 
 Usually used for binary operations. Should be escapable:
-Ignore `\<\<` (and maybe `\>\>`) and replace it by `<<`
-
-### Raw inputs
+Escaped tags `\<\<` (and `\>\>`) are replaced by `<<` (and `>>`) in the generated content.
 
 ## Syntax
 
@@ -25,6 +21,7 @@ Ignore `\<\<` (and maybe `\>\>`) and replace it by `<<`
 ```
 
 Explanations:
+
 - `@` is the operation
 - `F` is the variable
 - `se*so/lb` is the condition (optional)
@@ -32,8 +29,9 @@ Explanations:
 
 ### Variable naming
 
-We use lower case a dynamically defined variable.
-We use upper case a pre-defined variable.
+We use lower case for a dynamically defined variable.
+
+We use upper case for a pre-defined variable.
 
 To refer to the root variable, we use `M` (model or models).
 This will refer to the model in a single model template and to the models list in a multiple model template.
@@ -41,6 +39,7 @@ In the template's scope, this root variable is named `root`.
 Therefore, `M` is just a shortcut to `root`.
 
 By default, in a case of a single model template:
+
 - `F` refers to the fields list: `root.fields.list`
 - `D` refers to the models list: `root.dependencies`
 - `R` refers to the models list: `root.referencedIn`
