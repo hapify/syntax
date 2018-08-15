@@ -33,11 +33,13 @@ const Repalcements = [
     { search: 'so', replace: 'i.sortable' },
     { search: 'ip', replace: 'i.isPrivate' },
     { search: 'in', replace: 'i.internal' },
+    { search: 'im', replace: 'i.important' },
     
     // Fields types for string
     { search: 'tSe', replace: '(i.type === \'string\' && i.subtype === \'email\')' },
     { search: 'tSp', replace: '(i.type === \'string\' && i.subtype === \'password\')' },
     { search: 'tSt', replace: '(i.type === \'string\' && i.subtype === \'text\')' },
+    { search: 'tSr', replace: '(i.type === \'string\' && i.subtype === \'rich\')' },
     { search: 'tS', replace: '(i.type === \'string\')' },
 
     // Fields types for number

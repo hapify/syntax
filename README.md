@@ -91,10 +91,12 @@ Here is the list of short-codes available for a field:
 - `so` for the boolean property `sortable`
 - `ip` for the boolean property `isPrivate`
 - `in` for the boolean property `internal`
+- `im` for the boolean property `important`
 - `tS` to test if property `type` is `string`
     - `tSe` to test if properties `type` is `string` and `subtype` is `email`
     - `tSp` to test if properties `type` is `string` and `subtype` is `password`
     - `tSt` to test if properties `type` is `string` and `subtype` is `text`
+    - `tSr` to test if properties `type` is `string` and `subtype` is `rich`
 - `tN` to test if property `type` is `number`
     - `tNi` to test if properties `type` is `number` and `subtype` is `integer`
     - `tNf` to test if properties `type` is `number` and `subtype` is `float`
@@ -365,7 +367,9 @@ The values for the name are:
 - `a` for `names.wordsLower`
 - `A` for `names.wordsUpper`
 - `a-a` for `names.hyphen`
+- `A-A` for `names.hyphenUpper`
 - `a_a` for `names.underscore`
+- `A_A` for `names.underscoreUpper`
 - `aa` for `names.oneWord`
 - `R` for `names.raw`
 

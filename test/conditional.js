@@ -46,11 +46,13 @@ lab.test('unit', async () => {
     expect(ConditionalPattern.execute('<<? F so>>')).to.equal(condition('i.sortable'));
     expect(ConditionalPattern.execute('<<? F ip>>')).to.equal(condition('i.isPrivate'));
     expect(ConditionalPattern.execute('<<? F in>>')).to.equal(condition('i.internal'));
+    expect(ConditionalPattern.execute('<<? F im>>')).to.equal(condition('i.important'));
 
     expect(ConditionalPattern.execute('<<? F tS>>')).to.equal(condition('(i.type === \'string\')'));
     expect(ConditionalPattern.execute('<<? F tSe>>')).to.equal(condition('(i.type === \'string\' && i.subtype === \'email\')'));
     expect(ConditionalPattern.execute('<<? F tSp>>')).to.equal(condition('(i.type === \'string\' && i.subtype === \'password\')'));
     expect(ConditionalPattern.execute('<<? F tSt>>')).to.equal(condition('(i.type === \'string\' && i.subtype === \'text\')'));
+    expect(ConditionalPattern.execute('<<? F tSr>>')).to.equal(condition('(i.type === \'string\' && i.subtype === \'rich\')'));
 
     expect(ConditionalPattern.execute('<<? F tN>>')).to.equal(condition('(i.type === \'number\')'));
     expect(ConditionalPattern.execute('<<? F tNi>>')).to.equal(condition('(i.type === \'number\' && i.subtype === \'integer\')'));

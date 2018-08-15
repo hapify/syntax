@@ -30,7 +30,9 @@ module.exports = class NameInterpolationPattern extends BasePattern {
             else if (property === 'a') property = 'wordsLower';
             else if (property === 'A') property = 'wordsUpper';
             else if (property === 'a-a') property = 'hyphen';
+            else if (property === 'A-A') property = 'hyphenUpper';
             else if (property === 'a_a') property = 'underscore';
+            else if (property === 'A_A') property = 'underscoreUpper';
             else if (property === 'aa') property = 'oneWord';
             else if (property === 'R') property = 'raw';
             else throw new ParsingError(`[NameInterpolationPattern.execute] Unknown name property: ${property}`);

@@ -351,10 +351,10 @@ var Repalcements = [
 { search: '*', replace: ' && ', escape: true }, { search: '/', replace: ' && !', escape: true }, { search: '+', replace: ' || ', escape: true }, { search: '-', replace: ' || !', escape: true },
 
 // Fields properties
-{ search: 'pr', replace: 'i.primary' }, { search: 'un', replace: 'i.unique' }, { search: 'lb', replace: 'i.label' }, { search: 'nu', replace: 'i.nullable' }, { search: 'ml', replace: 'i.multiple' }, { search: 'se', replace: 'i.searchable' }, { search: 'so', replace: 'i.sortable' }, { search: 'ip', replace: 'i.isPrivate' }, { search: 'in', replace: 'i.internal' },
+{ search: 'pr', replace: 'i.primary' }, { search: 'un', replace: 'i.unique' }, { search: 'lb', replace: 'i.label' }, { search: 'nu', replace: 'i.nullable' }, { search: 'ml', replace: 'i.multiple' }, { search: 'se', replace: 'i.searchable' }, { search: 'so', replace: 'i.sortable' }, { search: 'ip', replace: 'i.isPrivate' }, { search: 'in', replace: 'i.internal' }, { search: 'im', replace: 'i.important' },
 
 // Fields types for string
-{ search: 'tSe', replace: '(i.type === \'string\' && i.subtype === \'email\')' }, { search: 'tSp', replace: '(i.type === \'string\' && i.subtype === \'password\')' }, { search: 'tSt', replace: '(i.type === \'string\' && i.subtype === \'text\')' }, { search: 'tS', replace: '(i.type === \'string\')' },
+{ search: 'tSe', replace: '(i.type === \'string\' && i.subtype === \'email\')' }, { search: 'tSp', replace: '(i.type === \'string\' && i.subtype === \'password\')' }, { search: 'tSt', replace: '(i.type === \'string\' && i.subtype === \'text\')' }, { search: 'tSr', replace: '(i.type === \'string\' && i.subtype === \'rich\')' }, { search: 'tS', replace: '(i.type === \'string\')' },
 
 // Fields types for number
 { search: 'tNi', replace: '(i.type === \'number\' && i.subtype === \'integer\')' }, { search: 'tNf', replace: '(i.type === \'number\' && i.subtype === \'float\')' }, { search: 'tNt', replace: '(i.type === \'number\' && i.subtype === \'latitude\')' }, { search: 'tNg', replace: '(i.type === \'number\' && i.subtype === \'longitude\')' }, { search: 'tN', replace: '(i.type === \'number\')' },
@@ -775,7 +775,7 @@ module.exports = function (_BasePattern) {
 
                 // Get the property
                 var property = _property;
-                if (property === 'aA') property = 'lowerCamel';else if (property === 'AA') property = 'upperCamel';else if (property === 'a') property = 'wordsLower';else if (property === 'A') property = 'wordsUpper';else if (property === 'a-a') property = 'hyphen';else if (property === 'a_a') property = 'underscore';else if (property === 'aa') property = 'oneWord';else if (property === 'R') property = 'raw';else throw new ParsingError('[NameInterpolationPattern.execute] Unknown name property: ' + property);
+                if (property === 'aA') property = 'lowerCamel';else if (property === 'AA') property = 'upperCamel';else if (property === 'a') property = 'wordsLower';else if (property === 'A') property = 'wordsUpper';else if (property === 'a-a') property = 'hyphen';else if (property === 'A-A') property = 'hyphenUpper';else if (property === 'a_a') property = 'underscore';else if (property === 'A_A') property = 'underscoreUpper';else if (property === 'aa') property = 'oneWord';else if (property === 'R') property = 'raw';else throw new ParsingError('[NameInterpolationPattern.execute] Unknown name property: ' + property);
 
                 return '${' + variable + '.names.' + property + '}';
             });
