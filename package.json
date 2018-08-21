@@ -2,7 +2,7 @@
   "name": "hapify-syntax",
   "version": "1.0.0",
   "description": "Templating syntax optimized for Hapify models handling.",
-  "main": "dist/index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "lab test",
     "build": "rm dist/*.js; browserify src/index.js -t babelify -d -s HapifySyntax | exorcist dist/index.js.map > dist/index.js; uglifyjs dist/index.js -o dist/index.min.js --source-map"
