@@ -1,9 +1,11 @@
 // Type definitions for Hapify Syntax
 
+export = HapifySyntax;
+
 /**
- * Export the class
+ * Declare the class
  */
-export class HapifySyntax {
+declare class HapifySyntax {
     /**
      * Run the code generation for this template's content and this explicit model
      *
