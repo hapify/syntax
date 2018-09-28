@@ -93,7 +93,7 @@ module.exports = class HapifySyntax {
      * @private
      */
     static _log(/* arguments */) {
-        console.log(...arguments); // eslint-disable-line no-console
+        // console.log(...arguments); // eslint-disable-line no-console
     }
 
 };

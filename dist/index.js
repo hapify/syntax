@@ -200,9 +200,7 @@ module.exports = function () {
     }, {
         key: '_log',
         value: function _log() /* arguments */{
-            var _console;
-
-            (_console = console).log.apply(_console, arguments); // eslint-disable-line no-console
+            // console.log(...arguments); // eslint-disable-line no-console
         }
     }]);
 
