@@ -9,5 +9,6 @@
 - Handle subtype `rich` of type `string`.
 
 ### Changed
+- Use of `safe-eval` for evalutation
 
 ### Removed

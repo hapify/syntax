@@ -31,6 +31,7 @@
     "eslint-plugin-perf-standard": "^1.0.3",
     "exorcist": "^1.0.1",
     "lab": "^15.4.5",
+    "safe-eval": "^0.4.1",
     "uglify-js": "^3.4.0"
   },
   "dependencies": {}

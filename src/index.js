@@ -6,6 +6,7 @@ const {
     EvaluationError
 } = require('../src/errors');
 const Patterns = require('./patterns');
+const SafeEval = require('safe-eval');
 
 /** @type {BasePattern[]} Ordered patterns */
 const PatternsStack = [
@@ -77,10 +78,10 @@ module.exports = class HapifySyntax {
      * @private
      */
     static _eval(template, root) { // eslint-disable-line no-unused-vars
-        const final = `let out = \`${template}\`; module.exports = out;`;
+        const final = `(function() {let out = \`${template}\`; return out;})()`;
 
         try {
-            return eval(final);
+            return SafeEval(final, { root });
         }
         catch (error) {
             HapifySyntax._log(`[HapifySyntax._eval] An error occurred during evaluation\n\n${error}\n\n${final}`);
