@@ -24,8 +24,9 @@
     "eslint-plugin-hapi": "^4.0.0",
     "eslint-plugin-immutable": "^1.0.0",
     "eslint-plugin-perf-standard": "^1.0.3",
-    "lab": "^15.4.5",
-    "safe-eval": "^0.4.1"
+    "lab": "^15.4.5"
   },
-  "dependencies": {}
+  "dependencies": {
+    "safe-eval": "^0.4.1"
+  }
 }
