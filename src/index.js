@@ -4,7 +4,7 @@ const {
     ConstructorError,
     ArgumentsError,
     EvaluationError
-} = require('../src/errors');
+} = require('./errors');
 const Patterns = require('./patterns');
 const SafeEval = require('safe-eval');
 
