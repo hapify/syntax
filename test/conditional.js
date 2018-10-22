@@ -42,11 +42,13 @@ lab.test('unit', async () => {
     expect(ConditionalPattern.execute('<<? F lb>>')).to.equal(condition('i.label'));
     expect(ConditionalPattern.execute('<<? F nu>>')).to.equal(condition('i.nullable'));
     expect(ConditionalPattern.execute('<<? F ml>>')).to.equal(condition('i.multiple'));
+    expect(ConditionalPattern.execute('<<? F im>>')).to.equal(condition('i.important'));
     expect(ConditionalPattern.execute('<<? F se>>')).to.equal(condition('i.searchable'));
     expect(ConditionalPattern.execute('<<? F so>>')).to.equal(condition('i.sortable'));
     expect(ConditionalPattern.execute('<<? F ip>>')).to.equal(condition('i.isPrivate'));
     expect(ConditionalPattern.execute('<<? F in>>')).to.equal(condition('i.internal'));
-    expect(ConditionalPattern.execute('<<? F im>>')).to.equal(condition('i.important'));
+    expect(ConditionalPattern.execute('<<? F rs>>')).to.equal(condition('i.restricted'));
+    expect(ConditionalPattern.execute('<<? F os>>')).to.equal(condition('i.ownership'));
 
     expect(ConditionalPattern.execute('<<? F tS>>')).to.equal(condition('(i.type === \'string\')'));
     expect(ConditionalPattern.execute('<<? F tSe>>')).to.equal(condition('(i.type === \'string\' && i.subtype === \'email\')'));

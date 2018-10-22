@@ -29,11 +29,13 @@ const Repalcements = [
     { search: 'lb', replace: 'i.label' },
     { search: 'nu', replace: 'i.nullable' },
     { search: 'ml', replace: 'i.multiple' },
+    { search: 'im', replace: 'i.important' },
     { search: 'se', replace: 'i.searchable' },
     { search: 'so', replace: 'i.sortable' },
     { search: 'ip', replace: 'i.isPrivate' },
     { search: 'in', replace: 'i.internal' },
-    { search: 'im', replace: 'i.important' },
+    { search: 'rs', replace: 'i.restricted' },
+    { search: 'os', replace: 'i.ownership' },
     
     // Fields types for string
     { search: 'tSe', replace: '(i.type === \'string\' && i.subtype === \'email\')' },
