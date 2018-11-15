@@ -3,6 +3,14 @@
 ## [Unreleased]
 
 ### Added
+
+### Changed
+
+### Removed
+
+## [0.3.0] - 2018-11-15
+
+### Added
 - Handle `important`, `restricted` and `ownership` field property.
 - Handle `underscoreUpper` for names (Example: FIRST_NAME).
 - Handle `hyphenUpper` for names (Example: FIRST-NAME).
