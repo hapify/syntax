@@ -8,6 +8,7 @@
 - Handle `hyphenUpper` for names (Example: FIRST-NAME).
 - Handle subtype `rich` of type `string`.
 - Handle `isGeoSearchable` property.
+- Handle action's accesses.
 
 ### Changed
 - Use of `safe-eval` for evaluation
