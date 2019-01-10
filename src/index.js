@@ -1,100 +1,134 @@
-'use strict';
+"use strict";
 
 const {
-    ConstructorError,
-    ArgumentsError,
-    EvaluationError
-} = require('./errors');
-const Patterns = require('./patterns');
-const SafeEval = require('safe-eval');
+  ConstructorError,
+  ArgumentsError,
+  EvaluationError
+} = require("./errors");
+const Patterns = require("./patterns");
+const SafeEval = require("safe-eval");
+const lineColumn = require("line-column");
+const ErrorStackParser = require("error-stack-parser");
 
 /** @type {BasePattern[]} Ordered patterns */
 const PatternsStack = [
-    Patterns.Comment,
-    Patterns.NameInterpolation,
-    Patterns.Interpolation,
-    Patterns.Conditional,
-    Patterns.Iteration,
-    Patterns.Evaluate,
-    Patterns.Escape,
+  Patterns.Comment,
+  Patterns.NameInterpolation,
+  Patterns.Interpolation,
+  Patterns.Conditional,
+  Patterns.Iteration,
+  Patterns.Evaluate,
+  Patterns.Escape
 ];
+
+String.prototype.replaceSyntaxPattern = function(actions, regexp, replace) {
+  return require("./replace")(this, actions, regexp, replace);
+};
 
 /** @type {HapifySyntax} Syntax parser */
 module.exports = class HapifySyntax {
+  /** Constructor */
+  constructor() {
+    throw new ConstructorError("[HapifySyntax] Cannot be instanced");
+  }
 
-    /** Constructor */
-    constructor() {
-        throw new ConstructorError('[HapifySyntax] Cannot be instanced');
+  /**
+   * Parser method
+   * @param {string} template
+   * @param {{}} model
+   * @return {string}
+   */
+  static run(template, model) {
+    // Check how many arguments
+    if (arguments.length !== 2) {
+      throw new ArgumentsError("[HapifySyntax.run] Requires two arguments");
     }
 
-    /**
-     * Parser method
-     * @param {string} template
-     * @param {{}} model
-     * @return {string}
-     */
-    static run(template, model) {
-
-        // Check how many arguments
-        if (arguments.length !== 2) {
-            throw new ArgumentsError('[HapifySyntax.run] Requires two arguments');
-        }
-        
-        // Check arguments
-        if (typeof template !== 'string') {
-            throw new ArgumentsError('[HapifySyntax.run] template must be a string');
-        }
-        if (typeof model !== 'object') {
-            throw new ArgumentsError('[HapifySyntax.run] model must be an object');
-        }
-        if (model === null) {
-            throw new ArgumentsError('[HapifySyntax.run] model cannot be null');
-        }
-        
-        // Escape quotes
-        let output = HapifySyntax._escape(template);
-        
-        // Execute all patterns
-        for (const pattern of PatternsStack) {
-            output = pattern.execute(output, model);
-        }
-        
-        return HapifySyntax._eval(output, model);
+    // Check arguments
+    if (typeof template !== "string") {
+      throw new ArgumentsError("[HapifySyntax.run] template must be a string");
+    }
+    if (typeof model !== "object") {
+      throw new ArgumentsError("[HapifySyntax.run] model must be an object");
+    }
+    if (model === null) {
+      throw new ArgumentsError("[HapifySyntax.run] model cannot be null");
     }
 
-    /**
-     * Escape quotes
-     * @param {string} template
-     * @private
-     */
-    static _escape(template) {
-        return template.replace(/`/g, '\\`').replace(/\$/g, '\\$');
+    const actions = [];
+
+    // Escape quotes
+    let output = HapifySyntax._escape(template, actions);
+
+    // Execute all patterns
+    for (const pattern of PatternsStack) {
+      output = pattern.execute(output, actions);
     }
 
-    /**
-     * Eval the generated script
-     * @param {string} template
-     * @param {{}|{}[]} root
-     * @private
-     */
-    static _eval(template, root) { // eslint-disable-line no-unused-vars
-        const final = `(function() {let out = \`${template}\`; return out;})()`;
+    // eslint-disable-line no-unused-vars
+    const final = `(function() {let out = \`${output}\`; return out;})()`;
+    try {
+      return HapifySyntax._eval(final, model);
+    } catch (error) {
+      const { lineNumber, columnNumber } = ErrorStackParser.parse(error)[0];
+      let errorIndex = lineColumn(output).toIndex(lineNumber, columnNumber);
 
-        try {
-            return SafeEval(final, { root });
+      actions.reverse().forEach(action => {
+        if (errorIndex >= action.index) {
+          // The error is impacted only if the error is in or after the action
+          if (errorIndex <= action.index + action.after && action.after !== 0) {
+            // If the error is in the action and the action is not a comment, the error is link to that action
+            errorIndex = action.index;
+          } else {
+            // Else, move the errorIndex
+            errorIndex += action.before - action.after;
+          }
         }
-        catch (error) {
-            HapifySyntax._log(`[HapifySyntax._eval] An error occurred during evaluation\n\n${error}\n\n${final}`);
-            throw new EvaluationError(error.message);
-        }
-    }
+      });
 
-    /**
-     * Log something
-     * @private
-     */
-    static _log(/* arguments */) {
-        // console.log(...arguments); // eslint-disable-line no-console
-    }
+      const errorLineColumn = lineColumn(template).fromIndex(errorIndex);
 
+      HapifySyntax._log(
+        `[HapifySyntax._eval] An error occurred during evaluation\n\n${error}\n\n${final}`
+      );
+      const evalError = new EvaluationError(error.message);
+
+      evalError.lineNumber = errorLineColumn.line;
+      evalError.columnNumber = errorLineColumn.col;
+      evalError.stack = `Error: ${evalError.message}. Line: ${
+        evalError.lineNumber
+      }, Column: ${evalError.columnNumber}`;
+
+      throw evalError;
+    }
+  }
+
+  /**
+   * Escape quotes
+   * @param {string} template
+   * @private
+   */
+  static _escape(template, actions) {
+    return template
+      .replaceSyntaxPattern(actions, /`/g, "\\`")
+      .replaceSyntaxPattern(/\$/g, "\\$");
+  }
+
+  /**
+   * Eval the generated script
+   * @param {string} template
+   * @param {{}|{}[]} root
+   * @private
+   */
+  static _eval(template, root) {
+    return SafeEval(template, { root }, { lineOffset: -10 });
+  }
+
+  /**
+   * Log something
+   * @private
+   */
+  static _log(/* arguments */) {
+    // console.log(...arguments); // eslint-disable-line no-console
+  }
 };
