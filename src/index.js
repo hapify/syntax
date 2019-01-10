@@ -65,41 +65,15 @@ module.exports = class HapifySyntax {
       output = pattern.execute(output, actions);
     }
 
-    // eslint-disable-line no-unused-vars
-    const final = `(function() {let out = \`${output}\`; return out;})()`;
     try {
-      return HapifySyntax._eval(final, model);
+      return HapifySyntax._eval(output, model);
     } catch (error) {
-      const { lineNumber, columnNumber } = ErrorStackParser.parse(error)[0];
-      let errorIndex = lineColumn(output).toIndex(lineNumber, columnNumber);
-
-      actions.reverse().forEach(action => {
-        if (errorIndex >= action.index) {
-          // The error is impacted only if the error is in or after the action
-          if (errorIndex <= action.index + action.after && action.after !== 0) {
-            // If the error is in the action and the action is not a comment, the error is link to that action
-            errorIndex = action.index;
-          } else {
-            // Else, move the errorIndex
-            errorIndex += action.before - action.after;
-          }
-        }
-      });
-
-      const errorLineColumn = lineColumn(template).fromIndex(errorIndex);
-
-      HapifySyntax._log(
-        `[HapifySyntax._eval] An error occurred during evaluation\n\n${error}\n\n${final}`
+      throw HapifySyntax._getReversedActionError(
+        template,
+        output,
+        error,
+        actions
       );
-      const evalError = new EvaluationError(error.message);
-
-      evalError.lineNumber = errorLineColumn.line;
-      evalError.columnNumber = errorLineColumn.col;
-      evalError.stack = `Error: ${evalError.message}. Line: ${
-        evalError.lineNumber
-      }, Column: ${evalError.columnNumber}`;
-
-      throw evalError;
     }
   }
 
@@ -121,7 +95,56 @@ module.exports = class HapifySyntax {
    * @private
    */
   static _eval(template, root) {
-    return SafeEval(template, { root }, { lineOffset: -10 });
+    // eslint-disable-line no-unused-vars
+    const final = `(function() {let out = \`${template}\`; return out;})()`;
+    try {
+      return SafeEval(final, { root }, { lineOffset: -10 });
+    } catch (error) {
+      HapifySyntax._log(
+        `[HapifySyntax._eval] An error occurred during evaluation\n\n${error}\n\n${final}`
+      );
+
+      throw error;
+    }
+  }
+
+  /**
+   * Reverse all action to find the error line and column in the input file
+   * @param {*} input
+   * @param {*} output
+   * @param {*} error
+   * @param {*} actions
+   */
+  static _getReversedActionError(input, output, error, actions) {
+    // Get the line and column of the error
+    const { lineNumber, columnNumber } = ErrorStackParser.parse(error)[0];
+    let errorIndex = lineColumn(output).toIndex(lineNumber, columnNumber);
+
+    // Reverse all acitons to find the line and column of the error in the input
+    actions.reverse().forEach(action => {
+      if (errorIndex >= action.index) {
+        // The error is impacted only if the error is in or after the action
+        if (errorIndex <= action.index + action.after && action.after !== 0) {
+          // If the error is in the action and the action is not a comment, the error is link to that action
+          errorIndex = action.index;
+        } else {
+          // Else, move the errorIndex
+          errorIndex += action.before - action.after;
+        }
+      }
+    });
+
+    const errorLineColumn = lineColumn(input).fromIndex(errorIndex);
+
+    // Create the input error
+    const evalError = new EvaluationError(error.message);
+    evalError.lineNumber = errorLineColumn.line;
+    evalError.columnNumber = errorLineColumn.col;
+    evalError.stack = `Error: ${evalError.message}. Line: ${
+      evalError.lineNumber
+    }, Column: ${evalError.columnNumber}`;
+
+    return evalError;
   }
 
   /**
