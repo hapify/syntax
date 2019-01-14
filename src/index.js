@@ -85,7 +85,7 @@ module.exports = class HapifySyntax {
   static _escape(template, actions) {
     return template
       .replaceSyntaxPattern(actions, /`/g, "\\`")
-      .replaceSyntaxPattern(/\$/g, "\\$");
+      .replaceSyntaxPattern(actions, /\$/g, "\\$");
   }
 
   /**
