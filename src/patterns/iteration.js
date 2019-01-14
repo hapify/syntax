@@ -11,38 +11,35 @@ const EndPattern = /<<@>>/g;
 
 /** @type {IterationPattern} Conditional pattern */
 module.exports = class IterationPattern extends ConditionalPattern {
+	/**
+	 * Parser method
+	 * @param {string} template
+	 * @param {array} actions
+	 * @return {function}
+	 */
+	static execute(template, actions = []) {
+		return template
+			.replaceSyntaxPattern(actions, ForPattern, (match, _count, _variable, _condition, _assignment) => {
+				// Get the full syntax
+				const variable = IterationPattern._variable(_variable);
+				const tester = IterationPattern._tester(_condition);
+				const filter = IterationPattern._filter(_count, variable, tester);
 
-    /**
-     * Parser method
-     * @param {string} template
-     * @return {string}
-     */
-    static execute(template) {
+				return IterationPattern._dynamic(`for (const ${_assignment} of ${filter}) {`);
+			})
+			.replaceSyntaxPattern(actions, EndPattern, () => IterationPattern._dynamic('}'));
+	}
 
-        return template
-            .replace(ForPattern, (match, _count, _variable, _condition, _assignment) => {
+	/**
+	 * Returns the array filter
+	 * @param {string} _count
+	 * @param {string} variable
+	 * @param {string} tester
+	 * @return {string}
+	 */
+	static _filter(_count, variable, tester) {
+		const slicer = typeof _count === 'undefined' ? '' : `.slice(0, ${_count})`;
 
-                // Get the full syntax
-                const variable = IterationPattern._variable(_variable);
-                const tester = IterationPattern._tester(_condition);
-                const filter = IterationPattern._filter(_count, variable, tester);
-
-                return IterationPattern._dynamic(`for (const ${_assignment} of ${filter}) {`);
-            })
-            .replace(EndPattern, () => IterationPattern._dynamic('}'));
-    }
-
-    /**
-     * Returns the array filter
-     * @param {string} _count
-     * @param {string} variable
-     * @param {string} tester
-     * @return {string}
-     */
-    static _filter(_count, variable, tester) {
-        const slicer = typeof _count === 'undefined' ? '' : `.slice(0, ${_count})`;
-        
-        return `${variable}.filter${tester}${slicer}`;
-    }
-
+		return `${variable}.filter${tester}${slicer}`;
+	}
 };
