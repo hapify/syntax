@@ -77,6 +77,7 @@ module.exports = class HapifySyntax {
 	/**
 	 * Escape quotes
 	 * @param {string} template
+	 * @param {array} actions
 	 * @private
 	 */
 	static _escape(template, actions) {
@@ -131,8 +132,8 @@ module.exports = class HapifySyntax {
 
 		// Create the input error
 		const evalError = new EvaluationError(error.message);
-		evalError.lineNumber = errorLineColumn.line;
-		evalError.columnNumber = errorLineColumn.col;
+		evalError.lineNumber = errorLineColumn ? errorLineColumn.line : null;
+		evalError.columnNumber = errorLineColumn ? errorLineColumn.col : null;
 		evalError.stack = `Error: ${evalError.message}. Line: ${evalError.lineNumber}, Column: ${evalError.columnNumber}`;
 
 		return evalError;

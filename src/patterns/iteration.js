@@ -27,7 +27,7 @@ module.exports = class IterationPattern extends ConditionalPattern {
 
 				return IterationPattern._dynamic(`for (const ${_assignment} of ${filter}) {`);
 			})
-			.replace(EndPattern, () => IterationPattern._dynamic('}'));
+			.replaceSyntaxPattern(actions, EndPattern, () => IterationPattern._dynamic('}'));
 	}
 
 	/**
