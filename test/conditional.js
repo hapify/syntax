@@ -22,15 +22,15 @@ lab.test("run", async () => {
 
 lab.test("unit", async () => {
   const condition = (test, length = 0) =>
-    `\`; if ((root.fields.list.filter && root.fields.list.filter((i) => ${test}).length > ${length}) || (!(root.fields.list.filter) && ((i) => ${test})(root.fields.list))) { out += \``;
+    `\`;\nif ((root.fields.list.filter && root.fields.list.filter((i) => ${test}).length > ${length}) || (!(root.fields.list.filter) && ((i) => ${test})(root.fields.list))) {\nout += \``;
   const conditionElse = (test, length = 0) =>
-    `\`; } else if ((root.fields.list.filter && root.fields.list.filter((i) => ${test}).length > ${length}) || (!(root.fields.list.filter) && ((i) => ${test})(root.fields.list))) { out += \``;
+    `\`;\n} else if ((root.fields.list.filter && root.fields.list.filter((i) => ${test}).length > ${length}) || (!(root.fields.list.filter) && ((i) => ${test})(root.fields.list))) {\nout += \``;
   const conditionModel = (test, length = 0) =>
-    `\`; if ((root.filter && root.filter((i) => ${test}).length > ${length}) || (!(root.filter) && ((i) => ${test})(root))) { out += \``;
+    `\`;\nif ((root.filter && root.filter((i) => ${test}).length > ${length}) || (!(root.filter) && ((i) => ${test})(root))) {\nout += \``;
   const conditionAccesses = (test, length = 0) =>
-    `\`; if ((root.accesses.list.filter && root.accesses.list.filter((i) => ${test}).length > ${length}) || (!(root.accesses.list.filter) && ((i) => ${test})(root.accesses.list))) { out += \``;
+    `\`;\nif ((root.accesses.list.filter && root.accesses.list.filter((i) => ${test}).length > ${length}) || (!(root.accesses.list.filter) && ((i) => ${test})(root.accesses.list))) {\nout += \``;
   const conditionAccessesActions = (test, action, length = 0) =>
-    `\`; if ((root.accesses.${action}.filter && root.accesses.${action}.filter((i) => ${test}).length > ${length}) || (!(root.accesses.${action}.filter) && ((i) => ${test})(root.accesses.${action}))) { out += \``;
+    `\`;\nif ((root.accesses.${action}.filter && root.accesses.${action}.filter((i) => ${test}).length > ${length}) || (!(root.accesses.${action}.filter) && ((i) => ${test})(root.accesses.${action}))) {\nout += \``;
 
   //Start with not
   const notSe = condition("!i.searchable", 3);
@@ -161,14 +161,16 @@ lab.test("unit", async () => {
   );
 
   // Else
-  expect(ConditionalPattern.execute("<<??>>")).to.equal("`; } else { out += `");
+  expect(ConditionalPattern.execute("<<??>>")).to.equal(
+    "`;\n} else {\nout += `"
+  );
 
   // Closure
-  expect(ConditionalPattern.execute("<<?>>")).to.equal("`; } out += `");
+  expect(ConditionalPattern.execute("<<?>>")).to.equal("`;\n}\nout += `");
 
   // Sub fields
   expect(ConditionalPattern.execute("<<? m.f>>")).to.equal(
-    "`; if ((m.f.filter && m.f.filter((i) => i).length > 0) || (!(m.f.filter) && ((i) => i)(m.f))) { out += `"
+    "`;\nif ((m.f.filter && m.f.filter((i) => i).length > 0) || (!(m.f.filter) && ((i) => i)(m.f))) {\nout += `"
   );
 
   // Accesses

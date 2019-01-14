@@ -12,7 +12,7 @@ module.exports = class InterpolationPattern extends BasePattern {
    * @param {string} template
    * @return {string}
    */
-  static execute(template, actions) {
+  static execute(template, actions = []) {
     return template.replaceSyntaxPattern(actions, RegEx, (match, _code) =>
       InterpolationPattern._dynamic(
         `out += ${InterpolationPattern._unescape(_code)};`

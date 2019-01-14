@@ -12,7 +12,7 @@ module.exports = class EvaluatePattern extends BasePattern {
    * @param {string} template
    * @return {string}
    */
-  static execute(template, actions) {
+  static execute(template, actions = []) {
     return template.replaceSyntaxPattern(actions, RegEx, (match, _code) =>
       EvaluatePattern._dynamic(EvaluatePattern._unescape(_code))
     );

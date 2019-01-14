@@ -13,7 +13,7 @@ module.exports = class NameInterpolationPattern extends BasePattern {
    * @param {string} template
    * @return {string}
    */
-  static execute(template, actions) {
+  static execute(template, actions = []) {
     return template.replaceSyntaxPattern(
       actions,
       RegEx,

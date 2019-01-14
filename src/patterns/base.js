@@ -14,7 +14,7 @@ module.exports = class BasePattern {
    * @param {string} template
    * @return {string}
    */
-  static execute(template, actions) {
+  static execute(template, actions = []) {
     return template;
   }
 
