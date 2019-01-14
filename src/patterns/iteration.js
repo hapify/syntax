@@ -14,7 +14,8 @@ module.exports = class IterationPattern extends ConditionalPattern {
 	/**
 	 * Parser method
 	 * @param {string} template
-	 * @return {string}
+	 * @param {array} actions
+	 * @return {function}
 	 */
 	static execute(template, actions = []) {
 		return template

@@ -11,6 +11,7 @@ module.exports = class NameInterpolationPattern extends BasePattern {
 	/**
 	 * Parser method
 	 * @param {string} template
+	 * @param {array} actions
 	 * @return {string}
 	 */
 	static execute(template, actions = []) {

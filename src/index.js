@@ -16,7 +16,13 @@ const PatternsStack = [
 	Patterns.Evaluate,
 	Patterns.Escape
 ];
-
+/**
+ * Perform a regex replacement and saves the actions made on the string
+ * @param actions
+ * @param regexp
+ * @param replace
+ * @return {string}
+ */
 String.prototype.replaceSyntaxPattern = function(actions, regexp, replace) {
 	return require('./replace')(this, actions, regexp, replace);
 };

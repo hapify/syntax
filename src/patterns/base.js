@@ -12,6 +12,7 @@ module.exports = class BasePattern {
 	/**
 	 * Parser method
 	 * @param {string} template
+	 * @param {array} actions
 	 * @return {string}
 	 */
 	static execute(template, actions = []) {
