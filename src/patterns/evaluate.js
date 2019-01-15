@@ -7,13 +7,8 @@ const RegEx = /<<<([\s\S]+?)>>>/g;
 
 /** @type {EvaluatePattern} Evaluate pattern */
 module.exports = class EvaluatePattern extends BasePattern {
-	/**
-	 * Parser method
-	 * @param {string} template
-	 * @param {array} actions
-	 * @return {string}
-	 */
-	static execute(template, actions = []) {
-		return template.replaceSyntaxPattern(actions, RegEx, (match, _code) => EvaluatePattern._dynamic(EvaluatePattern._unescape(_code)));
+	/** Parser method */
+	execute() {
+		this._replace(RegEx, (match, _code) => this._dynamic(this._unescape(_code)));
 	}
 };

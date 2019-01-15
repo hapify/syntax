@@ -118,32 +118,26 @@ const Testers = {};
 
 /** @type {ConditionalPattern} Conditional pattern */
 module.exports = class ConditionalPattern extends BasePattern {
-	/**
-	 * Parser method
-	 * @param {string} template
-	 * @param {array} actions
-	 * @return {string}
-	 */
-	static execute(template, actions = []) {
-		return template
-			.replaceSyntaxPattern(actions, IfPattern, (match, _count, _variable, _condition, offset) => {
-				// Get the full syntax
-				const variable = ConditionalPattern._variable(_variable);
-				const tester = ConditionalPattern._tester(_condition);
-				const condition = ConditionalPattern._condition(_count, variable, tester);
+	/** Parser method */
+	execute() {
+		this._replace(IfPattern, (match, _count, _variable, _condition) => {
+			// Get the full syntax
+			const variable = this._variable(_variable);
+			const tester = this._tester(_condition);
+			const condition = this._condition(_count, variable, tester);
 
-				return ConditionalPattern._dynamic(`if (${condition}) {`);
-			})
-			.replaceSyntaxPattern(actions, ElseIfPattern, (match, _count, _variable, _condition) => {
+			return this._dynamic(`if (${condition}) {`);
+		})
+			._replace(ElseIfPattern, (match, _count, _variable, _condition) => {
 				// Get the full syntax
-				const variable = ConditionalPattern._variable(_variable);
-				const tester = ConditionalPattern._tester(_condition);
-				const condition = ConditionalPattern._condition(_count, variable, tester);
+				const variable = this._variable(_variable);
+				const tester = this._tester(_condition);
+				const condition = this._condition(_count, variable, tester);
 
-				return ConditionalPattern._dynamic(`} else if (${condition}) {`);
+				return this._dynamic(`} else if (${condition}) {`);
 			})
-			.replaceSyntaxPattern(actions, ElsePattern, () => ConditionalPattern._dynamic('} else {'))
-			.replaceSyntaxPattern(actions, EndPattern, () => ConditionalPattern._dynamic('}'));
+			._replace(ElsePattern, () => this._dynamic('} else {'))
+			._replace(EndPattern, () => this._dynamic('}'));
 	}
 
 	/**
@@ -153,7 +147,7 @@ module.exports = class ConditionalPattern extends BasePattern {
 	 * @param {string} tester
 	 * @return {string}
 	 */
-	static _condition(_count, variable, tester) {
+	_condition(_count, variable, tester) {
 		const threshold = typeof _count === 'undefined' ? 0 : _count - 1;
 		const arrayTest = `(${variable}.filter && ${variable}.filter${tester}.length > ${threshold})`;
 		const objectTest = `(!(${variable}.filter) && ${tester}(${variable}))`;
@@ -166,7 +160,7 @@ module.exports = class ConditionalPattern extends BasePattern {
 	 * @param {string} _condition
 	 * @return {string}
 	 */
-	static _tester(_condition) {
+	_tester(_condition) {
 		// Short exit
 		if (typeof _condition === 'undefined') {
 			return '((i) => i)';
@@ -200,7 +194,7 @@ module.exports = class ConditionalPattern extends BasePattern {
 	 * @param {string} _variable
 	 * @return {string}
 	 */
-	static _variable(_variable) {
+	_variable(_variable) {
 		let variable = _variable;
 		if (variable === 'M') variable = 'root';
 		else if (variable === 'F') variable = 'root.fields.list';

@@ -4,7 +4,7 @@ const Fs = require('fs');
 const { expect } = require('code');
 const Lab = require('lab');
 const lab = (exports.lab = Lab.script());
-const { ConstructorError, ArgumentsError } = require('../src/errors');
+const { ArgumentsError } = require('../src/errors');
 const HapifySyntax = require('../src');
 const { EvaluationError } = require('../src/errors');
 
@@ -13,10 +13,6 @@ const Simple = Fs.readFileSync(`${__dirname}/masks/simple.hpf`, 'utf8');
 const InputConditional = Fs.readFileSync(`${__dirname}/masks/error-conditional.hpf`, 'utf8');
 const InputIteration = Fs.readFileSync(`${__dirname}/masks/error-iteration.hpf`, 'utf8');
 const InputInterpolation = Fs.readFileSync(`${__dirname}/masks/error-interpolation.hpf`, 'utf8');
-
-lab.test('constructor', async () => {
-	expect(() => new HapifySyntax()).to.throw(ConstructorError);
-});
 
 lab.test('run', async () => {
 	//Test input validity

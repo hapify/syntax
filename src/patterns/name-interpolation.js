@@ -8,14 +8,9 @@ const RegEx = /<<([a-zA-Z_.]+)\s+([aA_\-R]+)\s*>>/g;
 
 /** @type {NameInterpolationPattern} NameInterpolation pattern */
 module.exports = class NameInterpolationPattern extends BasePattern {
-	/**
-	 * Parser method
-	 * @param {string} template
-	 * @param {array} actions
-	 * @return {string}
-	 */
-	static execute(template, actions = []) {
-		return template.replaceSyntaxPattern(actions, RegEx, (match, _variable, _property) => {
+	/** Parser method */
+	execute() {
+		this._replace(RegEx, (match, _variable, _property) => {
 			// Get the var
 			let variable = _variable;
 			if (variable === 'M') variable = 'root';

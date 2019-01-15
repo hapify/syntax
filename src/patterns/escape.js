@@ -15,13 +15,8 @@ const End = {
 
 /** @type {EscapePattern} Escape pattern */
 module.exports = class EscapePattern extends BasePattern {
-	/**
-	 * Parser method
-	 * @param {string} template
-	 * @param {array} actions
-	 * @return {string}
-	 */
-	static execute(template, actions = []) {
-		return template.replaceSyntaxPattern(actions, Start.find, Start.replace).replaceSyntaxPattern(actions, End.find, End.replace);
+	/** Parser method */
+	execute() {
+		this._replace(Start.find, Start.replace)._replace(End.find, End.replace);
 	}
 };

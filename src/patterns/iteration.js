@@ -11,23 +11,16 @@ const EndPattern = /<<@>>/g;
 
 /** @type {IterationPattern} Conditional pattern */
 module.exports = class IterationPattern extends ConditionalPattern {
-	/**
-	 * Parser method
-	 * @param {string} template
-	 * @param {array} actions
-	 * @return {function}
-	 */
-	static execute(template, actions = []) {
-		return template
-			.replaceSyntaxPattern(actions, ForPattern, (match, _count, _variable, _condition, _assignment) => {
-				// Get the full syntax
-				const variable = IterationPattern._variable(_variable);
-				const tester = IterationPattern._tester(_condition);
-				const filter = IterationPattern._filter(_count, variable, tester);
+	/** Parser method */
+	execute() {
+		this._replace(ForPattern, (match, _count, _variable, _condition, _assignment) => {
+			// Get the full syntax
+			const variable = this._variable(_variable);
+			const tester = this._tester(_condition);
+			const filter = this._filter(_count, variable, tester);
 
-				return IterationPattern._dynamic(`for (const ${_assignment} of ${filter}) {`);
-			})
-			.replaceSyntaxPattern(actions, EndPattern, () => IterationPattern._dynamic('}'));
+			return this._dynamic(`for (const ${_assignment} of ${filter}) {`);
+		})._replace(EndPattern, () => this._dynamic('}'));
 	}
 
 	/**
@@ -37,7 +30,7 @@ module.exports = class IterationPattern extends ConditionalPattern {
 	 * @param {string} tester
 	 * @return {string}
 	 */
-	static _filter(_count, variable, tester) {
+	_filter(_count, variable, tester) {
 		const slicer = typeof _count === 'undefined' ? '' : `.slice(0, ${_count})`;
 
 		return `${variable}.filter${tester}${slicer}`;
