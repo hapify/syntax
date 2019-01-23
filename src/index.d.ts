@@ -21,5 +21,5 @@ declare class HapifySyntax {
      * @param {Options} options
      * @return {string}
      */
-    static run(template: string, model: any, options: Options = {}): string;
+    static run(template: string, model: any, options?: Options): string;
 }
