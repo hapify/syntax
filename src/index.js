@@ -1,6 +1,6 @@
 'use strict';
 
-const { ArgumentsError, EvaluationError } = require('./errors');
+const { ArgumentsError, EvaluationError, TimeoutError } = require('./errors');
 const Patterns = require('./patterns');
 const { SaferEval } = require('safer-eval');
 const lineColumn = require('line-column');
@@ -63,12 +63,8 @@ module.exports = class HapifySyntax {
 		// Execute all patterns
 		// @todo Should catch parsing error
 		runner.parse();
-
-		try {
-			return runner.evaluate();
-		} catch (error) {
-			throw runner.getReversedActionError(error);
-		}
+		
+        return runner.evaluate();
 	}
 
 	/** Execute all patterns to convert hpf to js */
@@ -94,8 +90,10 @@ module.exports = class HapifySyntax {
 			}).runInContext(final);
 		} catch (error) {
 			this._log(`[HapifySyntax._eval] An error occurred during evaluation\n\n${error}\n\n${final}`);
-
-			throw error;
+            if  (error.message === 'Script execution timed out.') {
+				throw new TimeoutError(`Template processing timed out (${TIMEOUT}ms)`);
+            }
+			throw this.getReversedActionError(error);
 		}
 	}
 
