@@ -31,6 +31,8 @@ module.exports = {
 			super(message);
 			this.name = 'SyntaxEvaluationError';
 			this.code = 1004;
+			this.lineNumber = null;
+			this.columnNumber = null;
 		}
 	},
 	/** @type TimeoutError */
