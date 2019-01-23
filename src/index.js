@@ -26,7 +26,7 @@ const PatternsStack = [
  */
 /** @type {Options} */
 const DefaultOptions = {
-    timeout: 1000
+	timeout: 1000
 };
 
 /** @type {HapifySyntax} Syntax parser */
@@ -39,8 +39,8 @@ module.exports = class HapifySyntax {
 		this.template = template;
 		/** @type {{}|{}[]} */
 		this.model = model;
-        /** @type {Options} */
-        this.options = Hoek.applyToDefaults(DefaultOptions, options);
+		/** @type {Options} */
+		this.options = Hoek.applyToDefaults(DefaultOptions, options);
 		/** @type {{}[]} */
 		this.actions = [];
 		/** @type {BasePattern[]} */
@@ -51,7 +51,7 @@ module.exports = class HapifySyntax {
 	 * Parser method
 	 * @param {string} template
 	 * @param {{}} model
-     * @param {Options} options
+	 * @param {Options} options
 	 * @return {string}
 	 */
 	static run(template, model, options = {}) {
@@ -76,8 +76,8 @@ module.exports = class HapifySyntax {
 		// Execute all patterns
 		// @todo Should catch parsing error
 		runner.parse();
-		
-        return runner.evaluate();
+
+		return runner.evaluate();
 	}
 
 	/** Execute all patterns to convert hpf to js */
@@ -90,22 +90,25 @@ module.exports = class HapifySyntax {
 	/** Eval the generated script */
 	evaluate() {
 		// eslint-disable-line no-unused-vars
-        const final = `(function() {let out = \n\`${this.template}\`\n; return out;})()`;
+		const final = `(function() {let out = \n\`${this.template}\`\n; return out;})()`;
 		try {
-			return new SaferEval({ root: this.model }, {
-                filename: 'hpf-generator.js',
-                timeout: this.options.timeout,
-				lineOffset: -1,
-                contextCodeGeneration: {
-                    strings: false,
-                    wasm: false,
+			return new SaferEval(
+				{ root: this.model },
+				{
+					filename: 'hpf-generator.js',
+					timeout: this.options.timeout,
+					lineOffset: -1,
+					contextCodeGeneration: {
+						strings: false,
+						wasm: false
+					}
 				}
-			}).runInContext(final);
+			).runInContext(final);
 		} catch (error) {
 			this._log(`[HapifySyntax._eval] An error occurred during evaluation\n\n${error}\n\n${final}`);
-            if  (error.message === 'Script execution timed out.') {
+			if (error.message === 'Script execution timed out.') {
 				throw new TimeoutError(`Template processing timed out (${this.options.timeout}ms)`);
-            }
+			}
 			throw this.getReversedActionError(error);
 		}
 	}

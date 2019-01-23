@@ -49,9 +49,9 @@ lab.test('Check reverse lineColumn error for conditional', async () => {
 		fail('This input needs to return an error');
 	} catch (err) {
 		expect(err).to.be.an.error(EvaluationError, 'rrgrfbfb is not defined');
-        expect(err.code).to.be.a.number();
-        expect(err.lineNumber).to.be.a.number();
-        expect(err.columnNumber).to.be.a.number();
+		expect(err.code).to.be.a.number();
+		expect(err.lineNumber).to.be.a.number();
+		expect(err.columnNumber).to.be.a.number();
 		expect(err.stack).to.be.equal('Error: rrgrfbfb is not defined. Line: 16, Column: 13');
 	}
 });
@@ -66,52 +66,52 @@ lab.test('Check reverse lineColumn error for iteration', async () => {
 		fail('This input needs to return an error');
 	} catch (err) {
 		expect(err).to.be.an.error(EvaluationError, 'T is not defined');
-        expect(err.code).to.be.a.number();
-        expect(err.lineNumber).to.be.a.number();
-        expect(err.columnNumber).to.be.a.number();
+		expect(err.code).to.be.a.number();
+		expect(err.lineNumber).to.be.a.number();
+		expect(err.columnNumber).to.be.a.number();
 		expect(err.stack).to.be.equal('Error: T is not defined. Line: 10, Column: 1');
 	}
 });
 
 lab.test('Check reverse lineColumn error for name interpolation', async () => {
-    //Test input validity
-    expect(InputInterpolation).to.be.a.string();
-    expect(Model).to.be.an.object();
+	//Test input validity
+	expect(InputInterpolation).to.be.a.string();
+	expect(Model).to.be.an.object();
 
-    try {
-        HapifySyntax.run(InputInterpolation, Model);
-        fail('This input needs to return an error');
-    } catch (err) {
-        expect(err).to.be.an.error(EvaluationError, 'g is not defined');
-        expect(err.code).to.be.a.number();
-        expect(err.lineNumber).to.be.a.number();
-        expect(err.columnNumber).to.be.a.number();
-        expect(err.stack).to.be.equal('Error: g is not defined. Line: 20, Column: 5');
-    }
+	try {
+		HapifySyntax.run(InputInterpolation, Model);
+		fail('This input needs to return an error');
+	} catch (err) {
+		expect(err).to.be.an.error(EvaluationError, 'g is not defined');
+		expect(err.code).to.be.a.number();
+		expect(err.lineNumber).to.be.a.number();
+		expect(err.columnNumber).to.be.a.number();
+		expect(err.stack).to.be.equal('Error: g is not defined. Line: 20, Column: 5');
+	}
 });
 
 lab.test('Trigger a timeout', async () => {
-    //Test input validity
-    expect(InputTimeout).to.be.a.string();
-    expect(Model).to.be.an.object();
+	//Test input validity
+	expect(InputTimeout).to.be.a.string();
+	expect(Model).to.be.an.object();
 
-    const start1 = Date.now();
-    try {
-        HapifySyntax.run(InputTimeout, Model);
-        fail('This input needs to return an error');
-    } catch (err) {
-        expect(err).to.be.an.error(TimeoutError);
-        expect(err.code).to.be.a.number();
-        expect(Date.now() - start1).to.be.within(1000, 1020);
-    }
-    
-    const start2 = Date.now();
-    try {
-        HapifySyntax.run(InputTimeout, Model, { timeout: 300 });
-        fail('This input needs to return an error');
-    } catch (err) {
-        expect(err).to.be.an.error(TimeoutError);
-        expect(err.code).to.be.a.number();
-        expect(Date.now() - start2).to.be.within(300, 320);
-    }
+	const start1 = Date.now();
+	try {
+		HapifySyntax.run(InputTimeout, Model);
+		fail('This input needs to return an error');
+	} catch (err) {
+		expect(err).to.be.an.error(TimeoutError);
+		expect(err.code).to.be.a.number();
+		expect(Date.now() - start1).to.be.within(1000, 1020);
+	}
+
+	const start2 = Date.now();
+	try {
+		HapifySyntax.run(InputTimeout, Model, { timeout: 300 });
+		fail('This input needs to return an error');
+	} catch (err) {
+		expect(err).to.be.an.error(TimeoutError);
+		expect(err.code).to.be.a.number();
+		expect(Date.now() - start2).to.be.within(300, 320);
+	}
 });
