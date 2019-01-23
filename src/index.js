@@ -2,9 +2,10 @@
 
 const { ArgumentsError, EvaluationError } = require('./errors');
 const Patterns = require('./patterns');
-const SafeEval = require('safe-eval');
+const { SaferEval } = require('safer-eval');
 const lineColumn = require('line-column');
 const ErrorStackParser = require('error-stack-parser');
+const TIMEOUT = 1000;
 
 /** @type {BasePattern[]} Ordered patterns */
 const PatternsStack = [
@@ -80,9 +81,17 @@ module.exports = class HapifySyntax {
 	/** Eval the generated script */
 	evaluate() {
 		// eslint-disable-line no-unused-vars
-		const final = `(function() {let out = \`${this.template}\`; return out;})()`;
+        const final = `(function() {let out = \n\`${this.template}\`\n; return out;})()`;
 		try {
-			return SafeEval(final, { root: this.model }, { lineOffset: -10 });
+			return new SaferEval({ root: this.model }, {
+                filename: 'hpf-generator.js',
+                timeout: TIMEOUT,
+				lineOffset: -1,
+                contextCodeGeneration: {
+                    strings: false,
+                    wasm: false,
+				}
+			}).runInContext(final);
 		} catch (error) {
 			this._log(`[HapifySyntax._eval] An error occurred during evaluation\n\n${error}\n\n${final}`);
 

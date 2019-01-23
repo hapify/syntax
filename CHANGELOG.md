@@ -19,6 +19,6 @@
 - Handle action's accesses.
 
 ### Changed
-- Use of `safe-eval` for evaluation
+- Use of `safer-eval` for evaluation
 
 ### Removed
