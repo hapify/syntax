@@ -5,7 +5,7 @@ const Patterns = require('./patterns');
 const { SaferEval } = require('safer-eval');
 const lineColumn = require('line-column');
 const ErrorStackParser = require('error-stack-parser');
-const TIMEOUT = 1000;
+const Hoek = require('hoek');
 
 /** @type {BasePattern[]} Ordered patterns */
 const PatternsStack = [
@@ -19,16 +19,28 @@ const PatternsStack = [
 	Patterns.Escape
 ];
 
+/**
+ * Options format
+ * @typedef {object} Options
+ * @property {number} timeout
+ */
+/** @type {Options} */
+const DefaultOptions = {
+    timeout: 1000
+};
+
 /** @type {HapifySyntax} Syntax parser */
 module.exports = class HapifySyntax {
 	/** Constructor */
-	constructor(template, model) {
+	constructor(template, model, options = {}) {
 		/** @type {string} Stores the original input */
 		this.original = template;
 		/** @type {string} */
 		this.template = template;
 		/** @type {{}|{}[]} */
 		this.model = model;
+        /** @type {Options} */
+        this.options = Hoek.applyToDefaults(DefaultOptions, options);
 		/** @type {{}[]} */
 		this.actions = [];
 		/** @type {BasePattern[]} */
@@ -39,12 +51,13 @@ module.exports = class HapifySyntax {
 	 * Parser method
 	 * @param {string} template
 	 * @param {{}} model
+     * @param {Options} options
 	 * @return {string}
 	 */
-	static run(template, model) {
+	static run(template, model, options = {}) {
 		// Check how many arguments
-		if (arguments.length !== 2) {
-			throw new ArgumentsError('[HapifySyntax.run] Requires two arguments');
+		if (arguments.length < 2) {
+			throw new ArgumentsError('[HapifySyntax.run] Requires at least two arguments');
 		}
 
 		// Check arguments
@@ -58,7 +71,7 @@ module.exports = class HapifySyntax {
 			throw new ArgumentsError('[HapifySyntax.run] model cannot be null');
 		}
 
-		const runner = new HapifySyntax(template, model);
+		const runner = new HapifySyntax(template, model, options);
 
 		// Execute all patterns
 		// @todo Should catch parsing error
@@ -81,7 +94,7 @@ module.exports = class HapifySyntax {
 		try {
 			return new SaferEval({ root: this.model }, {
                 filename: 'hpf-generator.js',
-                timeout: TIMEOUT,
+                timeout: this.options.timeout,
 				lineOffset: -1,
                 contextCodeGeneration: {
                     strings: false,
@@ -91,7 +104,7 @@ module.exports = class HapifySyntax {
 		} catch (error) {
 			this._log(`[HapifySyntax._eval] An error occurred during evaluation\n\n${error}\n\n${final}`);
             if  (error.message === 'Script execution timed out.') {
-				throw new TimeoutError(`Template processing timed out (${TIMEOUT}ms)`);
+				throw new TimeoutError(`Template processing timed out (${this.options.timeout}ms)`);
             }
 			throw this.getReversedActionError(error);
 		}

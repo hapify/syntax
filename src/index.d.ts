@@ -3,6 +3,13 @@
 export = HapifySyntax;
 
 /**
+ * Declare options structure
+ */
+interface Options {
+    timeout?: number;
+}
+
+/**
  * Declare the class
  */
 declare class HapifySyntax {
@@ -11,7 +18,8 @@ declare class HapifySyntax {
      *
      * @param {string} template
      * @param {any} model
+     * @param {Options} options
      * @return {string}
      */
-    static run(template: string, model: any): string;
+    static run(template: string, model: any, options: Options = {}): string;
 }
