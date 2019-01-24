@@ -52,7 +52,7 @@ lab.test('Check reverse lineColumn error for conditional', async () => {
 		expect(err.code).to.be.a.number();
 		expect(err.lineNumber).to.be.a.number();
 		expect(err.columnNumber).to.be.a.number();
-		expect(err.stack).to.be.equal('Error: rrgrfbfb is not defined. Line: 16, Column: 13');
+		expect(err.details).to.be.equal('Error: rrgrfbfb is not defined. Line: 16, Column: 13');
 	}
 });
 
@@ -69,7 +69,7 @@ lab.test('Check reverse lineColumn error for iteration', async () => {
 		expect(err.code).to.be.a.number();
 		expect(err.lineNumber).to.be.a.number();
 		expect(err.columnNumber).to.be.a.number();
-		expect(err.stack).to.be.equal('Error: T is not defined. Line: 10, Column: 1');
+		expect(err.details).to.be.equal('Error: T is not defined. Line: 10, Column: 1');
 	}
 });
 
@@ -86,7 +86,7 @@ lab.test('Check reverse lineColumn error for name interpolation', async () => {
 		expect(err.code).to.be.a.number();
 		expect(err.lineNumber).to.be.a.number();
 		expect(err.columnNumber).to.be.a.number();
-		expect(err.stack).to.be.equal('Error: g is not defined. Line: 20, Column: 5');
+		expect(err.details).to.be.equal('Error: g is not defined. Line: 20, Column: 5');
 	}
 });
 

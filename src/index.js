@@ -142,7 +142,7 @@ module.exports = class HapifySyntax {
 		const evalError = new EvaluationError(error.message);
 		evalError.lineNumber = errorLineColumn ? errorLineColumn.line : null;
 		evalError.columnNumber = errorLineColumn ? errorLineColumn.col : null;
-		evalError.stack = `Error: ${evalError.message}. Line: ${evalError.lineNumber}, Column: ${evalError.columnNumber}`;
+		evalError.details = `Error: ${evalError.message}. Line: ${evalError.lineNumber}, Column: ${evalError.columnNumber}`;
 
 		return evalError;
 	}
