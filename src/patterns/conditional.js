@@ -31,7 +31,7 @@ const Repalcements = [
 	{ search: 'im', replace: 'i.important' },
 	{ search: 'se', replace: 'i.searchable' },
 	{ search: 'so', replace: 'i.sortable' },
-	{ search: 'ip', replace: 'i.isPrivate' },
+	{ search: 'ip', replace: 'i.hidden' },
 	{ search: 'in', replace: 'i.internal' },
 	{ search: 'rs', replace: 'i.restricted' },
 	{ search: 'os', replace: 'i.ownership' },

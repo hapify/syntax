@@ -40,7 +40,7 @@ lab.test('unit', async () => {
 
 	// operator
 	expect(ConditionalPattern.execute('<<? F !(se+so-lb)*pr/ip>>')).to.equal(
-		condition('!(i.searchable || i.sortable || !i.label) && i.primary && !i.isPrivate')
+		condition('!(i.searchable || i.sortable || !i.label) && i.primary && !i.hidden')
 	);
 
 	// properties
@@ -52,7 +52,7 @@ lab.test('unit', async () => {
 	expect(ConditionalPattern.execute('<<? F im>>')).to.equal(condition('i.important'));
 	expect(ConditionalPattern.execute('<<? F se>>')).to.equal(condition('i.searchable'));
 	expect(ConditionalPattern.execute('<<? F so>>')).to.equal(condition('i.sortable'));
-	expect(ConditionalPattern.execute('<<? F ip>>')).to.equal(condition('i.isPrivate'));
+	expect(ConditionalPattern.execute('<<? F ip>>')).to.equal(condition('i.hidden'));
 	expect(ConditionalPattern.execute('<<? F in>>')).to.equal(condition('i.internal'));
 	expect(ConditionalPattern.execute('<<? F rs>>')).to.equal(condition('i.restricted'));
 	expect(ConditionalPattern.execute('<<? F os>>')).to.equal(condition('i.ownership'));
