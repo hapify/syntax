@@ -2,8 +2,8 @@ This is the lower camel youtubeVideo.
 This is the upper camel YoutubeVideo.
 This is the lower words youtube video.
 This is the upper words Youtube Video.
-This is the hyphen youtube-video.
-This is the hyphen upper YOUTUBE-VIDEO.
+This is the kebab youtube-video.
+This is the kebab upper YOUTUBE-VIDEO.
 This is the underscore youtube_video.
 This is the underscore upper YOUTUBE_VIDEO.
 This is the one word youtubevideo.

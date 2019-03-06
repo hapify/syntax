@@ -32,22 +32,22 @@ lab.test('error', async () => {
 
 lab.test('unit', async () => {
 	// Names
-	expect(NameInterpolationPattern.execute('<<M aA>>')).to.equal('${root.names.lowerCamel}');
-	expect(NameInterpolationPattern.execute('<<M AA>>')).to.equal('${root.names.upperCamel}');
-	expect(NameInterpolationPattern.execute('<<M a>>')).to.equal('${root.names.wordsLower}');
-	expect(NameInterpolationPattern.execute('<<M A>>')).to.equal('${root.names.wordsUpper}');
-	expect(NameInterpolationPattern.execute('<<M a-a>>')).to.equal('${root.names.hyphen}');
-	expect(NameInterpolationPattern.execute('<<M a_a>>')).to.equal('${root.names.underscore}');
-	expect(NameInterpolationPattern.execute('<<M aa>>')).to.equal('${root.names.oneWord}');
+	expect(NameInterpolationPattern.execute('<<M aA>>')).to.equal('${root.names.camel}');
+	expect(NameInterpolationPattern.execute('<<M AA>>')).to.equal('${root.names.pascal}');
+	expect(NameInterpolationPattern.execute('<<M a>>')).to.equal('${root.names.lower}');
+	expect(NameInterpolationPattern.execute('<<M A>>')).to.equal('${root.names.capital}');
+	expect(NameInterpolationPattern.execute('<<M a-a>>')).to.equal('${root.names.kebab}');
+	expect(NameInterpolationPattern.execute('<<M a_a>>')).to.equal('${root.names.snake}');
+	expect(NameInterpolationPattern.execute('<<M aa>>')).to.equal('${root.names.compact}');
 	expect(NameInterpolationPattern.execute('<<M R>>')).to.equal('${root.names.raw}');
 	// Variable
-	expect(NameInterpolationPattern.execute('<<f aA>>')).to.equal('${f.names.lowerCamel}');
+	expect(NameInterpolationPattern.execute('<<f aA>>')).to.equal('${f.names.camel}');
 	// Spaces
-	expect(NameInterpolationPattern.execute('<<f   aA>>')).to.equal('${f.names.lowerCamel}');
+	expect(NameInterpolationPattern.execute('<<f   aA>>')).to.equal('${f.names.camel}');
 
 	// Primary field
-	expect(NameInterpolationPattern.execute('<<P aA>>')).to.equal('${root.fields.primary.names.lowerCamel}');
+	expect(NameInterpolationPattern.execute('<<P aA>>')).to.equal('${root.fields.primary.names.camel}');
 
 	// Sub field
-	expect(NameInterpolationPattern.execute('<<root.fields.primary aA>>')).to.equal('${root.fields.primary.names.lowerCamel}');
+	expect(NameInterpolationPattern.execute('<<root.fields.primary aA>>')).to.equal('${root.fields.primary.names.camel}');
 });

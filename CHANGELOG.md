@@ -12,8 +12,8 @@
 
 ### Added
 - Handle `embedded`, `restricted` and `ownership` field property.
-- Handle `underscoreUpper` for names (Example: FIRST_NAME).
-- Handle `hyphenUpper` for names (Example: FIRST-NAME).
+- Handle `constant` for names (Example: FIRST_NAME).
+- Handle `big` for names (Example: FIRST-NAME).
 - Handle subtype `rich` of type `string`.
 - Handle `isGeoSearchable` property.
 - Handle action's accesses.

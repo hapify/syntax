@@ -446,7 +446,7 @@ Example for the root model's name as upper camel:
 <<M AA>>
 ```
 
-Example for field's name as hyphen:
+Example for field's name as kebab:
 
 ```
 <<f a-a>>
@@ -454,15 +454,15 @@ Example for field's name as hyphen:
 
 The values for the name are:
 
-- `aA` for `names.lowerCamel`
-- `AA` for `names.upperCamel`
-- `a` for `names.wordsLower`
-- `A` for `names.wordsUpper`
-- `a-a` for `names.hyphen`
-- `A-A` for `names.hyphenUpper`
-- `a_a` for `names.underscore`
-- `A_A` for `names.underscoreUpper`
-- `aa` for `names.oneWord`
+- `aA` for `names.camel`
+- `AA` for `names.pascal`
+- `a` for `names.lower`
+- `A` for `names.capital`
+- `a-a` for `names.kebab`
+- `A-A` for `names.big`
+- `a_a` for `names.snake`
+- `A_A` for `names.constant`
+- `aa` for `names.compact`
 - `R` for `names.raw`
 
 ## Raw inputs
@@ -494,7 +494,7 @@ Declare a processing function:
 ```
 <<<
 function fieldName(f) {
-    return f.names.underscore.toUpperCase();
+    return f.names.snake.toUpperCase();
 }
 >>>
 ```
