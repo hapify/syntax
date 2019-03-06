@@ -49,7 +49,7 @@ lab.test('unit', async () => {
 	expect(ConditionalPattern.execute('<<? F lb>>')).to.equal(condition('i.label'));
 	expect(ConditionalPattern.execute('<<? F nu>>')).to.equal(condition('i.nullable'));
 	expect(ConditionalPattern.execute('<<? F ml>>')).to.equal(condition('i.multiple'));
-	expect(ConditionalPattern.execute('<<? F im>>')).to.equal(condition('i.embedded'));
+	expect(ConditionalPattern.execute('<<? F em>>')).to.equal(condition('i.embedded'));
 	expect(ConditionalPattern.execute('<<? F se>>')).to.equal(condition('i.searchable'));
 	expect(ConditionalPattern.execute('<<? F so>>')).to.equal(condition('i.sortable'));
 	expect(ConditionalPattern.execute('<<? F ip>>')).to.equal(condition('i.hidden'));
