@@ -161,7 +161,7 @@ A complete conditional writing will look like this:
 
 ```
 <<?4 F ip>>
-    This model has at least 4 private fields
+    This model has at least 4 hidden fields
 <<??2 F lb+tB>>
     This model has at least 2 label or boolean fields
 <<?? P tS>>
@@ -175,7 +175,7 @@ This code is equivalent to
 
 ```javascript
 if (root.fields.list.filter(f => f.hidden).length >= 4) {
-    out += '    This model has at least 4 private fields';
+    out += '    This model has at least 4 hidden fields';
 }
 else if (root.fields.list.filter(f => f.label || f.type === 'boolean').length >= 2) {
     out += '    This model has at least 2 label or boolean fields';
@@ -216,7 +216,7 @@ This is the closer: `}`.
 
 #### Example with conditions:
 
-This tests if the model has some searchable and sortable but not private fields
+This tests if the model has some searchable and sortable but not hidden fields
 
 ```
 <<? F se*so/ip>>
