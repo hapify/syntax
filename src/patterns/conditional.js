@@ -74,7 +74,7 @@ const Repalcements = [
 	{ search: 'tE', replace: "(i.type === 'entity')" },
 
 	// Models computed properties
-	{ search: 'pMPr', replace: 'i.properties.mainlyPrivate' },
+	{ search: 'pMHd', replace: 'i.properties.mainlyHidden' },
 	{ search: 'pMIn', replace: 'i.properties.mainlyInternal' },
 	{ search: 'pGeo', replace: 'i.properties.isGeolocated' },
 	{ search: 'pGSe', replace: 'i.properties.isGeoSearchable' },

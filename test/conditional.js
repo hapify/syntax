@@ -78,7 +78,7 @@ lab.test('unit', async () => {
 	expect(ConditionalPattern.execute('<<? F tE>>')).to.equal(condition("(i.type === 'entity')"));
 
 	// properties
-	expect(ConditionalPattern.execute('<<? M pMPr>>')).to.equal(conditionModel('i.properties.mainlyPrivate'));
+	expect(ConditionalPattern.execute('<<? M pMHd>>')).to.equal(conditionModel('i.properties.mainlyHidden'));
 	expect(ConditionalPattern.execute('<<? M pMIn>>')).to.equal(conditionModel('i.properties.mainlyInternal'));
 	expect(ConditionalPattern.execute('<<? M pGeo>>')).to.equal(conditionModel('i.properties.isGeolocated'));
 	expect(ConditionalPattern.execute('<<? M pGSe>>')).to.equal(conditionModel('i.properties.isGeoSearchable'));

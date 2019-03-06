@@ -118,7 +118,7 @@ Here is the list of short-codes available for a field:
 
 This is the list of short-codes available for the properties of a model:
 
-- `pMPr` for the boolean property `mainlyPrivate`
+- `pMHd` for the boolean property `mainlyHidden`
 - `pMIn` for the boolean property `mainlyInternal`
 - `pGeo` for the boolean property `isGeolocated`
 - `pGSe` for the boolean property `isGeoSearchable`
