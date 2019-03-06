@@ -23,7 +23,7 @@ module.exports = class NameInterpolationPattern extends BasePattern {
 			else if (property === 'a') property = 'lower';
 			else if (property === 'A') property = 'capital';
 			else if (property === 'a-a') property = 'kebab';
-			else if (property === 'A-A') property = 'big';
+			else if (property === 'A-A') property = 'header';
 			else if (property === 'a_a') property = 'snake';
 			else if (property === 'A_A') property = 'constant';
 			else if (property === 'aa') property = 'compact';

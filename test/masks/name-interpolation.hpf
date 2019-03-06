@@ -3,9 +3,9 @@ This is the upper camel <<M AA>>.
 This is the lower words <<M a >>.
 This is the upper words <<M  A>>.
 This is the kebab <<M a-a>>.
-This is the kebab upper <<M A-A>>.
+This is the header <<M A-A>>.
 This is the snake <<M a_a>>.
-This is the snake upper <<M A_A>>.
-This is the one word <<M aa>>.
+This is the constant <<M A_A>>.
+This is the compact <<M aa>>.
 This is the raw <<M R>>.
 This should not be detected <<Ma>>.

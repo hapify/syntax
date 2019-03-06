@@ -459,7 +459,7 @@ The values for the name are:
 - `a` for `names.lower`
 - `A` for `names.capital`
 - `a-a` for `names.kebab`
-- `A-A` for `names.big`
+- `A-A` for `names.header`
 - `a_a` for `names.snake`
 - `A_A` for `names.constant`
 - `aa` for `names.compact`
