@@ -28,7 +28,7 @@ const Repalcements = [
 	{ search: 'lb', replace: 'i.label' },
 	{ search: 'nu', replace: 'i.nullable' },
 	{ search: 'ml', replace: 'i.multiple' },
-	{ search: 'im', replace: 'i.important' },
+	{ search: 'im', replace: 'i.embedded' },
 	{ search: 'se', replace: 'i.searchable' },
 	{ search: 'so', replace: 'i.sortable' },
 	{ search: 'ip', replace: 'i.hidden' },

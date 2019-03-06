@@ -93,7 +93,7 @@ Here is the list of short-codes available for a field:
 - `lb` for the boolean property `label`
 - `nu` for the boolean property `nullable`
 - `ml` for the boolean property `multiple`
-- `im` for the boolean property `important`
+- `im` for the boolean property `embedded`
 - `se` for the boolean property `searchable`
 - `so` for the boolean property `sortable`
 - `ip` for the boolean property `hidden`
