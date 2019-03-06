@@ -42,7 +42,8 @@ const Repalcements = [
 		search: 'tSp',
 		replace: "(i.type === 'string' && i.subtype === 'password')"
 	},
-	{ search: 'tSt', replace: "(i.type === 'string' && i.subtype === 'text')" },
+    { search: 'tSu', replace: "(i.type === 'string' && i.subtype === 'url')" },
+    { search: 'tSt', replace: "(i.type === 'string' && i.subtype === 'text')" },
 	{ search: 'tSr', replace: "(i.type === 'string' && i.subtype === 'rich')" },
 	{ search: 'tS', replace: "(i.type === 'string')" },
 
@@ -70,8 +71,18 @@ const Repalcements = [
 	{ search: 'tDt', replace: "(i.type === 'datetime' && i.subtype === 'time')" },
 	{ search: 'tD', replace: "(i.type === 'datetime')" },
 
-	// Fields types for entity
-	{ search: 'tE', replace: "(i.type === 'entity')" },
+    // Fields types for entity
+    { search: 'tE', replace: "(i.type === 'entity')" },
+
+    // Fields types for object
+    { search: 'tO', replace: "(i.type === 'object')" },
+
+    // Fields types for file
+    { search: 'tFi', replace: "(i.type === 'file' && i.subtype === 'image')" },
+    { search: 'tFv', replace: "(i.type === 'file' && i.subtype === 'video')" },
+    { search: 'tFa', replace: "(i.type === 'file' && i.subtype === 'audio')" },
+    { search: 'tFd', replace: "(i.type === 'file' && i.subtype === 'document')" },
+    { search: 'tF', replace: "(i.type === 'file')" },
 
 	// Models computed properties
 	{ search: 'pMHd', replace: 'i.properties.mainlyHidden' },

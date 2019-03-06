@@ -103,6 +103,7 @@ Here is the list of short-codes available for a field:
 - `tS` to test if property `type` is `string`
     - `tSe` to test if properties `type` is `string` and `subtype` is `email`
     - `tSp` to test if properties `type` is `string` and `subtype` is `password`
+    - `tSu` to test if properties `type` is `string` and `subtype` is `url`
     - `tSt` to test if properties `type` is `string` and `subtype` is `text`
     - `tSr` to test if properties `type` is `string` and `subtype` is `rich`
 - `tN` to test if property `type` is `number`
@@ -115,6 +116,12 @@ Here is the list of short-codes available for a field:
     - `tDd` to test if properties `type` is `datetime` and `subtype` is `date`
     - `tDt` to test if properties `type` is `datetime` and `subtype` is `time`
 - `tE` to test if property `type` is `entity`
+- `tO` to test if property `type` is `object`
+- `tF` to test if property `type` is `file`
+    - `tFi` to test if properties `type` is `file` and `subtype` is `image`
+    - `tFv` to test if properties `type` is `file` and `subtype` is `video`
+    - `tFa` to test if properties `type` is `file` and `subtype` is `audio`
+    - `tFd` to test if properties `type` is `file` and `subtype` is `document`
 
 This is the list of short-codes available for the properties of a model:
 

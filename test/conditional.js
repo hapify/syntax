@@ -59,7 +59,8 @@ lab.test('unit', async () => {
 
 	expect(ConditionalPattern.execute('<<? F tS>>')).to.equal(condition("(i.type === 'string')"));
 	expect(ConditionalPattern.execute('<<? F tSe>>')).to.equal(condition("(i.type === 'string' && i.subtype === 'email')"));
-	expect(ConditionalPattern.execute('<<? F tSp>>')).to.equal(condition("(i.type === 'string' && i.subtype === 'password')"));
+    expect(ConditionalPattern.execute('<<? F tSp>>')).to.equal(condition("(i.type === 'string' && i.subtype === 'password')"));
+    expect(ConditionalPattern.execute('<<? F tSu>>')).to.equal(condition("(i.type === 'string' && i.subtype === 'url')"));
 	expect(ConditionalPattern.execute('<<? F tSt>>')).to.equal(condition("(i.type === 'string' && i.subtype === 'text')"));
 	expect(ConditionalPattern.execute('<<? F tSr>>')).to.equal(condition("(i.type === 'string' && i.subtype === 'rich')"));
 
@@ -77,7 +78,16 @@ lab.test('unit', async () => {
 
 	expect(ConditionalPattern.execute('<<? F tE>>')).to.equal(condition("(i.type === 'entity')"));
 
-	// properties
+    expect(ConditionalPattern.execute('<<? F tO>>')).to.equal(condition("(i.type === 'object')"));
+    
+    expect(ConditionalPattern.execute('<<? F tF>>')).to.equal(condition("(i.type === 'file')"));
+    expect(ConditionalPattern.execute('<<? F tFi>>')).to.equal(condition("(i.type === 'file' && i.subtype === 'image')"));
+    expect(ConditionalPattern.execute('<<? F tFv>>')).to.equal(condition("(i.type === 'file' && i.subtype === 'video')"));
+    expect(ConditionalPattern.execute('<<? F tFa>>')).to.equal(condition("(i.type === 'file' && i.subtype === 'audio')"));
+    expect(ConditionalPattern.execute('<<? F tFd>>')).to.equal(condition("(i.type === 'file' && i.subtype === 'document')"));
+
+
+    // properties
 	expect(ConditionalPattern.execute('<<? M pMHd>>')).to.equal(conditionModel('i.properties.mainlyHidden'));
 	expect(ConditionalPattern.execute('<<? M pMIn>>')).to.equal(conditionModel('i.properties.mainlyInternal'));
 	expect(ConditionalPattern.execute('<<? M pGeo>>')).to.equal(conditionModel('i.properties.isGeolocated'));
