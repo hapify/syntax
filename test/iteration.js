@@ -32,7 +32,7 @@ lab.test('unit', async () => {
 	expect(IterationPattern.execute('<<@ F !se*so f>>')).to.equal(condition('!i.searchable && i.sortable'));
 
 	// operator
-	expect(IterationPattern.execute('<<@2 F !(se+so-lb)*pr/ip g>>')).to.equal(
+	expect(IterationPattern.execute('<<@2 F !(se+so-lb)*pr/hd g>>')).to.equal(
 		condition('!(i.searchable || i.sortable || !i.label) && i.primary && !i.hidden', 2, 'g')
 	);
 
@@ -44,7 +44,7 @@ lab.test('unit', async () => {
 	expect(IterationPattern.execute('<<@ F ml f>>')).to.equal(condition('i.multiple'));
 	expect(IterationPattern.execute('<<@ F se f>>')).to.equal(condition('i.searchable'));
 	expect(IterationPattern.execute('<<@ F so f>>')).to.equal(condition('i.sortable'));
-	expect(IterationPattern.execute('<<@ F ip f>>')).to.equal(condition('i.hidden'));
+	expect(IterationPattern.execute('<<@ F hd f>>')).to.equal(condition('i.hidden'));
 	expect(IterationPattern.execute('<<@ F in f>>')).to.equal(condition('i.internal'));
 
 	expect(IterationPattern.execute('<<@ F tS f>>')).to.equal(condition("(i.type === 'string')"));

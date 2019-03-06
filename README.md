@@ -96,7 +96,7 @@ Here is the list of short-codes available for a field:
 - `em` for the boolean property `embedded`
 - `se` for the boolean property `searchable`
 - `so` for the boolean property `sortable`
-- `ip` for the boolean property `hidden`
+- `hd` for the boolean property `hidden`
 - `in` for the boolean property `internal`
 - `rs` for the boolean property `restricted`
 - `os` for the boolean property `ownership`
@@ -160,7 +160,7 @@ This is the list of short-codes available for the access' properties of a model:
 A complete conditional writing will look like this:
 
 ```
-<<?4 F ip>>
+<<?4 F hd>>
     This model has at least 4 hidden fields
 <<??2 F lb+tB>>
     This model has at least 2 label or boolean fields
@@ -188,14 +188,14 @@ else {
 }
 ```
 
-#### Analysis of `<<?4 F ip>>`
+#### Analysis of `<<?4 F hd>>`
 
 This is the **if** statement: `if (condition) {`.
 
 - `<<?` is the opener.
 - `4` is the minimum length of the filtered array. This value is optional and only usable if the variable is an array. If omitted, we assume the required length is 1.
 - `F` is the variable to test. It can be and array or an object.
-- `ip` is the condition to test the object or the items of an array.
+- `hd` is the condition to test the object or the items of an array.
 - `>>` closes the tag
 
 #### Analysis of `<<??2 F lb+tB>>`
@@ -219,7 +219,7 @@ This is the closer: `}`.
 This tests if the model has some searchable and sortable but not hidden fields
 
 ```
-<<? F se*so/ip>>
+<<? F se*so/hd>>
     ...
 <<?>>
 ```
@@ -320,7 +320,7 @@ This will loop over all fields of type entity and multiple and assign the curren
 A complete iteration will look like this:
 
 ```
-<<@4 F ip f>>
+<<@4 F hd f>>
     Do something
 <<@>>
 ```
@@ -333,14 +333,14 @@ for(let f of root.fields.list.filter((f) => f.hidden).slice(0, 4)) {
 }
 ```
 
-#### Analysis of `<<@4 F ip>>`
+#### Analysis of `<<@4 F hd>>`
 
 This is the **loop** statement: `for (assigment + condition) {`.
 
 - `<<@` is the opener.
 - `4` is the maximum length of the filtered array. This value is optional. If omitted, we do not slice the filtered array.
 - `F` is the variable to filter and to loop on. It must be iterable.
-- `ip` is the condition to test the items of the array.
+- `hd` is the condition to test the items of the array.
 - `f` is the assignment variable. This variable will be available inside the loop's scope.
 - `>>` closes the tag.
 
