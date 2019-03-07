@@ -7,8 +7,9 @@ https://bitbucket.org/tractrs/hapify-cli/src/master/README.md
 
 ## Wrappers
 
-Open: `<<`
-Close: `>>`
+Opening tag: `<<`.
+
+Closing tag: `>>`.
 
 Usually used for binary operations. Should be escapable:
 Escaped tags `\<\<` (and `\>\>`) are replaced by `<<` (and `>>`) in the generated content.
@@ -76,8 +77,8 @@ We use algebra operands to represent logical operations.
 
 - `*` is an intersection: `se ∩ lb` => `se*lb` => `se && lb`.
 - `+` is an union: `se ∪ lb` => `se+lb` => `se || se`.
-- `/` is an intersection with the complementary: `se ∩ !lb` => `se/lb` => `se && !lb`.
-- `-` is an union with the complementary: `se ∪ !lb` => `se-lb` => `se || !lb`.
+-   `/` is an intersection with the complementary: `se ∩ !lb` => `se * !lb` => `se / lb` => `se && !lb`.
+-   `-` is an union with the complementary: `se ∪ !lb` => `se + !lb` => `se - lb` => `se || !lb`.
 
 If the condition starts with `-` or `/` it will be assimilated to `!`.
 Therefore, `-se*so` and `/se*so` are equivalent to `!se*so`.
@@ -265,7 +266,7 @@ Example to test if the model has at least two label fields
 
 Is equivalent to
 ```javascript
-if (root.fields.list.filter((f) => f.label).length >= 2) {
+if (root.fields.list.filter(f => f.label).length >= 2) {
     out += '.....';
 }
 ```
@@ -299,7 +300,7 @@ Example to test if at least one action is restricted to authenticated user or le
 
 Is equivalent to
 ```javascript
-if (root.accesses.filter((a) => a.lteAuth).length > 0) {
+if (root.accesses.filter(a => a.lteAuth).length > 0) {
     out += '.....';
 }
 ```
@@ -335,7 +336,7 @@ A complete iteration will look like this:
 This code is equivalent to 
 
 ```javascript
-for(let f of root.fields.list.filter((f) => f.hidden).slice(0, 4)) {
+for (let f of root.fields.list.filter(f => f.hidden).slice(0, 4)) {
     out += '    Do something';
 }
 ```
@@ -369,7 +370,7 @@ To loop over model's searchable entity fields
 
 Is equivalent to
 ```javascript
-for(let f of root.fields.list.filter((f) => f.searchable && f.type === 'entity')) {
+for (let f of root.fields.list.filter(f => f.searchable && f.type === 'entity')) {
     out += '...';
 }
 ```
@@ -386,7 +387,7 @@ In the context of a multiple models template, this loops over all models that ar
 
 Is equivalent to
 ```javascript
-for(let m of root.filter((i) => i.properties.isGeolocated)) {
+for (let m of root.filter(i => i.properties.isGeolocated)) {
     out += '.....';
 }
 ```
@@ -403,7 +404,7 @@ This example will loop over the two first dependency models that have sortable f
 
 Is equivalent to
 ```javascript
-for(let d of root.dependencies.filter((f) => f.sortable).slice(0, 2)) {
+for (let d of root.dependencies.filter(f => f.sortable).slice(0, 2)) {
     out += '...';
 }
 ```
@@ -437,7 +438,7 @@ This will loop over all actions restricted to admin or owner.
 
 Is equivalent to
 ```javascript
-for(let f of root.accesses.list.filter((a) => a.admin || a.owner)) {
+for (let f of root.accesses.list.filter(a => a.admin || a.owner)) {
     out += '...';
 }
 ```
