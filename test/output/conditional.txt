@@ -5,7 +5,7 @@ This model has a primary internal field
 
 
 
-This model has no private or nullable fields
+This model has no hidden or nullable fields
 
 
 

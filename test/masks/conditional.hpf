@@ -4,8 +4,8 @@ Conditional testing.
 This model has a primary internal field
 <<?>>
 
-<<?  F  !(ip+nu)  >>
-This model has no private or nullable fields
+<<?  F  !(hd+nu)  >>
+This model has no hidden or nullable fields
 <<?>>
 
 <<?2 F so>>
@@ -30,7 +30,7 @@ This has something else
 This model has a unique field
 <<?>>
 
-<<? F lb/pr/un/nu/ml*se*so/ip/in >>
+<<? F lb/pr/un/nu/ml*se*so/hd/in >>
 Big condition
 <<?>>
 

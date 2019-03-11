@@ -5,6 +5,11 @@
 ### Added
 
 ### Changed
+- Renamed string variants
+- Add type `string:url`
+- Add type `object`
+- Add type `file` with sub-types `image`, `video`, `audio` and `document`
+- Map `A-A` to header case rather than big case
 
 ### Removed
 
@@ -19,6 +24,6 @@
 - Handle action's accesses.
 
 ### Changed
-- Use of `safe-eval` for evaluation
+- Use of `safer-eval` for evaluation
 
 ### Removed
