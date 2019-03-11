@@ -2,8 +2,7 @@
 
 ## Pre-requisites
 
-Before reading this, you should read the documentation about models and fields structure:
-https://bitbucket.org/tractrs/hapify-cli/src/master/README.md
+Before reading this article, we recommend that you read the documentation about [models and fields structure](https://www.hapify.io/documentation/templating).
 
 ## Wrappers
 
@@ -23,40 +22,40 @@ Escaped tags `\<\<` (and `\>\>`) are replaced by `<<` (and `>>`) in the generate
 
 Explanations:
 
-- `@` is the operation
-- `F` is the variable
-- `se*so/lb` is the condition (optional)
-- `f` is the assignment variable
+-   `@` is the operation
+-   `F` is the variable
+-   `se*so/lb` is the condition (optional)
+-   `f` is the assignment variable
 
 ### Variable naming
 
-We use lower case for a dynamically defined variable.
-
-We use upper case for a pre-defined variable.
+Lower case is for a dynamically defined variable.
+Upper case is for a pre-defined variable.
 
 To refer to the root variable, we use `M` (model or models).
-This will refer to the model in a single model template and to the models list in a multiple model template.
+It refers to the model in a single model template and to the models list in a multiple model template.
+
 In the template's scope, this root variable is named `root`.
 Therefore, `M` is just a shortcut to `root`.
 
 By default, in a case of a single model template:
 
-- `F` refers to the fields list: `root.fields.list`
-- `D` refers to the models list: `root.dependencies`
-- `R` refers to the models list: `root.referencedIn`
-- `P` refers to the models primary field: `root.fileds.primary`
-- `A` refers to the action's accesses list: `root.accesses.list`
-- `Ac` refers to the create action's access: `root.accesses.create`
-- `Ar` refers to the create action's access: `root.accesses.read`
-- `Au` refers to the create action's access: `root.accesses.update`
-- `Ad` refers to the create action's access: `root.accesses.remove`
-- `As` refers to the create action's access: `root.accesses.search`
-- `An` refers to the create action's access: `root.accesses.count`
+-   `F` refers to the fields list: `root.fields.list`
+-   `D` refers to the models list: `root.dependencies`
+-   `R` refers to the models list: `root.referencedIn`
+-   `P` refers to the models primary field: `root.fileds.primary`
+-   `A` refers to the action's accesses list: `root.accesses.list`
+-   `Ac` refers to the create action's access: `root.accesses.create`
+-   `Ar` refers to the create action's access: `root.accesses.read`
+-   `Au` refers to the create action's access: `root.accesses.update`
+-   `Ad` refers to the create action's access: `root.accesses.remove`
+-   `As` refers to the create action's access: `root.accesses.search`
+-   `An` refers to the create action's access: `root.accesses.count`
 
 ## Conditional operator
 
 This operator can be used over an object or an array of objects.
-If used over an array, this will test the length of the array filtered by the condition.
+If used over an array, it will test the length of the array filtered by the condition.
 
 As an array, it can be used over any object containing a method `filter` that receives a callback returning a boolean.
 In the model structure, `root.dependencies` is an object that contains a `filter` method.
@@ -69,14 +68,14 @@ Then, this operator can test if a model has dependencies that has fields with a 
 <<?>>
 ```
 
-This will test if the model has at least one multiple entity.
+Tests if the model has at least one multiple entity.
 
 ### Operators
 
 We use algebra operands to represent logical operations.
 
-- `*` is an intersection: `se ∩ lb` => `se*lb` => `se && lb`.
-- `+` is an union: `se ∪ lb` => `se+lb` => `se || se`.
+-   `*` is an intersection: `se ∩ lb` => `se * lb` => `se && lb`.
+-   `+` is an union: `se ∪ lb` => `se + lb` => `se || se`.
 -   `/` is an intersection with the complementary: `se ∩ !lb` => `se * !lb` => `se / lb` => `se && !lb`.
 -   `-` is an union with the complementary: `se ∪ !lb` => `se + !lb` => `se - lb` => `se || !lb`.
 
@@ -85,38 +84,38 @@ Therefore, `-se*so` and `/se*so` are equivalent to `!se*so`.
 
 ### Properties short-codes
 
-For filtering an array or testing a field by its properties, we use short-codes.
+To filter an array or to testi a field by its properties, we use short-codes.
 
-Here is the list of short-codes available for a field:
+Short-codes available for a field:
 
-- `pr` for the boolean property `primary`
-- `un` for the boolean property `unique`
-- `lb` for the boolean property `label`
-- `nu` for the boolean property `nullable`
-- `ml` for the boolean property `multiple`
-- `em` for the boolean property `embedded`
-- `se` for the boolean property `searchable`
-- `so` for the boolean property `sortable`
-- `hd` for the boolean property `hidden`
-- `in` for the boolean property `internal`
-- `rs` for the boolean property `restricted`
-- `os` for the boolean property `ownership`
-- `tS` to test if property `type` is `string`
-    - `tSe` to test if properties `type` is `string` and `subtype` is `email`
-    - `tSp` to test if properties `type` is `string` and `subtype` is `password`
+-   `pr` for the boolean property `primary`
+-   `un` for the boolean property `unique`
+-   `lb` for the boolean property `label`
+-   `nu` for the boolean property `nullable`
+-   `ml` for the boolean property `multiple`
+-   `em` for the boolean property `embedded`
+-   `se` for the boolean property `searchable`
+-   `so` for the boolean property `sortable`
+-   `hd` for the boolean property `hidden`
+-   `in` for the boolean property `internal`
+-   `rs` for the boolean property `restricted`
+-   `os` for the boolean property `ownership`
+-   `tS` to test if property `type` is `string`
+    -   `tSe` to test if properties `type` is `string` and `subtype` is `email`
+    -   `tSp` to test if properties `type` is `string` and `subtype` is `password`
     - `tSu` to test if properties `type` is `string` and `subtype` is `url`
-    - `tSt` to test if properties `type` is `string` and `subtype` is `text`
-    - `tSr` to test if properties `type` is `string` and `subtype` is `rich`
-- `tN` to test if property `type` is `number`
-    - `tNi` to test if properties `type` is `number` and `subtype` is `integer`
-    - `tNf` to test if properties `type` is `number` and `subtype` is `float`
-    - `tNt` to test if properties `type` is `number` and `subtype` is `latitude`
-    - `tNg` to test if properties `type` is `number` and `subtype` is `longitude`
-- `tB` to test if property `type` is `boolean`
-- `tD` to test if property `type` is `datetime`
-    - `tDd` to test if properties `type` is `datetime` and `subtype` is `date`
-    - `tDt` to test if properties `type` is `datetime` and `subtype` is `time`
-- `tE` to test if property `type` is `entity`
+    -   `tSt` to test if properties `type` is `string` and `subtype` is `text`
+    -   `tSr` to test if properties `type` is `string` and `subtype` is `rich`
+-   `tN` to test if property `type` is `number`
+    -   `tNi` to test if properties `type` is `number` and `subtype` is `integer`
+    -   `tNf` to test if properties `type` is `number` and `subtype` is `float`
+    -   `tNt` to test if properties `type` is `number` and `subtype` is `latitude`
+    -   `tNg` to test if properties `type` is `number` and `subtype` is `longitude`
+-   `tB` to test if property `type` is `boolean`
+-   `tD` to test if property `type` is `datetime`
+    -   `tDd` to test if properties `type` is `datetime` and `subtype` is `date`
+    -   `tDt` to test if properties `type` is `datetime` and `subtype` is `time`
+-   `tE` to test if property `type` is `entity`
 - `tO` to test if property `type` is `object`
 - `tF` to test if property `type` is `file`
     - `tFi` to test if properties `type` is `file` and `subtype` is `image`
@@ -124,44 +123,44 @@ Here is the list of short-codes available for a field:
     - `tFa` to test if properties `type` is `file` and `subtype` is `audio`
     - `tFd` to test if properties `type` is `file` and `subtype` is `document`
 
-This is the list of short-codes available for the properties of a model:
+Short-codes available for the properties of a model:
 
-- `pMHd` for the boolean property `mainlyHidden`
-- `pMIn` for the boolean property `mainlyInternal`
-- `pGeo` for the boolean property `isGeolocated`
-- `pGSe` for the boolean property `isGeoSearchable`
+-   `pMHd` for the boolean property `mainlyHidden`
+-   `pMIn` for the boolean property `mainlyInternal`
+-   `pGeo` for the boolean property `isGeolocated`
+-   `pGSe` for the boolean property `isGeoSearchable`
 
 #### Access controls
 
-For filtering an array or testing an action by its properties, use those short-codes:
+To filter an array or to test an action by its properties, use those short-codes:
 
-- `ad` for the boolean property `admin`
-- `ow` for the boolean property `owner`
-- `au` for the boolean property `auth`
-- `gs` for the boolean property `guest`
-- `[ad` for the boolean property `gteAdmin`
-- `[ow` for the boolean property `gteOwner`
-- `[au` for the boolean property `gteAuth`
-- `[gs` for the boolean property `gteGuest`
-- `ad]` for the boolean property `lteAdmin`
-- `ow]` for the boolean property `lteOwner`
-- `au]` for the boolean property `lteAuth`
-- `gs]` for the boolean property `lteGuest`
+-   `ad` for the boolean property `admin`
+-   `ow` for the boolean property `owner`
+-   `au` for the boolean property `auth`
+-   `gs` for the boolean property `guest`
+-   `[ad` for the boolean property `gteAdmin`
+-   `[ow` for the boolean property `gteOwner`
+-   `[au` for the boolean property `gteAuth`
+-   `[gs` for the boolean property `gteGuest`
+-   `ad]` for the boolean property `lteAdmin`
+-   `ow]` for the boolean property `lteOwner`
+-   `au]` for the boolean property `lteAuth`
+-   `gs]` for the boolean property `lteGuest`
 
-This is the list of short-codes available for the access' properties of a model:
+Short-codes available for the access' properties of a model:
 
-- `pOAd` for the boolean property `onlyAdmin`
-- `pOOw` for the boolean property `onlyOwner`
-- `pOAu` for the boolean property `onlyAuth`
-- `pOGs` for the boolean property `onlyGuest`
-- `pMAd` for the boolean property `maxAdmin`
-- `pMOw` for the boolean property `maxOwner`
-- `pMAu` for the boolean property `maxAuth`
-- `pMGs` for the boolean property `maxGuest`
-- `pNAd` for the boolean property `noAdmin`
-- `pNOw` for the boolean property `noOwner`
-- `pNAu` for the boolean property `noAuth`
-- `pNGs` for the boolean property `noGuest`
+-   `pOAd` for the boolean property `onlyAdmin`
+-   `pOOw` for the boolean property `onlyOwner`
+-   `pOAu` for the boolean property `onlyAuth`
+-   `pOGs` for the boolean property `onlyGuest`
+-   `pMAd` for the boolean property `maxAdmin`
+-   `pMOw` for the boolean property `maxOwner`
+-   `pMAu` for the boolean property `maxAuth`
+-   `pMGs` for the boolean property `maxGuest`
+-   `pNAd` for the boolean property `noAdmin`
+-   `pNOw` for the boolean property `noOwner`
+-   `pNAu` for the boolean property `noAuth`
+-   `pNGs` for the boolean property `noGuest`
 
 ### Structure
 
@@ -179,46 +178,47 @@ A complete conditional writing will look like this:
 <<?>>
 ```
 
-This code is equivalent to 
+Is equivalent to:
 
 ```javascript
 if (root.fields.list.filter(f => f.hidden).length >= 4) {
-    out += '    This model has at least 4 hidden fields';
-}
-else if (root.fields.list.filter(f => f.label || f.type === 'boolean').length >= 2) {
-    out += '    This model has at least 2 label or boolean fields';
-}
-else if (root.fields.primary.type === 'string') {
-    out += '    The primary key of the model is a string';
-}
-else {
-     out += '    Something else';
+	out += '    This model has at least 4 hidden fields';
+} else if (
+	root.fields.list.filter(f => f.label || f.type === 'boolean').length >= 2
+) {
+	out += '    This model has at least 2 label or boolean fields';
+} else if (root.fields.primary.type === 'string') {
+	out += '    The primary key of the model is a string';
+} else {
+	out += '    Something else';
 }
 ```
 
-#### Analysis of `<<?4 F hd>>`
+### Statements Analysis
 
-This is the **if** statement: `if (condition) {`.
+#### if
 
-- `<<?` is the opener.
-- `4` is the minimum length of the filtered array. This value is optional and only usable if the variable is an array. If omitted, we assume the required length is 1.
-- `F` is the variable to test. It can be and array or an object.
-- `hd` is the condition to test the object or the items of an array.
-- `>>` closes the tag
+`<<?4 F hd>>` is equivalent to: `if (condition) {`.
 
-#### Analysis of `<<??2 F lb+tB>>`
+-   `<<?` is the opener.
+-   `4` is the minimum length of the filtered array. This value is optional and only usable if the variable is an array. If omitted, we assume the required length is 1.
+-   `F` is the variable to test. It can be and array or an object.
+-   `hd` is the condition to test the object or the items of an array.
+-   `>>` closes the tag
 
-This is an **else if** statement: `} else if (condition) {`.
+#### else if
 
+`<<??2 F lb+tB>>` Js equivalent would be: `} else if (condition) {`.
 It follows the same rules as an **if** statement, unless its opener is `<<??`.
 
-#### Analysis of `<<??>>`
+#### else 
 
-This is an **else** statement: `} else {`.
+`<<??>>` is equivalent to: `} else {`.
 
-#### Analysis of `<<?>>`
+#### closer 
 
-This is the closer: `}`.
+`<<?>>` is equivalent to: `}`.
+
 
 ### Examples
 
@@ -232,10 +232,14 @@ This tests if the model has some searchable and sortable but not hidden fields
 <<?>>
 ```
 
-Is equivalent to
+Is equivalent to:
+
 ```javascript
-if (root.fields.list.filter(f => f.searchable && f.sortable && !f.hidden).length > 0) {
-    out += '...';
+if (
+	root.fields.list.filter(f => f.searchable && f.sortable && !f.hidden)
+		.length > 0
+) {
+	out += '...';
 }
 ```
 
@@ -247,10 +251,11 @@ if (root.fields.list.filter(f => f.searchable && f.sortable && !f.hidden).length
 <<?>>
 ```
 
-Is equivalent to
+Is equivalent to:
+
 ```javascript
 if (root.fields.list.length > 0) {
-    out += '.....';
+	out += '.....';
 }
 ```
 
@@ -264,10 +269,11 @@ Example to test if the model has at least two label fields
 <<?>>
 ```
 
-Is equivalent to
+Is equivalent to:
+
 ```javascript
 if (root.fields.list.filter(f => f.label).length >= 2) {
-    out += '.....';
+	out += '.....';
 }
 ```
 
@@ -281,10 +287,11 @@ Example to test if the update action is restricted to admin or owner
 <<?>>
 ```
 
-Is equivalent to
+Is equivalent to:
+
 ```javascript
 if (root.accesses.update.admin || root.accesses.update.owner) {
-    out += '.....';
+	out += '.....';
 }
 ```
 
@@ -298,16 +305,19 @@ Example to test if at least one action is restricted to authenticated user or le
 <<?>>
 ```
 
-Is equivalent to
+Is equivalent to:
+
 ```javascript
 if (root.accesses.filter(a => a.lteAuth).length > 0) {
-    out += '.....';
+	out += '.....';
 }
 ```
 
 ## Iteration operator
 
-The loop operation (foreach) is `@`. It applies only to an array.
+The loop operation (foreach) is `@`.
+
+It applies only to an array.
 It uses the same conditions syntax as the conditional operator.
 
 Actually, it inherits from the conditional operator.
@@ -320,7 +330,6 @@ Actually, it inherits from the conditional operator.
 ```
 
 The operators and the properties used in the condition are the same as for the conditional operator.
-
 This will loop over all fields of type entity and multiple and assign the current field to the variable `f`.
 
 ### Structure
@@ -333,28 +342,31 @@ A complete iteration will look like this:
 <<@>>
 ```
 
-This code is equivalent to 
+Is equivalent to:
 
 ```javascript
 for (let f of root.fields.list.filter(f => f.hidden).slice(0, 4)) {
-    out += '    Do something';
+	out += '    Do something';
 }
 ```
 
-#### Analysis of `<<@4 F hd>>`
+### Analysis
 
-This is the **loop** statement: `for (assigment + condition) {`.
+#### loop
 
-- `<<@` is the opener.
-- `4` is the maximum length of the filtered array. This value is optional. If omitted, we do not slice the filtered array.
-- `F` is the variable to filter and to loop on. It must be iterable.
-- `hd` is the condition to test the items of the array.
-- `f` is the assignment variable. This variable will be available inside the loop's scope.
-- `>>` closes the tag.
+`<<@4 F hd>>` is equivalent to: `for (assigment + condition) {`.
 
-#### Analysis of `<<@>>`
+-   `<<@` is the opener.
+-   `4` is the maximum length of the filtered array. This value is optional. If omitted, we do not slice the filtered array.
+-   `F` is the variable to filter and to loop on. It must be iterable.
+-   `hd` is the condition to test the items of the array.
+-   `f` is the assignment variable. This variable will be available inside the loop's scope.
+-   `>>` closes the tag.
 
-This is the closer: `}`.
+#### closer 
+
+`<<@>>` is equivalent to: `}`.
+
 
 ### Examples
 
@@ -369,9 +381,10 @@ To loop over model's searchable entity fields
 ```
 
 Is equivalent to
+
 ```javascript
 for (let f of root.fields.list.filter(f => f.searchable && f.type === 'entity')) {
-    out += '...';
+	out += '...';
 }
 ```
 
@@ -385,10 +398,11 @@ In the context of a multiple models template, this loops over all models that ar
 <<@>>
 ```
 
-Is equivalent to
+Is equivalent to:
+
 ```javascript
 for (let m of root.filter(i => i.properties.isGeolocated)) {
-    out += '.....';
+	out += '.....';
 }
 ```
 
@@ -402,10 +416,11 @@ This example will loop over the two first dependency models that have sortable f
 <<@>>
 ```
 
-Is equivalent to
+Is equivalent to:
+
 ```javascript
 for (let d of root.dependencies.filter(f => f.sortable).slice(0, 2)) {
-    out += '...';
+	out += '...';
 }
 ```
 
@@ -419,10 +434,11 @@ This will loop over all fields.
 <<@>>
 ```
 
-Is equivalent to
+Is equivalent to:
+
 ```javascript
-for(let f of root.fields.list) {
-    out += '.....';
+for (let f of root.fields.list) {
+	out += '.....';
 }
 ```
 
@@ -436,10 +452,11 @@ This will loop over all actions restricted to admin or owner.
 <<@>>
 ```
 
-Is equivalent to
+Is equivalent to:
+
 ```javascript
 for (let f of root.accesses.list.filter(a => a.admin || a.owner)) {
-    out += '...';
+	out += '...';
 }
 ```
 
@@ -462,16 +479,16 @@ Example for field's name as kebab:
 
 The values for the name are:
 
-- `aA` for `names.camel`
-- `AA` for `names.pascal`
-- `a` for `names.lower`
-- `A` for `names.capital`
-- `a-a` for `names.kebab`
-- `A-A` for `names.header`
-- `a_a` for `names.snake`
-- `A_A` for `names.constant`
-- `aa` for `names.compact`
-- `R` for `names.raw`
+-   `aA` for `names.camel`
+-   `AA` for `names.pascal`
+-   `a` for `names.lower`
+-   `A` for `names.capital`
+-   `a-a` for `names.kebab`
+-   `A-A` for `names.header`
+-   `a_a` for `names.snake`
+-   `A_A` for `names.constant`
+-   `aa` for `names.compact`
+-   `R` for `names.raw`
 
 ## Raw inputs
 
@@ -479,8 +496,8 @@ This operator allows you to write pure Javascript.
 
 ### Syntax
 
-- Opener: `<<<`
-- Closer: `>>>`
+-   Opener: `<<<`
+-   Closer: `>>>`
 
 Those tags are also escapable.
 
@@ -494,11 +511,13 @@ Therefore to concatenate a string to the template output, you have to write: `<<
 ### Examples
 
 Insert a custom variable:
+
 ```
 <<< const l = model.fields.length; >>>
 ```
 
 Declare a processing function:
+
 ```
 <<<
 function fieldName(f) {
@@ -516,7 +535,7 @@ It is useful to print the result of a custom function or the value of a custom v
 
 `<<= myFunction() >>` or `<<=customVariable>>`
 
-This is equivalent to write `<<< out += myFunction(); >>>`.
+This is equivalent to `<<< out += myFunction(); >>>`.
 
 ### Error
 
