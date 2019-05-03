@@ -75,3 +75,10 @@ lab.test('unit', async () => {
 	// Sub fields
 	expect(IterationPattern.execute('<<@ m.f f>>')).to.equal('`;\nfor (const f of m.f.filter((i) => i)) {\nout += `');
 });
+
+
+lab.test('fixes', async () => {
+
+	// Condition greater than 9
+	expect(IterationPattern.execute('<<@14 F !se f>>')).to.not.equal('<<@14 F !se f>>');
+});
