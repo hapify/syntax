@@ -1,6 +1,6 @@
 # Changelog
 
-## [Unreleased]
+## [0.4.1] - 2019-05-03
 
 ### Added
 
@@ -10,6 +10,7 @@
 - Add type `object`
 - Add type `file` with sub-types `image`, `video`, `audio` and `document`
 - Map `A-A` to header case rather than big case
+- Fix conditional pattern with more than 9
 
 ### Removed
 
