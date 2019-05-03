@@ -147,3 +147,11 @@ lab.test('unit', async () => {
 	expect(ConditionalPattern.execute('<<? M pNAu>>')).to.equal(conditionModel('i.accesses.properties.noAuth'));
 	expect(ConditionalPattern.execute('<<? M pNGs>>')).to.equal(conditionModel('i.accesses.properties.noGuest'));
 });
+
+
+lab.test('fixes', async () => {
+
+	// Condition greater than 9
+	expect(ConditionalPattern.execute('<<?14 F !se>>')).to.not.equal('<<?14 F !se>>');
+	expect(ConditionalPattern.execute('<<??14 F !se>>')).to.not.equal('<<??14 F !se>>');
+});
