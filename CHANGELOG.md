@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.4.2] - 2019-10-23
+
+### Added
+
+### Changed
+- Ran `npm audit fix` and update packages
+
+### Removed
+
 ## [0.4.1] - 2019-05-03
 
 ### Added
