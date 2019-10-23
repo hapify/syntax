@@ -97,7 +97,7 @@ module.exports = class HapifySyntax {
 				{
 					filename: 'hpf-generator.js',
 					timeout: this.options.timeout,
-					lineOffset: -1,
+					lineOffset: -3, // 1 from final + 2 from safer-eval
 					contextCodeGeneration: {
 						strings: false,
 						wasm: false
@@ -122,7 +122,7 @@ module.exports = class HapifySyntax {
 		const { lineNumber, columnNumber } = ErrorStackParser.parse(error)[0];
 		let errorIndex = lineColumn(this.template).toIndex(lineNumber, columnNumber);
 
-		// Reverse all acitons to find the line and column of the error in the input
+		// Reverse all actions to find the line and column of the error in the input
 		this.actions.reverse().forEach(action => {
 			if (errorIndex >= action.index) {
 				// The error is impacted only if the error is in or after the action
