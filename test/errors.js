@@ -14,6 +14,9 @@ const InputConditional = Fs.readFileSync(`${__dirname}/masks/error-conditional.h
 const InputIteration = Fs.readFileSync(`${__dirname}/masks/error-iteration.hpf`, 'utf8');
 const InputInterpolation = Fs.readFileSync(`${__dirname}/masks/error-interpolation.hpf`, 'utf8');
 const InputTimeout = Fs.readFileSync(`${__dirname}/masks/error-timeout.hpf`, 'utf8');
+const InputRequire = Fs.readFileSync(`${__dirname}/masks/error-require.hpf`, 'utf8');
+const InputImport = Fs.readFileSync(`${__dirname}/masks/error-import.hpf`, 'utf8');
+const InputGlobal = Fs.readFileSync(`${__dirname}/masks/error-global.hpf`, 'utf8');
 
 lab.test('run', async () => {
 	//Test input validity
@@ -114,4 +117,42 @@ lab.test('Trigger a timeout', async () => {
 		expect(err.code).to.be.a.number();
 		expect(Date.now() - start2).to.be.within(300, 320);
 	}
+});
+
+lab.test('Cannot use require', async () => {
+	//Test input validity
+	expect(InputRequire).to.be.a.string();
+	expect(Model).to.be.an.object();
+
+	try {
+		HapifySyntax.run(InputRequire, Model);
+		fail('This input needs to return an error');
+	} catch (err) {
+		expect(err).to.be.an.error(EvaluationError, 'require is not a function');
+		expect(err.code).to.be.a.number();
+		expect(err.lineNumber).to.be.a.number();
+		expect(err.columnNumber).to.be.a.number();
+		expect(err.details).to.be.equal('Error: require is not a function. Line: 5, Column: 1');
+	}
+});
+
+lab.test('Cannot use import', async () => {
+	//Test input validity
+	expect(InputImport).to.be.a.string();
+	expect(Model).to.be.an.object();
+
+	try {
+		HapifySyntax.run(InputImport, Model);
+		fail('This input needs to return an error');
+	} catch (err) {
+		expect(err).to.be.an.error(EvaluationError, 'Unexpected token *');
+		expect(err.details).to.be.equal('Error: Unexpected token *. Line: null, Column: null');
+	}
+});
+
+lab.test('Cannot use global objects', async () => {
+	//Test input validity
+	expect(InputGlobal).to.be.a.string();
+	expect(Model).to.be.an.object();
+	expect(HapifySyntax.run(InputGlobal, Model)).to.be.a.string();
 });

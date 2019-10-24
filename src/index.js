@@ -90,7 +90,8 @@ module.exports = class HapifySyntax {
 	/** Eval the generated script */
 	evaluate() {
 		// eslint-disable-line no-unused-vars
-		const final = `(function() {let out = \n\`${this.template}\`\n; return out;})()`;
+		const toHide = ['console'].map(s => `${s} = undefined; `).join('');
+		const final = `(function() {${toHide}let out = \n\`${this.template}\`\n; return out;})()`;
 		try {
 			return new SaferEval(
 				{ root: this.model },
