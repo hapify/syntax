@@ -3,9 +3,12 @@
 ## [0.4.2] - 2019-10-23
 
 ### Added
+- Add tests to check globals and import functions
+- Remove `console` from context
 
 ### Changed
 - Ran `npm audit fix` and update packages
+- Ran `npm upgrade` and upgrade packages
 
 ### Removed
 
