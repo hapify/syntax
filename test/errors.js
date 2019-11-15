@@ -128,11 +128,11 @@ lab.test('Cannot use require', async () => {
 		HapifySyntax.run(InputRequire, Model);
 		fail('This input needs to return an error');
 	} catch (err) {
-		expect(err).to.be.an.error(EvaluationError, 'require is not a function');
+		expect(err).to.be.an.error(EvaluationError, 'require is not defined');
 		expect(err.code).to.be.a.number();
 		expect(err.lineNumber).to.be.a.number();
 		expect(err.columnNumber).to.be.a.number();
-		expect(err.details).to.be.equal('Error: require is not a function. Line: 5, Column: 1');
+		expect(err.details).to.be.equal('Error: require is not defined. Line: 5, Column: 1');
 	}
 });
 

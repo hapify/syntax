@@ -46,11 +46,11 @@ By default, in a case of a single model template:
 -   `P` refers to the models primary field: `root.fileds.primary`
 -   `A` refers to the action's accesses list: `root.accesses.list`
 -   `Ac` refers to the create action's access: `root.accesses.create`
--   `Ar` refers to the create action's access: `root.accesses.read`
--   `Au` refers to the create action's access: `root.accesses.update`
--   `Ad` refers to the create action's access: `root.accesses.remove`
--   `As` refers to the create action's access: `root.accesses.search`
--   `An` refers to the create action's access: `root.accesses.count`
+-   `Ar` refers to the read action's access: `root.accesses.read`
+-   `Au` refers to the update action's access: `root.accesses.update`
+-   `Ad` refers to the delete (remove) action's access: `root.accesses.remove`
+-   `As` refers to the search action's access: `root.accesses.search`
+-   `An` refers to the count action's access: `root.accesses.count`
 
 ## Conditional operator
 
@@ -84,7 +84,7 @@ Therefore, `-se*so` and `/se*so` are equivalent to `!se*so`.
 
 ### Properties short-codes
 
-To filter an array or to testi a field by its properties, we use short-codes.
+To filter an array or to test a field by its properties, we use short-codes.
 
 Short-codes available for a field:
 
