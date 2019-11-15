@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.4.3] - 2019-11-14
+
+### Added
+
+### Changed
+- Use `Hapify-VM` to run code safely
+
+### Removed
+
 ## [0.4.2] - 2019-10-23
 
 ### Added
