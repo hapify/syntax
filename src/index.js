@@ -2,9 +2,8 @@
 
 const { ArgumentsError, EvaluationError, TimeoutError } = require('./errors');
 const Patterns = require('./patterns');
-const { SaferEval } = require('safer-eval');
+const { HapifyVM } = require('hapify-vm');
 const lineColumn = require('line-column');
-const ErrorStackParser = require('error-stack-parser');
 const Hoek = require('hoek');
 
 /** @type {BasePattern[]} Ordered patterns */
@@ -90,36 +89,31 @@ module.exports = class HapifySyntax {
 	/** Eval the generated script */
 	evaluate() {
 		// eslint-disable-line no-unused-vars
-		const final = `(function() {let out = \n\`${this.template}\`\n; return out;})()`;
+		// Cannot inject object with key root in context.
+		const script = `const root = _root; let out = \n\`${this.template}\`\n; return out;`;
 		try {
-			return new SaferEval(
-				{ root: this.model, console: undefined },
-				{
-					filename: 'hpf-generator.js',
-					timeout: this.options.timeout,
-					lineOffset: -3, // 1 from final + 2 from safer-eval
-					contextCodeGeneration: {
-						strings: false,
-						wasm: false
-					}
-				}
-			).runInContext(final);
+			return new HapifyVM({ timeout: this.options.timeout }).run(script, { _root: this.model });
 		} catch (error) {
-			this._log(`[HapifySyntax._eval] An error occurred during evaluation\n\n${error}\n\n${final}`);
-			if (error.message === 'Script execution timed out.') {
+			this._log(`[HapifySyntax._eval] An error occurred during evaluation\n\n${error}\n\n${script}`);
+			if (error.code === 6003) {
 				throw new TimeoutError(`Template processing timed out (${this.options.timeout}ms)`);
 			}
-			throw this.getReversedActionError(error);
+			if (error.code === 6002) {
+				throw this.getReversedActionError(error, -1);
+			}
+			throw error;
 		}
 	}
 
 	/**
 	 * Reverse all action to find the error line and column in the input file
 	 * @param {*} error
+	 * @param {number} lineOffset
 	 */
-	getReversedActionError(error) {
+	getReversedActionError(error, lineOffset = 0) {
 		// Get the line and column of the error
-		const { lineNumber, columnNumber } = ErrorStackParser.parse(error)[0];
+		const lineNumber = typeof error.lineNumber === 'number' ? error.lineNumber + lineOffset: 0;
+		const columnNumber = typeof error.columnNumber === 'number' ? error.columnNumber : 0;
 		let errorIndex = lineColumn(this.template).toIndex(lineNumber, columnNumber);
 
 		// Reverse all actions to find the line and column of the error in the input
