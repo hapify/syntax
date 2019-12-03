@@ -1,5 +1,14 @@
 # Changelog
 
+## [unreleased]
+
+### Added
+- Handle single back-slash char in templates
+
+### Changed
+
+### Removed
+
 ## [0.4.3] - 2019-11-14
 
 ### Added

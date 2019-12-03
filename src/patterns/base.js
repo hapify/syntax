@@ -28,12 +28,15 @@ out += \``;
 	}
 
 	/**
-	 * Reverse escape quotes `
+	 * Reverse escape signs ` $ \ escaped by EscapeQuotesPattern & EscapeBackSlashesPattern
 	 * @param {string} code
 	 * @return {string}
 	 */
 	_unescape(code) {
-		return code.replace(/\\`/g, '`').replace(/\\\$/g, '$');
+		return code
+			.replace(/\\\\/g, '\\')
+			.replace(/\\`/g, '`')
+			.replace(/\\\$/g, '$');
 	}
 
 	/**
@@ -50,7 +53,7 @@ out += \``;
 			const match = params[0];
 			const offset = params[params.length - 2];
 
-			const replaceString = typeof replace === 'function' ? replace.apply(null, params) : replace;
+			const replaceString = typeof replace === 'function' ? replace.apply(null, params) : match.replace(regexp, replace);
 
 			// Save the impact of this replace
 			this.parent.actions.push({

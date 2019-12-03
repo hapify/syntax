@@ -6,6 +6,6 @@ const BasePattern = require('./base');
 module.exports = class EscapeQuotesPattern extends BasePattern {
 	/** Parser method */
 	execute() {
-		this._replace(/`/g, '\\`')._replace(/\$/g, '\\$');
+		this._replace(/\$/g, '\\$')._replace(/`/g, '\\`');
 	}
 };

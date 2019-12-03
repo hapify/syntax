@@ -8,6 +8,7 @@ const Hoek = require('hoek');
 
 /** @type {BasePattern[]} Ordered patterns */
 const PatternsStack = [
+	Patterns.EscapeBackSlashes,
 	Patterns.EscapeQuotes,
 	Patterns.Comment,
 	Patterns.NameInterpolation,
