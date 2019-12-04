@@ -6,6 +6,6 @@ const BasePattern = require('./base');
 module.exports = class EscapeBackSlashesPattern extends BasePattern {
 	/** Parser method */
 	execute() {
-		this._replace(/\\([^<>]|<<|$)/g, '\\\\$1');
+		this._replace(/([\\]+)([^<>]|<<|$)/g, '$1$1$2');
 	}
 };

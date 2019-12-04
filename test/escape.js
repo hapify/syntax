@@ -6,6 +6,7 @@ const Lab = require('lab');
 const lab = (exports.lab = Lab.script());
 const HapifySyntax = require('../src');
 const EscapePattern = require('../src/patterns/escape');
+const EscapeBackSlashesPattern = require('../src/patterns/escape-back-slashes');
 
 const Model = require('./models/video.json');
 const Input = Fs.readFileSync(`${__dirname}/masks/escape.hpf`, 'utf8');
@@ -23,4 +24,11 @@ lab.test('run', async () => {
 lab.test('unit', async () => {
 	expect(EscapePattern.execute('\\<\\<should\\>\\>')).to.equal('<<should>>');
 	expect(EscapePattern.execute('<\\<\\<should>\\>\\>')).to.equal('<<<should>>>');
+});
+
+lab.test('unit back-slashes', async () => {
+	expect(EscapeBackSlashesPattern.execute('\\')).to.equal('\\\\');
+	expect(EscapeBackSlashesPattern.execute('\\\n')).to.equal('\\\\\n');
+	expect(EscapeBackSlashesPattern.execute('\\\\')).to.equal('\\\\\\\\');
+	expect(EscapeBackSlashesPattern.execute('\\\\\n')).to.equal('\\\\\\\\\n');
 });
