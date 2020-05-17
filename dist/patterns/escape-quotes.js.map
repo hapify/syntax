@@ -1,0 +1,1 @@
+{"version":3,"file":"escape-quotes.js","sourceRoot":"","sources":["../../src/patterns/escape-quotes.js"],"names":[],"mappings":"AAAA,YAAY,CAAC;AAEb,MAAM,WAAW,GAAG,OAAO,CAAC,QAAQ,CAAC,CAAC;AAEtC,wDAAwD;AACxD,MAAM,CAAC,OAAO,GAAG,MAAM,mBAAoB,SAAQ,WAAW;IAC7D,oBAAoB;IACpB,OAAO;QACN,IAAI,CAAC,QAAQ,CAAC,KAAK,EAAE,KAAK,CAAC,CAAC,QAAQ,CAAC,IAAI,EAAE,KAAK,CAAC,CAAC;IACnD,CAAC;CACD,CAAC"}
