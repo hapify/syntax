@@ -1,22 +1,22 @@
-export class InternalError extends Error {
-    constructor(message: any);
+export declare class InternalError extends Error {
     code: number;
+    name: string;
 }
-export class ArgumentsError extends Error {
-    constructor(message: any);
+export declare class ArgumentsError extends Error {
     code: number;
+    name: string;
 }
-export class ParsingError extends Error {
-    constructor(message: any);
+export declare class ParsingError extends Error {
     code: number;
+    name: string;
 }
-export class EvaluationError extends Error {
-    constructor(message: any);
+export declare class EvaluationError extends Error {
     code: number;
-    lineNumber: any;
-    columnNumber: any;
+    name: string;
+    lineNumber: number;
+    columnNumber: number;
 }
-export class TimeoutError extends Error {
-    constructor(message: any);
+export declare class TimeoutError extends Error {
+    name: string;
     code: number;
 }

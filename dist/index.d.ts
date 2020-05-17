@@ -31,7 +31,7 @@ declare class HapifySyntax {
      * @param {*} error
      * @param {number} lineOffset
      */
-    getReversedActionError(error: any, lineOffset?: number): any;
+    getReversedActionError(error: any, lineOffset?: number): import("./errors").EvaluationError;
     /**
      * Log something
      * @private
