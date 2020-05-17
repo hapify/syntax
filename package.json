@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/tractrs/hapify-syntax.git"
+    "url": "git+ssh://git@github.com:hapify/syntax.git"
   },
   "keywords": [
     "hapify",
@@ -18,7 +18,7 @@
   ],
   "author": "Edouard Demotes-Mainard",
   "license": "MIT",
-  "homepage": "https://bitbucket.org/tractrs/hapify-syntax#readme",
+  "homepage": "https://github.com/hapify/syntax#readme",
   "devDependencies": {
     "@hapi/code": "^8.0.1",
     "@hapi/lab": "^22.0.4",
