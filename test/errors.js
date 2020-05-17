@@ -117,7 +117,7 @@ describe('errors', () => {
 			expect(err.code).to.be.a.number();
 			expect(Date.now() - start2).to.be.within(300, 320);
 		}
-	});
+	}).slow(4000);
 
 	it('Cannot use require', async () => {
 		//Test input validity
@@ -145,8 +145,8 @@ describe('errors', () => {
 			HapifySyntax.run(InputImport, Model);
 			fail('This input needs to return an error');
 		} catch (err) {
-			expect(err).to.be.an.error(EvaluationError, 'Unexpected token *');
-			expect(err.details).to.be.equal('Error: Unexpected token *. Line: null, Column: null');
+			expect(err).to.be.an.error(EvaluationError, 'Cannot use import statement outside a module');
+			expect(err.details).to.be.equal('Error: Cannot use import statement outside a module. Line: null, Column: null');
 		}
 	});
 
