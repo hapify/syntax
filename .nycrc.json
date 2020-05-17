@@ -1,0 +1,23 @@
+{
+  "reporter": [
+    "lcov",
+    "text-summary"
+  ],
+  "extension": [
+    ".js"
+  ],
+  "include": [
+    "src/**/*.js"
+  ],
+  "exclude": [
+    "dist",
+    "test/**/*.js"
+  ],
+  "require": [
+    "ts-node/register"
+  ],
+  "sourceMap": true,
+  "instrument": true,
+  "check-coverage": true,
+  "cache": true
+}

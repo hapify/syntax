@@ -1,9 +1,8 @@
 'use strict';
 
 const Fs = require('fs');
-const { expect } = require('code');
-const Lab = require('lab');
-const lab = (exports.lab = Lab.script());
+const { expect } = require('@hapi/code');
+require('mocha');
 const HapifySyntax = require('../src');
 const EvaluatePattern = require('../src/patterns/evaluate');
 
@@ -11,17 +10,19 @@ const Model = require('./models/video.json');
 const Input = Fs.readFileSync(`${__dirname}/masks/evaluate.hpf`, 'utf8');
 const Output = Fs.readFileSync(`${__dirname}/output/evaluate.txt`, 'utf8');
 
-lab.test('run', async () => {
-	//Test input validity
-	expect(Input).to.be.a.string();
-	expect(Output).to.be.a.string();
-	expect(Model).to.be.an.object();
+describe('evaluate', () => {
+	it('run', async () => {
+		//Test input validity
+		expect(Input).to.be.a.string();
+		expect(Output).to.be.a.string();
+		expect(Model).to.be.an.object();
 
-	expect(HapifySyntax.run(Input, Model)).to.equal(Output);
-});
+		expect(HapifySyntax.run(Input, Model)).to.equal(Output);
+	});
 
-lab.test('unit', async () => {
-	// Names
-	expect(EvaluatePattern.execute('<<<this should be there>>>')).to.equal('`;\nthis should be there\nout += `');
-	expect(EvaluatePattern.execute('<<<[   this should be there with spaces    ]>>>')).to.equal('`;\n[   this should be there with spaces    ]\nout += `');
+	it('unit', async () => {
+		// Names
+		expect(EvaluatePattern.execute('<<<this should be there>>>')).to.equal('`;\nthis should be there\nout += `');
+		expect(EvaluatePattern.execute('<<<[   this should be there with spaces    ]>>>')).to.equal('`;\n[   this should be there with spaces    ]\nout += `');
+	});
 });

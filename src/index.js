@@ -4,7 +4,7 @@ const { ArgumentsError, EvaluationError, TimeoutError } = require('./errors');
 const Patterns = require('./patterns');
 const { HapifyVM } = require('hapify-vm');
 const lineColumn = require('line-column');
-const Hoek = require('hoek');
+const Hoek = require('@hapi/hoek');
 
 /** @type {BasePattern[]} Ordered patterns */
 const PatternsStack = [
@@ -16,7 +16,7 @@ const PatternsStack = [
 	Patterns.Conditional,
 	Patterns.Iteration,
 	Patterns.Evaluate,
-	Patterns.Escape
+	Patterns.Escape,
 ];
 
 /**
@@ -26,7 +26,7 @@ const PatternsStack = [
  */
 /** @type {Options} */
 const DefaultOptions = {
-	timeout: 1000
+	timeout: 1000,
 };
 
 /** @type {HapifySyntax} Syntax parser */
@@ -44,7 +44,7 @@ module.exports = class HapifySyntax {
 		/** @type {{}[]} */
 		this.actions = [];
 		/** @type {BasePattern[]} */
-		this.patterns = PatternsStack.map(Pattern => new Pattern(this));
+		this.patterns = PatternsStack.map((Pattern) => new Pattern(this));
 	}
 
 	/**
@@ -113,12 +113,12 @@ module.exports = class HapifySyntax {
 	 */
 	getReversedActionError(error, lineOffset = 0) {
 		// Get the line and column of the error
-		const lineNumber = typeof error.lineNumber === 'number' ? error.lineNumber + lineOffset: 0;
+		const lineNumber = typeof error.lineNumber === 'number' ? error.lineNumber + lineOffset : 0;
 		const columnNumber = typeof error.columnNumber === 'number' ? error.columnNumber : 0;
 		let errorIndex = lineColumn(this.template).toIndex(lineNumber, columnNumber);
 
 		// Reverse all actions to find the line and column of the error in the input
-		this.actions.reverse().forEach(action => {
+		this.actions.reverse().forEach((action) => {
 			if (errorIndex >= action.index) {
 				// The error is impacted only if the error is in or after the action
 				if (errorIndex <= action.index + action.after && action.after !== 0) {
