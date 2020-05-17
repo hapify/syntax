@@ -4,8 +4,9 @@
   "description": "Templating syntax optimized for Hapify models handling.",
   "main": "src/index.js",
   "scripts": {
+    "update": "npm-check -u",
     "test": "lab test",
-    "lint": "./node_modules/.bin/prettier --write '**/*.js'"
+    "lint": "prettier --write '**/*.js'"
   },
   "repository": {
     "type": "git",
@@ -16,16 +17,23 @@
     "syntax"
   ],
   "author": "Edouard Demotes-Mainard",
-  "license": "ISC",
+  "license": "MIT",
   "homepage": "https://bitbucket.org/tractrs/hapify-syntax#readme",
   "devDependencies": {
-    "code": "^5.2.4",
-    "lab": "^15.5.0",
-    "prettier": "^1.18.2"
+    "@hapi/code": "^8.0.1",
+    "@hapi/lab": "^22.0.4",
+    "npm-check": "^5.9.2",
+    "prettier": "^2.0.5",
+    "pretty-quick": "^2.0.1"
   },
   "dependencies": {
     "hapify-vm": "github:hapify/vm#v0.3.0",
     "hoek": "^6.1.3",
     "line-column": "^1.0.2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged --pattern \"**/*.js\""
+    }
   }
 }
