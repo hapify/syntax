@@ -145,7 +145,7 @@ describe('conditional', () => {
 		expect(ConditionalPattern.execute('<<? M pNOw>>')).to.equal(conditionModel('i.accesses.properties.noOwner'));
 		expect(ConditionalPattern.execute('<<? M pNAu>>')).to.equal(conditionModel('i.accesses.properties.noAuth'));
 		expect(ConditionalPattern.execute('<<? M pNGs>>')).to.equal(conditionModel('i.accesses.properties.noGuest'));
-	});
+	}).slow(200);
 
 	it('fixes', async () => {
 		// Condition greater than 9
