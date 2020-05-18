@@ -13,8 +13,7 @@ class IterationPattern extends conditional_1.ConditionalPattern {
         this.replace(ForPattern, (match, count, variable, condition, assignment) => {
             const jsFilter = this.filter(count, this.variable(variable), this.tester(condition));
             return this.dynamic(`for (const ${assignment} of ${jsFilter}) {`);
-        })
-            .replace(EndPattern, () => this.dynamic('}'));
+        }).replace(EndPattern, () => this.dynamic('}'));
     }
     /** Returns the array filter */
     filter(count, variable, tester) {

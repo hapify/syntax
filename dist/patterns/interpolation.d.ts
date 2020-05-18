@@ -1,4 +1,4 @@
-import { BasePattern } from "./base";
+import { BasePattern } from './base';
 /** Interpolation pattern */
 export declare class InterpolationPattern extends BasePattern {
     /** Parser method */

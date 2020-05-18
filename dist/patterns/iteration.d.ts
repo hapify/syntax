@@ -1,4 +1,4 @@
-import { ConditionalPattern } from "./conditional";
+import { ConditionalPattern } from './conditional';
 /** Conditional pattern */
 export declare class IterationPattern extends ConditionalPattern {
     /** Parser method */

@@ -1,4 +1,4 @@
-import { NumberedError } from "./interfaces";
+import { NumberedError } from './interfaces';
 export declare class InternalError extends Error implements NumberedError {
     code: number;
     name: string;

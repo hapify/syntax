@@ -1,4 +1,4 @@
-import { BasePattern } from "./base";
+import { BasePattern } from './base';
 /** Escape quotes pattern */
 export declare class EscapeQuotesPattern extends BasePattern {
     /** Parser method */

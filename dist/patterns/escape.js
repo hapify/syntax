@@ -5,12 +5,12 @@ const base_1 = require("./base");
 /** Start pattern and replacer */
 const Start = {
     find: /\\<\\</g,
-    replace: '<<'
+    replace: '<<',
 };
 /** end pattern and replacer */
 const End = {
     find: /\\>\\>/g,
-    replace: '>>'
+    replace: '>>',
 };
 /** Escape pattern */
 class EscapePattern extends base_1.BasePattern {

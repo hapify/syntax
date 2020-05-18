@@ -1,4 +1,4 @@
-import { BasePattern } from "./base";
+import { BasePattern } from './base';
 /** Conditional pattern */
 export declare class ConditionalPattern extends BasePattern {
     /** Parser method */

@@ -1,5 +1,5 @@
-import { HapifySyntax } from "../index";
-import { ReplacementCallback } from "../interfaces";
+import { HapifySyntax } from '../index';
+import { ReplacementCallback } from '../interfaces';
 /** Abstract base pattern */
 export declare class BasePattern {
     private parent;

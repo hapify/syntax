@@ -1,4 +1,4 @@
-import { Action, ModelInput, Options } from "./interfaces";
+import { Action, ModelInput, Options } from './interfaces';
 /** @type {HapifySyntax} Syntax parser */
 export declare class HapifySyntax {
     template: string;

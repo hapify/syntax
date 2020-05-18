@@ -35,7 +35,7 @@ const Replacements = [
     { search: 'tSe', replace: "(i.type === 'string' && i.subtype === 'email')" },
     {
         search: 'tSp',
-        replace: "(i.type === 'string' && i.subtype === 'password')"
+        replace: "(i.type === 'string' && i.subtype === 'password')",
     },
     { search: 'tSu', replace: "(i.type === 'string' && i.subtype === 'url')" },
     { search: 'tSt', replace: "(i.type === 'string' && i.subtype === 'text')" },
@@ -44,16 +44,16 @@ const Replacements = [
     // Fields types for number
     {
         search: 'tNi',
-        replace: "(i.type === 'number' && i.subtype === 'integer')"
+        replace: "(i.type === 'number' && i.subtype === 'integer')",
     },
     { search: 'tNf', replace: "(i.type === 'number' && i.subtype === 'float')" },
     {
         search: 'tNt',
-        replace: "(i.type === 'number' && i.subtype === 'latitude')"
+        replace: "(i.type === 'number' && i.subtype === 'latitude')",
     },
     {
         search: 'tNg',
-        replace: "(i.type === 'number' && i.subtype === 'longitude')"
+        replace: "(i.type === 'number' && i.subtype === 'longitude')",
     },
     { search: 'tN', replace: "(i.type === 'number')" },
     // Fields types for boolean
@@ -102,7 +102,7 @@ const Replacements = [
     { search: 'pNAd', replace: 'i.accesses.properties.noAdmin' },
     { search: 'pNOw', replace: 'i.accesses.properties.noOwner' },
     { search: 'pNAu', replace: 'i.accesses.properties.noAuth' },
-    { search: 'pNGs', replace: 'i.accesses.properties.noGuest' }
+    { search: 'pNGs', replace: 'i.accesses.properties.noGuest' },
 ];
 /** Convert replacement search for regexp */
 const ForRegExp = (r) => `${r.escape ? '\\' : ''}${r.search}`;
@@ -141,8 +141,8 @@ class ConditionalPattern extends base_1.BasePattern {
         const trimmed = condition.trim();
         if (typeof Testers[trimmed] === 'undefined') {
             const condition = trimmed
-                .replace(Condition, match => {
-                const replacement = Replacements.find(l => l.search === match);
+                .replace(Condition, (match) => {
+                const replacement = Replacements.find((l) => l.search === match);
                 if (!replacement) {
                     throw new errors_1.InternalError(`[ConditionalPattern.tester] Cannot find condition replacement for match: ${match} (in :${trimmed})`);
                 }

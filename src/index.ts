@@ -75,14 +75,14 @@ export class HapifySyntax {
 	}
 
 	/** Execute all patterns to convert hpf to js */
-	private parse() {
+	private parse(): void {
 		for (const pattern of this.patterns) {
 			pattern.execute();
 		}
 	}
 
 	/** Eval the generated script */
-	private evaluate() {
+	private evaluate(): string {
 		// eslint-disable-line no-unused-vars
 		// Cannot inject object with key root in context.
 		const script = `const root = _root; let out = \n\`${this.template}\`\n; return out;`;
@@ -100,7 +100,7 @@ export class HapifySyntax {
 	}
 
 	/** Reverse all action to find the error line and column in the input file */
-	private getReversedActionError(error: VMEvaluationError, lineOffset = 0) {
+	private getReversedActionError(error: VMEvaluationError, lineOffset = 0): EvaluationError {
 		// Get the line and column of the error
 		const lineNumber = typeof error.lineNumber === 'number' ? error.lineNumber + lineOffset : 0;
 		const columnNumber = typeof error.columnNumber === 'number' ? error.columnNumber : 0;

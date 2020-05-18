@@ -22,10 +22,7 @@ out += \``;
     }
     /** Reverse escape signs ` $ \ escaped by EscapeQuotesPattern & EscapeBackSlashesPattern */
     unescape(code) {
-        return code
-            .replace(/\\\\/g, '\\')
-            .replace(/\\`/g, '`')
-            .replace(/\\\$/g, '$');
+        return code.replace(/\\\\/g, '\\').replace(/\\`/g, '`').replace(/\\\$/g, '$');
     }
     /** Perform a regex replacement and saves the actions made on the string */
     replace(regexp, replace) {
@@ -39,7 +36,7 @@ out += \``;
                 index: patternOffset + offset,
                 lineColumn: line_column_1.default(this.parent.template).fromIndex(patternOffset + offset),
                 before: match.length,
-                after: replaceString.length
+                after: replaceString.length,
             });
             patternOffset += replaceString.length - match.length;
             return replaceString;

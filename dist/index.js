@@ -46,7 +46,7 @@ const PatternsStack = [
     conditional_1.ConditionalPattern,
     iteration_1.IterationPattern,
     evaluate_1.EvaluatePattern,
-    escape_1.EscapePattern
+    escape_1.EscapePattern,
 ];
 const DefaultOptions = {
     timeout: 1000,
