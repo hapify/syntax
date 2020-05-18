@@ -1,8 +1,6 @@
-export = CommentPattern;
-declare const CommentPattern_base: {
-    new (parent: any): import("./base");
-    execute(template: string): string;
-};
-declare class CommentPattern extends CommentPattern_base {
-    constructor(parent: any);
+import { BasePattern } from "./base";
+/** Comment pattern */
+export declare class CommentPattern extends BasePattern {
+    /** Parser method */
+    execute(): void;
 }

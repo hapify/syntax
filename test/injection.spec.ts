@@ -1,14 +1,12 @@
 'use strict';
 
-const Fs = require('fs');
-const { expect } = require('@hapi/code');
-require('mocha');
-const HapifySyntax = require('../src');
-const EvaluatePattern = require('../src/patterns/evaluate');
+import * as Fs from 'fs';
+import { expect } from '@hapi/code';
+import 'mocha';
+import { HapifySyntax } from '../src';
 
 const Model = require('./models/video.json');
 const Input = Fs.readFileSync(`${__dirname}/masks/injection.hpf`, 'utf8');
-const Output = Fs.readFileSync(`${__dirname}/output/evaluate.txt`, 'utf8');
 
 describe('injection', () => {
 	it('run', async () => {

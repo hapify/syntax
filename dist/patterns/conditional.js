@@ -1,18 +1,18 @@
 'use strict';
-/* eslint-disable object-curly-newline */
-/* eslint-disable object-property-newline */
-const BasePattern = require('./base');
-const { InternalError } = require('../errors');
-/** @type {RegExp} if () { pattern */
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ConditionalPattern = void 0;
+const base_1 = require("./base");
+const errors_1 = require("../errors");
+/** if () { pattern */
 const IfPattern = /<<\?(\d+)?\s+([a-zA-Z_.]+)(\s+[a-zA-Z()[\]!+*\-/]+)?\s*>>/g;
-/** @type {RegExp} else if () { pattern */
+/** else if () { pattern */
 const ElseIfPattern = /<<\?\?(\d+)?\s+([a-zA-Z_.]+)(\s+[a-zA-Z()[\]!+*\-/]+)?\s*>>/g;
-/** @type {RegExp} else pattern */
+/** else pattern */
 const ElsePattern = /<<\?\?>>/g;
-/** @type {RegExp} } pattern */
+/** } pattern */
 const EndPattern = /<<\?>>/g;
-/** @type {[{}]} Conditions short codes & operators */
-const Repalcements = [
+/** Conditions short codes & operators */
+const Replacements = [
     // Operators
     { search: '*', replace: ' && ', escape: true },
     { search: '/', replace: ' && !', escape: true },
@@ -104,63 +104,47 @@ const Repalcements = [
     { search: 'pNAu', replace: 'i.accesses.properties.noAuth' },
     { search: 'pNGs', replace: 'i.accesses.properties.noGuest' }
 ];
-/** @type {Function} Convert replacement search for regexp */
-const ForRegExp = r => `${r.escape ? '\\' : ''}${r.search}`;
-/** @type {RegExp} Dynamic regex for replacements */
-const Condition = new RegExp(`(${Repalcements.map(ForRegExp).join('|')})`, 'g');
-/** @type {[]} Testers caching */
+/** Convert replacement search for regexp */
+const ForRegExp = (r) => `${r.escape ? '\\' : ''}${r.search}`;
+/** Dynamic regex for replacements */
+const Condition = new RegExp(`(${Replacements.map(ForRegExp).join('|')})`, 'g');
+/** Testers caching */
 const Testers = {};
-/** @type {ConditionalPattern} Conditional pattern */
-module.exports = class ConditionalPattern extends BasePattern {
+/** Conditional pattern */
+class ConditionalPattern extends base_1.BasePattern {
     /** Parser method */
     execute() {
-        this._replace(IfPattern, (match, _count, _variable, _condition) => {
-            // Get the full syntax
-            const variable = this._variable(_variable);
-            const tester = this._tester(_condition);
-            const condition = this._condition(_count, variable, tester);
-            return this._dynamic(`if (${condition}) {`);
+        this.replace(IfPattern, (match, count, variable, condition) => {
+            const jsCondition = this.condition(count, this.variable(variable), this.tester(condition));
+            return this.dynamic(`if (${jsCondition}) {`);
         })
-            ._replace(ElseIfPattern, (match, _count, _variable, _condition) => {
-            // Get the full syntax
-            const variable = this._variable(_variable);
-            const tester = this._tester(_condition);
-            const condition = this._condition(_count, variable, tester);
-            return this._dynamic(`} else if (${condition}) {`);
+            .replace(ElseIfPattern, (match, count, variable, condition) => {
+            const jsCondition = this.condition(count, this.variable(variable), this.tester(condition));
+            return this.dynamic(`} else if (${jsCondition}) {`);
         })
-            ._replace(ElsePattern, () => this._dynamic('} else {'))
-            ._replace(EndPattern, () => this._dynamic('}'));
+            .replace(ElsePattern, () => this.dynamic('} else {'))
+            .replace(EndPattern, () => this.dynamic('}'));
     }
-    /**
-     * Returns the full condition to be injected in the 'if' statement
-     * @param {string} _count
-     * @param {string} variable
-     * @param {string} tester
-     * @return {string}
-     */
-    _condition(_count, variable, tester) {
-        const threshold = typeof _count === 'undefined' ? 0 : _count - 1;
+    /** Returns the full condition to be injected in the 'if' statement */
+    condition(count, variable, tester) {
+        const threshold = typeof count === 'undefined' ? 0 : Number(count) - 1;
         const arrayTest = `(${variable}.filter && ${variable}.filter${tester}.length > ${threshold})`;
         const objectTest = `(!(${variable}.filter) && ${tester}(${variable}))`;
         return `${arrayTest} || ${objectTest}`;
     }
-    /**
-     * Convert the condition short code to tester method
-     * @param {string} _condition
-     * @return {string}
-     */
-    _tester(_condition) {
-        // Short exit
-        if (typeof _condition === 'undefined') {
+    /** Convert the condition short code to tester method */
+    tester(condition) {
+        // Quick exit
+        if (typeof condition === 'undefined') {
             return '((i) => i)';
         }
-        const trimed = _condition.trim();
-        if (typeof Testers[trimed] === 'undefined') {
-            const condition = trimed
+        const trimmed = condition.trim();
+        if (typeof Testers[trimmed] === 'undefined') {
+            const condition = trimmed
                 .replace(Condition, match => {
-                const replacement = Repalcements.find(l => l.search === match);
+                const replacement = Replacements.find(l => l.search === match);
                 if (!replacement) {
-                    throw new InternalError(`[ConditionalPattern._condition] Cannot find condition replacement for match: ${match} (in :${trimed})`);
+                    throw new errors_1.InternalError(`[ConditionalPattern.tester] Cannot find condition replacement for match: ${match} (in :${trimmed})`);
                 }
                 return replacement.replace;
             })
@@ -168,43 +152,39 @@ module.exports = class ConditionalPattern extends BasePattern {
                 .replace(/^&&/g, '')
                 .replace(/^\|\|/g, '')
                 .trim();
-            Testers[trimed] = `((i) => ${condition})`;
+            Testers[trimmed] = `((i) => ${condition})`;
         }
-        return Testers[trimed];
+        return Testers[trimmed];
     }
-    /**
-     * Convert the input variable to the real variable
-     * @param {string} _variable
-     * @return {string}
-     */
-    _variable(_variable) {
-        let variable = _variable;
+    /** Convert the input variable to the real variable */
+    variable(variable) {
         if (variable === 'M')
-            variable = 'root';
+            return 'root';
         else if (variable === 'F')
-            variable = 'root.fields.list';
+            return 'root.fields.list';
         else if (variable === 'D')
-            variable = 'root.dependencies';
+            return 'root.dependencies';
         else if (variable === 'R')
-            variable = 'root.referencedIn';
+            return 'root.referencedIn';
         else if (variable === 'P')
-            variable = 'root.fields.primary';
+            return 'root.fields.primary';
         // Accesses
         else if (variable === 'A')
-            variable = 'root.accesses.list';
+            return 'root.accesses.list';
         else if (variable === 'Ac')
-            variable = 'root.accesses.create';
+            return 'root.accesses.create';
         else if (variable === 'Ar')
-            variable = 'root.accesses.read';
+            return 'root.accesses.read';
         else if (variable === 'Au')
-            variable = 'root.accesses.update';
+            return 'root.accesses.update';
         else if (variable === 'Ad')
-            variable = 'root.accesses.remove';
+            return 'root.accesses.remove';
         else if (variable === 'As')
-            variable = 'root.accesses.search';
+            return 'root.accesses.search';
         else if (variable === 'An')
-            variable = 'root.accesses.count';
+            return 'root.accesses.count';
         return variable;
     }
-};
+}
+exports.ConditionalPattern = ConditionalPattern;
 //# sourceMappingURL=conditional.js.map

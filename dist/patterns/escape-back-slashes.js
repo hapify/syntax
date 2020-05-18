@@ -1,10 +1,13 @@
 'use strict';
-const BasePattern = require('./base');
-/** @type {EscapeBackSlashesPattern} Escape back-slashes pattern */
-module.exports = class EscapeBackSlashesPattern extends BasePattern {
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.EscapeBackSlashesPattern = void 0;
+const base_1 = require("./base");
+/** Escape back-slashes pattern */
+class EscapeBackSlashesPattern extends base_1.BasePattern {
     /** Parser method */
     execute() {
-        this._replace(/([\\]+)([^<>]|<<|$)/g, '$1$1$2');
+        this.replace(/([\\]+)([^<>]|<<|$)/g, '$1$1$2');
     }
-};
+}
+exports.EscapeBackSlashesPattern = EscapeBackSlashesPattern;
 //# sourceMappingURL=escape-back-slashes.js.map

@@ -1,11 +1,11 @@
 'use strict';
 
-const Fs = require('fs');
-const { expect } = require('@hapi/code');
-require('mocha');
-const { ParsingError } = require('../src/errors');
-const HapifySyntax = require('../src');
-const NameInterpolationPattern = require('../src/patterns/name-interpolation');
+import * as Fs from 'fs';
+import { expect } from '@hapi/code';
+import 'mocha';
+import { HapifySyntax } from '../src';
+import { ParsingError } from '../src/errors';
+import { NameInterpolationPattern } from '../src/patterns/name-interpolation';
 
 const Model = require('./models/video.json');
 const Input = Fs.readFileSync(`${__dirname}/masks/name-interpolation.hpf`, 'utf8');

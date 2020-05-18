@@ -1,8 +1,6 @@
-export = EvaluatePattern;
-declare const EvaluatePattern_base: {
-    new (parent: any): import("./base");
-    execute(template: string): string;
-};
-declare class EvaluatePattern extends EvaluatePattern_base {
-    constructor(parent: any);
+import { BasePattern } from "./base";
+/** Evaluate pattern */
+export declare class EvaluatePattern extends BasePattern {
+    /** Parser method */
+    execute(): void;
 }

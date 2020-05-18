@@ -1,8 +1,6 @@
-export = InterpolationPattern;
-declare const InterpolationPattern_base: {
-    new (parent: any): import("./base");
-    execute(template: string): string;
-};
-declare class InterpolationPattern extends InterpolationPattern_base {
-    constructor(parent: any);
+import { BasePattern } from "./base";
+/** Interpolation pattern */
+export declare class InterpolationPattern extends BasePattern {
+    /** Parser method */
+    execute(): void;
 }

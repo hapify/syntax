@@ -1,45 +1,48 @@
 'use strict';
-const BasePattern = require('./base');
-const { ParsingError } = require('../errors');
-/** @type {RegExp} Name interpolation pattern */
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.NameInterpolationPattern = void 0;
+const base_1 = require("./base");
+const errors_1 = require("../errors");
+/** Name interpolation pattern */
 const RegEx = /<<([a-zA-Z_.]+)\s+([aA_\-R]+)\s*>>/g;
-/** @type {NameInterpolationPattern} NameInterpolation pattern */
-module.exports = class NameInterpolationPattern extends BasePattern {
+/** NameInterpolation pattern */
+class NameInterpolationPattern extends base_1.BasePattern {
     /** Parser method */
     execute() {
-        this._replace(RegEx, (match, _variable, _property) => {
+        this.replace(RegEx, (match, variable, property) => {
             // Get the var
-            let variable = _variable;
-            if (variable === 'M')
-                variable = 'root';
-            else if (variable === 'P')
-                variable = 'root.fields.primary';
+            let jsVariable = variable;
+            if (jsVariable === 'M')
+                jsVariable = 'root';
+            else if (jsVariable === 'P')
+                jsVariable = 'root.fields.primary';
             // Get the property
-            let property = _property;
-            if (property === 'aA')
-                property = 'camel';
-            else if (property === 'AA')
-                property = 'pascal';
-            else if (property === 'a')
-                property = 'lower';
-            else if (property === 'A')
-                property = 'capital';
-            else if (property === 'a-a')
-                property = 'kebab';
-            else if (property === 'A-A')
-                property = 'header';
-            else if (property === 'a_a')
-                property = 'snake';
-            else if (property === 'A_A')
-                property = 'constant';
-            else if (property === 'aa')
-                property = 'compact';
-            else if (property === 'R')
-                property = 'raw';
+            let jsProperty = property;
+            if (jsProperty === 'aA')
+                jsProperty = 'camel';
+            else if (jsProperty === 'AA')
+                jsProperty = 'pascal';
+            else if (jsProperty === 'a')
+                jsProperty = 'lower';
+            else if (jsProperty === 'A')
+                jsProperty = 'capital';
+            else if (jsProperty === 'a-a')
+                jsProperty = 'kebab';
+            else if (jsProperty === 'A-A')
+                jsProperty = 'header';
+            else if (jsProperty === 'a_a')
+                jsProperty = 'snake';
+            else if (jsProperty === 'A_A')
+                jsProperty = 'constant';
+            else if (jsProperty === 'aa')
+                jsProperty = 'compact';
+            else if (jsProperty === 'R')
+                jsProperty = 'raw';
             else
-                throw new ParsingError(`[NameInterpolationPattern.execute] Unknown name property: ${property}`);
-            return `\${${variable}.names.${property}}`;
+                throw new errors_1.ParsingError(`[NameInterpolationPattern.execute] Unknown name property: ${jsProperty}`);
+            return `\${${jsVariable}.names.${jsProperty}}`;
         });
     }
-};
+}
+exports.NameInterpolationPattern = NameInterpolationPattern;
 //# sourceMappingURL=name-interpolation.js.map

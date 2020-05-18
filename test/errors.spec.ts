@@ -1,11 +1,10 @@
 'use strict';
 
-const Fs = require('fs');
-const { expect } = require('@hapi/code');
-require('mocha');
-const { ArgumentsError } = require('../src/errors');
-const HapifySyntax = require('../src');
-const { EvaluationError, TimeoutError } = require('../src/errors');
+import * as Fs from 'fs';
+import { expect, fail } from '@hapi/code';
+import 'mocha';
+import { HapifySyntax } from '../src';
+import { EvaluationError, TimeoutError, ArgumentsError } from '../src/errors';
 
 const Model = require('./models/video.json');
 const Simple = Fs.readFileSync(`${__dirname}/masks/simple.hpf`, 'utf8');
@@ -23,21 +22,21 @@ describe('errors', () => {
 		expect(Simple).to.be.a.string();
 		expect(Model).to.be.an.object();
 
-		expect(() => HapifySyntax.run()).to.throw(ArgumentsError);
+		expect(() => HapifySyntax.run(undefined as any, undefined as any)).to.throw(ArgumentsError);
 
-		expect(() => HapifySyntax.run(Simple)).to.throw(ArgumentsError);
+		expect(() => HapifySyntax.run(Simple, undefined as any)).to.throw(ArgumentsError);
 
-		expect(() => HapifySyntax.run(Simple, undefined)).to.throw(ArgumentsError);
-		expect(() => HapifySyntax.run(Simple, null)).to.throw(ArgumentsError);
-		expect(() => HapifySyntax.run(Simple, true)).to.throw(ArgumentsError);
-		expect(() => HapifySyntax.run(Simple, 3)).to.throw(ArgumentsError);
-		expect(() => HapifySyntax.run(Simple, 'string')).to.throw(ArgumentsError);
+		expect(() => HapifySyntax.run(Simple, undefined as any)).to.throw(ArgumentsError);
+		expect(() => HapifySyntax.run(Simple, null as any)).to.throw(ArgumentsError);
+		expect(() => HapifySyntax.run(Simple, true as any)).to.throw(ArgumentsError);
+		expect(() => HapifySyntax.run(Simple, 3 as any)).to.throw(ArgumentsError);
+		expect(() => HapifySyntax.run(Simple, 'string' as any)).to.throw(ArgumentsError);
 
-		expect(() => HapifySyntax.run(undefined, Model)).to.throw(ArgumentsError);
-		expect(() => HapifySyntax.run(null, Model)).to.throw(ArgumentsError);
-		expect(() => HapifySyntax.run(false, Model)).to.throw(ArgumentsError);
-		expect(() => HapifySyntax.run(4, Model)).to.throw(ArgumentsError);
-		expect(() => HapifySyntax.run({}, Model)).to.throw(ArgumentsError);
+		expect(() => HapifySyntax.run(undefined as any, Model)).to.throw(ArgumentsError);
+		expect(() => HapifySyntax.run(null as any, Model)).to.throw(ArgumentsError);
+		expect(() => HapifySyntax.run(false as any, Model)).to.throw(ArgumentsError);
+		expect(() => HapifySyntax.run(4 as any, Model)).to.throw(ArgumentsError);
+		expect(() => HapifySyntax.run({} as any, Model)).to.throw(ArgumentsError);
 
 		expect(HapifySyntax.run(Simple, Model)).to.be.a.string();
 	});

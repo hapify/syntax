@@ -32,6 +32,7 @@ class EvaluationError extends Error {
         this.name = 'SyntaxEvaluationError';
         this.lineNumber = null;
         this.columnNumber = null;
+        this.details = null;
     }
 }
 exports.EvaluationError = EvaluationError;

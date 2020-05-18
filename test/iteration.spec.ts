@@ -1,10 +1,10 @@
 'use strict';
 
-const Fs = require('fs');
-const { expect } = require('@hapi/code');
-require('mocha');
-const HapifySyntax = require('../src');
-const IterationPattern = require('../src/patterns/iteration');
+import * as Fs from 'fs';
+import { expect } from '@hapi/code';
+import 'mocha';
+import { HapifySyntax } from '../src';
+import { IterationPattern } from '../src/patterns/iteration';
 
 const Model = require('./models/video.json');
 const Input = Fs.readFileSync(`${__dirname}/masks/iteration.hpf`, 'utf8');
@@ -21,7 +21,7 @@ describe('iteration', () => {
 	});
 
 	it('unit', async () => {
-		const condition = (test, length = 0, v = 'f') =>
+		const condition = (test: string, length = 0, v = 'f') =>
 			length
 				? `\`;\nfor (const ${v} of root.fields.list.filter((i) => ${test}).slice(0, ${length})) {\nout += \``
 				: `\`;\nfor (const ${v} of root.fields.list.filter((i) => ${test})) {\nout += \``;

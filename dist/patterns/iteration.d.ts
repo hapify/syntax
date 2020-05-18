@@ -1,16 +1,8 @@
-export = IterationPattern;
-declare const IterationPattern_base: {
-    new (parent: any): import("./conditional");
-    execute(template: string): string;
-};
-declare class IterationPattern extends IterationPattern_base {
-    constructor(parent: any);
-    /**
-     * Returns the array filter
-     * @param {string} _count
-     * @param {string} variable
-     * @param {string} tester
-     * @return {string}
-     */
-    _filter(_count: string, variable: string, tester: string): string;
+import { ConditionalPattern } from "./conditional";
+/** Conditional pattern */
+export declare class IterationPattern extends ConditionalPattern {
+    /** Parser method */
+    execute(): void;
+    /** Returns the array filter */
+    private filter;
 }

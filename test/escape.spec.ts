@@ -1,11 +1,11 @@
 'use strict';
 
-const Fs = require('fs');
-const { expect } = require('@hapi/code');
-require('mocha');
-const HapifySyntax = require('../src');
-const EscapePattern = require('../src/patterns/escape');
-const EscapeBackSlashesPattern = require('../src/patterns/escape-back-slashes');
+import * as Fs from 'fs';
+import { expect } from '@hapi/code';
+import 'mocha';
+import { HapifySyntax } from '../src';
+import { EscapePattern } from '../src/patterns/escape';
+import { EscapeBackSlashesPattern } from '../src/patterns/escape-back-slashes';
 
 const Model = require('./models/video.json');
 const Input = Fs.readFileSync(`${__dirname}/masks/escape.hpf`, 'utf8');

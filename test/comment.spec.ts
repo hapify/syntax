@@ -1,10 +1,10 @@
 'use strict';
 
-const Fs = require('fs');
-const { expect } = require('@hapi/code');
-require('mocha');
-const HapifySyntax = require('../src');
-const CommentPattern = require('../src/patterns/comment');
+import * as Fs from 'fs';
+import { expect } from '@hapi/code';
+import 'mocha';
+import { HapifySyntax } from '../src';
+import { CommentPattern } from '../src/patterns/comment';
 
 const Model = require('./models/video.json');
 const Input = Fs.readFileSync(`${__dirname}/masks/comment.hpf`, 'utf8');

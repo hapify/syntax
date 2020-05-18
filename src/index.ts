@@ -1,60 +1,54 @@
 'use strict';
 
-const { ArgumentsError, EvaluationError, TimeoutError } = require('./errors');
-const Patterns = require('./patterns');
-const { HapifyVM } = require('hapify-vm');
-const lineColumn = require('line-column');
-const Hoek = require('@hapi/hoek');
+import { HapifyVM, EvaluationError as VMEvaluationError } from 'hapify-vm';
+import LineColumn from 'line-column';
+import * as Hoek from '@hapi/hoek';
+import { ArgumentsError, EvaluationError, TimeoutError } from './errors';
+import { EscapeBackSlashesPattern } from './patterns/escape-back-slashes';
+import { EscapeQuotesPattern } from './patterns/escape-quotes';
+import { CommentPattern } from './patterns/comment';
+import { NameInterpolationPattern } from './patterns/name-interpolation';
+import { InterpolationPattern } from './patterns/interpolation';
+import { ConditionalPattern } from './patterns/conditional';
+import { IterationPattern } from './patterns/iteration';
+import { EvaluatePattern } from './patterns/evaluate';
+import { EscapePattern } from './patterns/escape';
+import { Action, ModelInput, Options } from './interfaces';
 
-/** @type {BasePattern[]} Ordered patterns */
+/** Ordered patterns */
 const PatternsStack = [
-	Patterns.EscapeBackSlashes,
-	Patterns.EscapeQuotes,
-	Patterns.Comment,
-	Patterns.NameInterpolation,
-	Patterns.Interpolation,
-	Patterns.Conditional,
-	Patterns.Iteration,
-	Patterns.Evaluate,
-	Patterns.Escape,
+	EscapeBackSlashesPattern,
+	EscapeQuotesPattern,
+	CommentPattern,
+	NameInterpolationPattern,
+	InterpolationPattern,
+	ConditionalPattern,
+	IterationPattern,
+	EvaluatePattern,
+	EscapePattern,
 ];
 
-/**
- * Options format
- * @typedef {object} Options
- * @property {number} timeout
- */
-/** @type {Options} */
-const DefaultOptions = {
+const DefaultOptions: Options = {
 	timeout: 1000,
 };
 
 /** @type {HapifySyntax} Syntax parser */
-module.exports = class HapifySyntax {
+export class HapifySyntax {
+	private options: Options;
+	/** Stores the original input */
+	private original: string;
+
+	public actions: Action[] = [];
+	private patterns = PatternsStack.map((Pattern) => new Pattern(this));
+
 	/** Constructor */
-	constructor(template, model, options = {}) {
-		/** @type {string} Stores the original input */
+	constructor(public template: string, private model: ModelInput, options: Partial<Options> = {}) {
 		this.original = template;
-		/** @type {string} */
-		this.template = template;
-		/** @type {{}|{}[]} */
-		this.model = model;
-		/** @type {Options} */
-		this.options = Hoek.applyToDefaults(DefaultOptions, options);
-		/** @type {{}[]} */
-		this.actions = [];
-		/** @type {BasePattern[]} */
-		this.patterns = PatternsStack.map((Pattern) => new Pattern(this));
+		this.options = <Options>Hoek.applyToDefaults(DefaultOptions, options);
 	}
 
-	/**
-	 * Parser method
-	 * @param {string} template
-	 * @param {{}} model
-	 * @param {Options} options
-	 * @return {string}
-	 */
-	static run(template, model, options = {}) {
+	/** Parser method */
+	static run(template: string, model: ModelInput, options: Partial<Options> = {}): string {
 		// Check how many arguments
 		if (arguments.length < 2) {
 			throw new ArgumentsError('[HapifySyntax.run] Requires at least two arguments');
@@ -81,21 +75,20 @@ module.exports = class HapifySyntax {
 	}
 
 	/** Execute all patterns to convert hpf to js */
-	parse() {
+	private parse() {
 		for (const pattern of this.patterns) {
 			pattern.execute();
 		}
 	}
 
 	/** Eval the generated script */
-	evaluate() {
+	private evaluate() {
 		// eslint-disable-line no-unused-vars
 		// Cannot inject object with key root in context.
 		const script = `const root = _root; let out = \n\`${this.template}\`\n; return out;`;
 		try {
 			return new HapifyVM({ timeout: this.options.timeout }).run(script, { _root: this.model });
 		} catch (error) {
-			this._log(`[HapifySyntax._eval] An error occurred during evaluation\n\n${error}\n\n${script}`);
 			if (error.code === 6003) {
 				throw new TimeoutError(`Template processing timed out (${this.options.timeout}ms)`);
 			}
@@ -106,16 +99,12 @@ module.exports = class HapifySyntax {
 		}
 	}
 
-	/**
-	 * Reverse all action to find the error line and column in the input file
-	 * @param {*} error
-	 * @param {number} lineOffset
-	 */
-	getReversedActionError(error, lineOffset = 0) {
+	/** Reverse all action to find the error line and column in the input file */
+	private getReversedActionError(error: VMEvaluationError, lineOffset = 0) {
 		// Get the line and column of the error
 		const lineNumber = typeof error.lineNumber === 'number' ? error.lineNumber + lineOffset : 0;
 		const columnNumber = typeof error.columnNumber === 'number' ? error.columnNumber : 0;
-		let errorIndex = lineColumn(this.template).toIndex(lineNumber, columnNumber);
+		let errorIndex = LineColumn(this.template).toIndex(lineNumber, columnNumber);
 
 		// Reverse all actions to find the line and column of the error in the input
 		this.actions.reverse().forEach((action) => {
@@ -131,7 +120,7 @@ module.exports = class HapifySyntax {
 			}
 		});
 
-		const errorLineColumn = lineColumn(this.original).fromIndex(errorIndex);
+		const errorLineColumn = LineColumn(this.original).fromIndex(errorIndex);
 
 		// Create the input error
 		const evalError = new EvaluationError(error.message);
@@ -141,12 +130,4 @@ module.exports = class HapifySyntax {
 
 		return evalError;
 	}
-
-	/**
-	 * Log something
-	 * @private
-	 */
-	_log(/* arguments */) {
-		// console.log(...arguments); // eslint-disable-line no-console
-	}
-};
+}

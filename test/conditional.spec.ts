@@ -1,10 +1,10 @@
 'use strict';
 
-const Fs = require('fs');
-const { expect } = require('@hapi/code');
-require('mocha');
-const HapifySyntax = require('../src');
-const ConditionalPattern = require('../src/patterns/conditional');
+import * as Fs from 'fs';
+import { expect } from '@hapi/code';
+import 'mocha';
+import { HapifySyntax } from '../src';
+import { ConditionalPattern } from '../src/patterns/conditional';
 
 const Model = require('./models/video.json');
 const Input = Fs.readFileSync(`${__dirname}/masks/conditional.hpf`, 'utf8');
@@ -21,15 +21,15 @@ describe('conditional', () => {
 	});
 
 	it('unit', async () => {
-		const condition = (test, length = 0) =>
+		const condition = (test: string, length = 0) =>
 			`\`;\nif ((root.fields.list.filter && root.fields.list.filter((i) => ${test}).length > ${length}) || (!(root.fields.list.filter) && ((i) => ${test})(root.fields.list))) {\nout += \``;
-		const conditionElse = (test, length = 0) =>
+		const conditionElse = (test: string, length = 0) =>
 			`\`;\n} else if ((root.fields.list.filter && root.fields.list.filter((i) => ${test}).length > ${length}) || (!(root.fields.list.filter) && ((i) => ${test})(root.fields.list))) {\nout += \``;
-		const conditionModel = (test, length = 0) =>
+		const conditionModel = (test: string, length = 0) =>
 			`\`;\nif ((root.filter && root.filter((i) => ${test}).length > ${length}) || (!(root.filter) && ((i) => ${test})(root))) {\nout += \``;
-		const conditionAccesses = (test, length = 0) =>
+		const conditionAccesses = (test: string, length = 0) =>
 			`\`;\nif ((root.accesses.list.filter && root.accesses.list.filter((i) => ${test}).length > ${length}) || (!(root.accesses.list.filter) && ((i) => ${test})(root.accesses.list))) {\nout += \``;
-		const conditionAccessesActions = (test, action, length = 0) =>
+		const conditionAccessesActions = (test: string, action: string, length = 0) =>
 			`\`;\nif ((root.accesses.${action}.filter && root.accesses.${action}.filter((i) => ${test}).length > ${length}) || (!(root.accesses.${action}.filter) && ((i) => ${test})(root.accesses.${action}))) {\nout += \``;
 
 		//Start with not

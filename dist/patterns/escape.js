@@ -1,20 +1,23 @@
 'use strict';
-const BasePattern = require('./base');
-/** @type {{}} Start pattern and replacer */
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.EscapePattern = void 0;
+const base_1 = require("./base");
+/** Start pattern and replacer */
 const Start = {
     find: /\\<\\</g,
     replace: '<<'
 };
-/** @type {{}} end pattern and replacer */
+/** end pattern and replacer */
 const End = {
     find: /\\>\\>/g,
     replace: '>>'
 };
-/** @type {EscapePattern} Escape pattern */
-module.exports = class EscapePattern extends BasePattern {
+/** Escape pattern */
+class EscapePattern extends base_1.BasePattern {
     /** Parser method */
     execute() {
-        this._replace(Start.find, Start.replace)._replace(End.find, End.replace);
+        this.replace(Start.find, Start.replace).replace(End.find, End.replace);
     }
-};
+}
+exports.EscapePattern = EscapePattern;
 //# sourceMappingURL=escape.js.map

@@ -4,14 +4,14 @@
     "text-summary"
   ],
   "extension": [
-    ".js"
+    ".ts"
   ],
   "include": [
-    "src/**/*.js"
+    "src/**/*.ts"
   ],
   "exclude": [
     "dist",
-    "test/**/*.js"
+    "test/**/*.spec.ts"
   ],
   "require": [
     "ts-node/register"

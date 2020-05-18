@@ -1,49 +1,21 @@
-export = HapifySyntax;
-declare class HapifySyntax {
-    /**
-     * Parser method
-     * @param {string} template
-     * @param {{}} model
-     * @param {Options} options
-     * @return {string}
-     */
-    static run(template: string, model: {}, options?: Options, ...args: any[]): string;
-    /** Constructor */
-    constructor(template: any, model: any, options?: {});
-    /** @type {string} Stores the original input */
-    original: string;
-    /** @type {string} */
+import { Action, ModelInput, Options } from "./interfaces";
+/** @type {HapifySyntax} Syntax parser */
+export declare class HapifySyntax {
     template: string;
-    /** @type {{}|{}[]} */
-    model: {} | {}[];
-    /** @type {Options} */
-    options: Options;
-    /** @type {{}[]} */
-    actions: {}[];
-    /** @type {BasePattern[]} */
-    patterns: any[];
+    private model;
+    private options;
+    /** Stores the original input */
+    private original;
+    actions: Action[];
+    private patterns;
+    /** Constructor */
+    constructor(template: string, model: ModelInput, options?: Partial<Options>);
+    /** Parser method */
+    static run(template: string, model: ModelInput, options?: Partial<Options>): string;
     /** Execute all patterns to convert hpf to js */
-    parse(): void;
+    private parse;
     /** Eval the generated script */
-    evaluate(): any;
-    /**
-     * Reverse all action to find the error line and column in the input file
-     * @param {*} error
-     * @param {number} lineOffset
-     */
-    getReversedActionError(error: any, lineOffset?: number): import("./errors").EvaluationError;
-    /**
-     * Log something
-     * @private
-     */
-    private _log;
+    private evaluate;
+    /** Reverse all action to find the error line and column in the input file */
+    private getReversedActionError;
 }
-declare namespace HapifySyntax {
-    export { Options };
-}
-/**
- * Options format
- */
-type Options = {
-    timeout: number;
-};

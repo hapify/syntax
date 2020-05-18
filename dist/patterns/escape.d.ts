@@ -1,8 +1,6 @@
-export = EscapePattern;
-declare const EscapePattern_base: {
-    new (parent: any): import("./base");
-    execute(template: string): string;
-};
-declare class EscapePattern extends EscapePattern_base {
-    constructor(parent: any);
+import { BasePattern } from "./base";
+/** Escape pattern */
+export declare class EscapePattern extends BasePattern {
+    /** Parser method */
+    execute(): void;
 }

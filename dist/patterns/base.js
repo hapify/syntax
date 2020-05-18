@@ -1,55 +1,43 @@
 'use strict';
-const lineColumn = require('line-column');
-/** @type {BasePattern} Abstract base pattern */
-module.exports = class BasePattern {
-    /** Constructor */
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.BasePattern = void 0;
+const line_column_1 = __importDefault(require("line-column"));
+/** Abstract base pattern */
+class BasePattern {
     constructor(parent) {
-        /** @type {HapifySyntax} */
         this.parent = parent;
     }
     /** Parser method */
     execute() {
         /* Do Nothing */
     }
-    /**
-     * Escape string and insert js code
-     * @param {string} js
-     * @return {string}
-     * @private
-     */
-    _dynamic(js) {
+    /** Escape string and insert js code */
+    dynamic(js) {
         return `\`;
 ${js}
 out += \``;
     }
-    /**
-     * Reverse escape signs ` $ \ escaped by EscapeQuotesPattern & EscapeBackSlashesPattern
-     * @param {string} code
-     * @return {string}
-     */
-    _unescape(code) {
+    /** Reverse escape signs ` $ \ escaped by EscapeQuotesPattern & EscapeBackSlashesPattern */
+    unescape(code) {
         return code
             .replace(/\\\\/g, '\\')
             .replace(/\\`/g, '`')
             .replace(/\\\$/g, '$');
     }
-    /**
-     * Perform a regex replacement and saves the actions made on the string
-     * @param regexp
-     * @param replace
-     * @return {BasePattern}
-     * @private
-     */
-    _replace(regexp, replace) {
+    /** Perform a regex replacement and saves the actions made on the string */
+    replace(regexp, replace) {
         let patternOffset = 0;
         this.parent.template = this.parent.template.replace(regexp, (...params) => {
             const match = params[0];
-            const offset = params[params.length - 2];
+            const offset = Number(params[params.length - 2]);
             const replaceString = typeof replace === 'function' ? replace.apply(null, params) : match.replace(regexp, replace);
-            // Save the impact of this replace
+            // Save the impact of this replacement
             this.parent.actions.push({
                 index: patternOffset + offset,
-                lineColumn: lineColumn(this.parent.template).fromIndex(patternOffset + offset),
+                lineColumn: line_column_1.default(this.parent.template).fromIndex(patternOffset + offset),
                 before: match.length,
                 after: replaceString.length
             });
@@ -58,11 +46,7 @@ out += \``;
         });
         return this;
     }
-    /**
-     * Static parser method used for testing purpose
-     * @param {string} template
-     * @return {string}
-     */
+    /** Static parser method used for testing purpose */
     static execute(template) {
         // Create a fake parent
         const parent = { template, actions: [] };
@@ -72,5 +56,6 @@ out += \``;
         pattern.execute();
         return parent.template;
     }
-};
+}
+exports.BasePattern = BasePattern;
 //# sourceMappingURL=base.js.map

@@ -1,12 +1,15 @@
 'use strict';
-const BasePattern = require('./base');
-/** @type {RegExp} Interpolation pattern */
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.InterpolationPattern = void 0;
+const base_1 = require("./base");
+/** Interpolation pattern */
 const RegEx = /<<=([\s\S]+?)>>/g;
-/** @type {InterpolationPattern} Interpolation pattern */
-module.exports = class InterpolationPattern extends BasePattern {
+/** Interpolation pattern */
+class InterpolationPattern extends base_1.BasePattern {
     /** Parser method */
     execute() {
-        this._replace(RegEx, (match, _code) => this._dynamic(`out += ${this._unescape(_code)};`));
+        this.replace(RegEx, (match, code) => this.dynamic(`out += ${this.unescape(code)};`));
     }
-};
+}
+exports.InterpolationPattern = InterpolationPattern;
 //# sourceMappingURL=interpolation.js.map

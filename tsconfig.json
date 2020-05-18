@@ -9,7 +9,6 @@
     "declaration": true,
     "outDir": "dist",
     "baseUrl": ".",
-    "allowJs": true,
     "emitDecoratorMetadata": false,
     "experimentalDecorators": false,
     "paths": {

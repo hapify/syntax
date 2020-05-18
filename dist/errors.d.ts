@@ -1,22 +1,24 @@
-export declare class InternalError extends Error {
+import { NumberedError } from "./interfaces";
+export declare class InternalError extends Error implements NumberedError {
     code: number;
     name: string;
 }
-export declare class ArgumentsError extends Error {
+export declare class ArgumentsError extends Error implements NumberedError {
     code: number;
     name: string;
 }
-export declare class ParsingError extends Error {
+export declare class ParsingError extends Error implements NumberedError {
     code: number;
     name: string;
 }
-export declare class EvaluationError extends Error {
+export declare class EvaluationError extends Error implements NumberedError {
     code: number;
     name: string;
     lineNumber: number;
     columnNumber: number;
+    details: string;
 }
-export declare class TimeoutError extends Error {
+export declare class TimeoutError extends Error implements NumberedError {
     name: string;
     code: number;
 }

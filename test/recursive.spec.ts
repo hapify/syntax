@@ -1,8 +1,8 @@
 'use strict';
 
-const { expect } = require('@hapi/code');
-require('mocha');
-const HapifySyntax = require('../src');
+import { expect } from '@hapi/code';
+import 'mocha';
+import { HapifySyntax } from '../src';
 
 describe('recursive', () => {
 	it('unit', async () => {
