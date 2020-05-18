@@ -40,8 +40,11 @@
   },
   "dependencies": {
     "@hapi/hoek": "^9.0.4",
-    "hapify-vm": "github:hapify/vm#v0.3.1",
+    "hapify-vm": "github:hapify/vm#v0.3.2",
     "line-column": "^1.0.2"
+  },
+  "engines": {
+    "node": ">=9"
   },
   "husky": {
     "hooks": {
