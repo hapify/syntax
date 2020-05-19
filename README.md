@@ -4,7 +4,7 @@
 
 This repository parses templates written with the Hapify Syntax.
 
-[![Build Status](https://travis-ci.org/hapify/syntax.svg?branch=master)](https://travis-ci.org/hapify/syntax)
+[![Build Status](https://travis-ci.org/hapify/syntax.svg?branch=master)](https://travis-ci.org/hapify/syntax) [![codecov](https://codecov.io/gh/hapify/syntax/branch/master/graph/badge.svg)](https://codecov.io/gh/hapify/syntax)
 
 ## Pre-requisites
 
