@@ -1,5 +1,11 @@
 # Hapify Syntax
 
+## Description
+
+This repository parses templates written with the Hapify Syntax.
+
+[![Build Status](https://travis-ci.org/hapify/syntax.svg?branch=master)](https://travis-ci.org/hapify/syntax)
+
 ## Pre-requisites
 
 Before reading this article, we recommend that you read the documentation about [models and fields structure](https://www.hapify.io/documentation/templating).
