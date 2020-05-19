@@ -8,7 +8,7 @@ import { EscapePattern } from '../src/patterns/escape';
 import { EscapeBackSlashesPattern } from '../src/patterns/escape-back-slashes';
 
 const Model = require('./models/video.json');
-const Input = Fs.readFileSync(`${__dirname}/masks/escape.hpf`, 'utf8');
+const Input = Fs.readFileSync(`${__dirname}/templates/escape.hpf`, 'utf8');
 const Output = Fs.readFileSync(`${__dirname}/output/escape.txt`, 'utf8');
 
 describe('escape', () => {

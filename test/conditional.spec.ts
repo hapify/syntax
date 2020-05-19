@@ -7,7 +7,7 @@ import { HapifySyntax } from '../src';
 import { ConditionalPattern } from '../src/patterns/conditional';
 
 const Model = require('./models/video.json');
-const Input = Fs.readFileSync(`${__dirname}/masks/conditional.hpf`, 'utf8');
+const Input = Fs.readFileSync(`${__dirname}/templates/conditional.hpf`, 'utf8');
 const Output = Fs.readFileSync(`${__dirname}/output/conditional.txt`, 'utf8');
 
 describe('conditional', () => {

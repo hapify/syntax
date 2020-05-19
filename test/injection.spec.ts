@@ -6,7 +6,7 @@ import 'mocha';
 import { HapifySyntax } from '../src';
 
 const Model = require('./models/video.json');
-const Input = Fs.readFileSync(`${__dirname}/masks/injection.hpf`, 'utf8');
+const Input = Fs.readFileSync(`${__dirname}/templates/injection.hpf`, 'utf8');
 
 describe('injection', () => {
 	it('run', async () => {

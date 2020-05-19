@@ -7,7 +7,7 @@ import { HapifySyntax } from '../src';
 import { InterpolationPattern } from '../src/patterns/interpolation';
 
 const Model = require('./models/video.json');
-const Input = Fs.readFileSync(`${__dirname}/masks/interpolation.hpf`, 'utf8');
+const Input = Fs.readFileSync(`${__dirname}/templates/interpolation.hpf`, 'utf8');
 const Output = Fs.readFileSync(`${__dirname}/output/interpolation.txt`, 'utf8');
 
 describe('interpolation', () => {

@@ -8,8 +8,8 @@ import { ParsingError } from '../src/errors';
 import { NameInterpolationPattern } from '../src/patterns/name-interpolation';
 
 const Model = require('./models/video.json');
-const Input = Fs.readFileSync(`${__dirname}/masks/name-interpolation.hpf`, 'utf8');
-const InputError = Fs.readFileSync(`${__dirname}/masks/name-interpolation-error.hpf`, 'utf8');
+const Input = Fs.readFileSync(`${__dirname}/templates/name-interpolation.hpf`, 'utf8');
+const InputError = Fs.readFileSync(`${__dirname}/templates/name-interpolation-error.hpf`, 'utf8');
 const Output = Fs.readFileSync(`${__dirname}/output/name-interpolation.txt`, 'utf8');
 
 describe('nam interpolation', () => {

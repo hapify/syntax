@@ -7,7 +7,7 @@ import { HapifySyntax } from '../src';
 import { CommentPattern } from '../src/patterns/comment';
 
 const Model = require('./models/video.json');
-const Input = Fs.readFileSync(`${__dirname}/masks/comment.hpf`, 'utf8');
+const Input = Fs.readFileSync(`${__dirname}/templates/comment.hpf`, 'utf8');
 const Output = Fs.readFileSync(`${__dirname}/output/comment.txt`, 'utf8');
 
 describe('comment', () => {

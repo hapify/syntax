@@ -7,7 +7,7 @@ import { HapifySyntax } from '../src';
 import { EvaluatePattern } from '../src/patterns/evaluate';
 
 const Model = require('./models/video.json');
-const Input = Fs.readFileSync(`${__dirname}/masks/evaluate.hpf`, 'utf8');
+const Input = Fs.readFileSync(`${__dirname}/templates/evaluate.hpf`, 'utf8');
 const Output = Fs.readFileSync(`${__dirname}/output/evaluate.txt`, 'utf8');
 
 describe('evaluate', () => {

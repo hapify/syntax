@@ -7,14 +7,14 @@ import { HapifySyntax } from '../src';
 import { EvaluationError, TimeoutError, ArgumentsError } from '../src/errors';
 
 const Model = require('./models/video.json');
-const Simple = Fs.readFileSync(`${__dirname}/masks/simple.hpf`, 'utf8');
-const InputConditional = Fs.readFileSync(`${__dirname}/masks/error-conditional.hpf`, 'utf8');
-const InputIteration = Fs.readFileSync(`${__dirname}/masks/error-iteration.hpf`, 'utf8');
-const InputInterpolation = Fs.readFileSync(`${__dirname}/masks/error-interpolation.hpf`, 'utf8');
-const InputTimeout = Fs.readFileSync(`${__dirname}/masks/error-timeout.hpf`, 'utf8');
-const InputRequire = Fs.readFileSync(`${__dirname}/masks/error-require.hpf`, 'utf8');
-const InputImport = Fs.readFileSync(`${__dirname}/masks/error-import.hpf`, 'utf8');
-const InputGlobal = Fs.readFileSync(`${__dirname}/masks/error-global.hpf`, 'utf8');
+const Simple = Fs.readFileSync(`${__dirname}/templates/simple.hpf`, 'utf8');
+const InputConditional = Fs.readFileSync(`${__dirname}/templates/error-conditional.hpf`, 'utf8');
+const InputIteration = Fs.readFileSync(`${__dirname}/templates/error-iteration.hpf`, 'utf8');
+const InputInterpolation = Fs.readFileSync(`${__dirname}/templates/error-interpolation.hpf`, 'utf8');
+const InputTimeout = Fs.readFileSync(`${__dirname}/templates/error-timeout.hpf`, 'utf8');
+const InputRequire = Fs.readFileSync(`${__dirname}/templates/error-require.hpf`, 'utf8');
+const InputImport = Fs.readFileSync(`${__dirname}/templates/error-import.hpf`, 'utf8');
+const InputGlobal = Fs.readFileSync(`${__dirname}/templates/error-global.hpf`, 'utf8');
 
 describe('errors', () => {
 	it('run', async () => {
