@@ -5,6 +5,7 @@ import { expect, fail } from '@hapi/code';
 import 'mocha';
 import { HapifySyntax } from '../src';
 import { EvaluationError, TimeoutError, ArgumentsError } from '../src/errors';
+import { OutputError } from 'hapify-vm';
 
 const Model = require('./models/video.json');
 const Simple = Fs.readFileSync(`${__dirname}/templates/simple.hpf`, 'utf8');
@@ -15,6 +16,7 @@ const InputTimeout = Fs.readFileSync(`${__dirname}/templates/error-timeout.hpf`,
 const InputRequire = Fs.readFileSync(`${__dirname}/templates/error-require.hpf`, 'utf8');
 const InputImport = Fs.readFileSync(`${__dirname}/templates/error-import.hpf`, 'utf8');
 const InputGlobal = Fs.readFileSync(`${__dirname}/templates/error-global.hpf`, 'utf8');
+const InputReturn = Fs.readFileSync(`${__dirname}/templates/error-return.hpf`, 'utf8');
 
 describe('errors', () => {
 	it('run', async () => {
@@ -22,21 +24,21 @@ describe('errors', () => {
 		expect(Simple).to.be.a.string();
 		expect(Model).to.be.an.object();
 
-		expect(() => HapifySyntax.run(undefined as any, undefined as any)).to.throw(ArgumentsError);
+		expect(() => (<any>HapifySyntax.run)()).to.throw(ArgumentsError);
 
-		expect(() => HapifySyntax.run(Simple, undefined as any)).to.throw(ArgumentsError);
+		expect(() => (<any>HapifySyntax.run)(Simple)).to.throw(ArgumentsError);
 
-		expect(() => HapifySyntax.run(Simple, undefined as any)).to.throw(ArgumentsError);
-		expect(() => HapifySyntax.run(Simple, null as any)).to.throw(ArgumentsError);
-		expect(() => HapifySyntax.run(Simple, true as any)).to.throw(ArgumentsError);
-		expect(() => HapifySyntax.run(Simple, 3 as any)).to.throw(ArgumentsError);
-		expect(() => HapifySyntax.run(Simple, 'string' as any)).to.throw(ArgumentsError);
+		expect(() => (<any>HapifySyntax.run)(Simple)).to.throw(ArgumentsError);
+		expect(() => (<any>HapifySyntax.run)(Simple, null)).to.throw(ArgumentsError);
+		expect(() => (<any>HapifySyntax.run)(Simple, true)).to.throw(ArgumentsError);
+		expect(() => (<any>HapifySyntax.run)(Simple, 3)).to.throw(ArgumentsError);
+		expect(() => (<any>HapifySyntax.run)(Simple, 'string')).to.throw(ArgumentsError);
 
-		expect(() => HapifySyntax.run(undefined as any, Model)).to.throw(ArgumentsError);
-		expect(() => HapifySyntax.run(null as any, Model)).to.throw(ArgumentsError);
-		expect(() => HapifySyntax.run(false as any, Model)).to.throw(ArgumentsError);
-		expect(() => HapifySyntax.run(4 as any, Model)).to.throw(ArgumentsError);
-		expect(() => HapifySyntax.run({} as any, Model)).to.throw(ArgumentsError);
+		expect(() => (<any>HapifySyntax.run)(undefined, Model)).to.throw(ArgumentsError);
+		expect(() => (<any>HapifySyntax.run)(null, Model)).to.throw(ArgumentsError);
+		expect(() => (<any>HapifySyntax.run)(false, Model)).to.throw(ArgumentsError);
+		expect(() => (<any>HapifySyntax.run)(4, Model)).to.throw(ArgumentsError);
+		expect(() => (<any>HapifySyntax.run)({}, Model)).to.throw(ArgumentsError);
 
 		expect(HapifySyntax.run(Simple, Model)).to.be.a.string();
 	});
@@ -89,6 +91,19 @@ describe('errors', () => {
 			expect(err.lineNumber).to.be.a.number();
 			expect(err.columnNumber).to.be.a.number();
 			expect(err.details).to.be.equal('Error: g is not defined. Line: 20, Column: 5');
+		}
+	});
+
+	it('Do not returns string', async () => {
+		//Test input validity
+		expect(InputReturn).to.be.a.string();
+		expect(Model).to.be.an.object();
+
+		try {
+			HapifySyntax.run(InputReturn, Model);
+			fail('This input needs to return an error');
+		} catch (err) {
+			expect(err).to.be.an.error(OutputError, 'Must return a string');
 		}
 	});
 

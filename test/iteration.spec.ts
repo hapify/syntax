@@ -21,10 +21,10 @@ describe('iteration', () => {
 	});
 
 	it('unit', async () => {
-		const condition = (test: string, length = 0, v = 'f') =>
+		const condition = (test: string, length = 0, v = 'f', array = 'fields.list') =>
 			length
-				? `\`;\nfor (const ${v} of root.fields.list.filter((i) => ${test}).slice(0, ${length})) {\nout += \``
-				: `\`;\nfor (const ${v} of root.fields.list.filter((i) => ${test})) {\nout += \``;
+				? `\`;\nfor (const ${v} of root.${array}.filter((i) => ${test}).slice(0, ${length})) {\nout += \``
+				: `\`;\nfor (const ${v} of root.${array}.filter((i) => ${test})) {\nout += \``;
 
 		//Start with not
 		expect(IterationPattern.execute('<<@ F -se*so f>>')).to.equal(condition('!i.searchable && i.sortable'));
@@ -65,6 +65,11 @@ describe('iteration', () => {
 		expect(IterationPattern.execute('<<@ F tDt f>>')).to.equal(condition("(i.type === 'datetime' && i.subtype === 'time')"));
 
 		expect(IterationPattern.execute('<<@ F tE f>>')).to.equal(condition("(i.type === 'entity')"));
+
+		// relations
+		expect(IterationPattern.execute('<<@ D d>>')).to.equal(condition('i', 0, 'd', 'dependencies'));
+		expect(IterationPattern.execute('<<@ R r>>')).to.equal(condition('i', 0, 'r', 'referencedIn'));
+		expect(IterationPattern.execute('<<@ P p>>')).to.equal(condition('i', 0, 'p', 'fields.primary'));
 
 		// spaces
 		expect(IterationPattern.execute('<<@    F    pr    f  >>')).to.equal(condition('i.primary'));
