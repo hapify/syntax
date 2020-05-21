@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.IterationPattern = void 0;
 const conditional_1 = require("./conditional");

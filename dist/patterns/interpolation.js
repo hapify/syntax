@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.InterpolationPattern = void 0;
 const base_1 = require("./base");
