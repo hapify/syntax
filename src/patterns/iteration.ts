@@ -1,5 +1,3 @@
-'use strict';
-
 import { ConditionalPattern } from './conditional';
 
 /** for() { pattern */

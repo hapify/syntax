@@ -1,5 +1,3 @@
-'use strict';
-
 import { BasePattern } from './base';
 import { InternalError } from '../errors';
 import { Replacement } from '../interfaces';

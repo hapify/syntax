@@ -1,5 +1,3 @@
-'use strict';
-
 import { BasePattern } from './base';
 
 /** Start pattern and replacer */

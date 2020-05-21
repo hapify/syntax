@@ -1,5 +1,3 @@
-'use strict';
-
 import * as Fs from 'fs';
 import { expect, fail } from '@hapi/code';
 import 'mocha';

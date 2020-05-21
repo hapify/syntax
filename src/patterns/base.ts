@@ -1,5 +1,3 @@
-'use strict';
-
 import LineColumn from 'line-column';
 import { HapifySyntax } from '../index';
 import { ReplacementCallback } from '../interfaces';

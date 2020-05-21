@@ -1,5 +1,3 @@
-'use strict';
-
 import { BasePattern } from './base';
 
 /** Escape back-slashes pattern */

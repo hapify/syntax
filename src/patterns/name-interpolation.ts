@@ -1,5 +1,3 @@
-'use strict';
-
 import { BasePattern } from './base';
 import { ParsingError } from '../errors';
 
