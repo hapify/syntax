@@ -14,7 +14,7 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
-    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
     __setModuleDefault(result, mod);
     return result;
 };
@@ -23,7 +23,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.HapifySyntax = void 0;
-const hapify_vm_1 = require("hapify-vm");
+const vm_1 = require("@hapify/vm");
 const line_column_1 = __importDefault(require("line-column"));
 const Hoek = __importStar(require("@hapi/hoek"));
 const errors_1 = require("./errors");
@@ -96,7 +96,7 @@ class HapifySyntax {
         // Cannot inject object with key root in context.
         const script = `const root = _root; let out = \n\`${this.template}\`\n; return out;`;
         try {
-            return new hapify_vm_1.HapifyVM({ timeout: this.options.timeout }).run(script, { _root: this.model });
+            return new vm_1.HapifyVM({ timeout: this.options.timeout }).run(script, { _root: this.model });
         }
         catch (error) {
             if (error.code === 6003) {
