@@ -17,6 +17,4 @@ tslint.json
 commitlint.config.js
 tsconfig.json
 
-README.md
-CHANGELOG.md
 ERRORS.md
