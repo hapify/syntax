@@ -1,6 +1,7 @@
 import { BasePattern } from './base';
 import { InternalError } from '../errors';
 import { Replacement } from '../interfaces';
+import EscapeStringRegexp from 'escape-string-regexp';
 
 /** if () { pattern */
 const IfPattern = /<<(\?|if)(\d+)?\s+([a-zA-Z_.]+)(\s+[a-zA-Z()[\]!+*\-/\s]+)?\s*>>/g;
@@ -13,10 +14,10 @@ const EndPattern = /<<(\?|endif)>>/g;
 /** Conditions short codes & operators */
 const Replacements: Replacement[] = [
 	// Operators
-	{ search: ['/', 'andNot'], replace: ' && !', escape: true },
-	{ search: ['*', 'and'], replace: ' && ', escape: true },
-	{ search: ['-', 'orNot'], replace: ' || !', escape: true },
-	{ search: ['+', 'or'], replace: ' || ', escape: true },
+	{ search: ['andNot', '/'], replace: ' && !' },
+	{ search: ['and', '*'], replace: ' && ' },
+	{ search: ['orNot', '-'], replace: ' || !' },
+	{ search: ['or', '+'], replace: ' || ' },
 	{ search: ['not'], replace: ' ! ' },
 
 	// Fields properties
@@ -41,7 +42,7 @@ const Replacements: Replacement[] = [
 	},
 	{ search: ['url', 'tSu'], replace: "(i.type === 'string' && i.subtype === 'url')" },
 	{ search: ['text', 'tSt'], replace: "(i.type === 'string' && i.subtype === 'text')" },
-	{ search: ['richText', 'tSr', 'rich'], replace: "(i.type === 'string' && i.subtype === 'rich')" },
+	{ search: ['richText', 'tSr'], replace: "(i.type === 'string' && i.subtype === 'rich')" },
 	{ search: ['string', 'tS'], replace: "(i.type === 'string')" },
 
 	// Fields types for number
@@ -88,10 +89,10 @@ const Replacements: Replacement[] = [
 	{ search: ['isGeoSearchable', 'pGSe'], replace: 'i.properties.isGeoSearchable' },
 
 	// Accesses actions properties
-	{ search: ['[ad', 'gteAdmin'], replace: 'i.gteAdmin', escape: true },
-	{ search: ['[ow', 'gteOwner'], replace: 'i.gteOwner', escape: true },
-	{ search: ['[au', 'gteAuth'], replace: 'i.gteAuth', escape: true },
-	{ search: ['[gs', 'gteGuest'], replace: 'i.gteGuest', escape: true },
+	{ search: ['gteAdmin', '[ad'], replace: 'i.gteAdmin' },
+	{ search: ['gteOwner', '[ow'], replace: 'i.gteOwner' },
+	{ search: ['gteAuth', '[au'], replace: 'i.gteAuth' },
+	{ search: ['gteGuest', '[gs'], replace: 'i.gteGuest' },
 
 	{ search: ['lteAdmin', 'ad]'], replace: 'i.lteAdmin' },
 	{ search: ['lteOwner', 'ow]'], replace: 'i.lteOwner' },
@@ -117,8 +118,14 @@ const Replacements: Replacement[] = [
 	{ search: ['noAuth', 'pNAu'], replace: 'i.accesses.properties.noAuth' },
 	{ search: ['noGuest', 'pNGs'], replace: 'i.accesses.properties.noGuest' },
 ];
+/** Denotes if a string contains non alphanumeric char */
+const HasNonAlphaNumeric = (s: string): boolean => !/^[a-zA-Z0-9]+$/.test(s);
 /** Convert replacement search for regexp */
-const ForRegExp = (r: Replacement): string => `${r.escape ? '\\' : ''}${r.search.join('|')}`;
+const ForRegExp = (r: Replacement): string =>
+	r.search
+		.map(EscapeStringRegexp)
+		.map((s) => (HasNonAlphaNumeric(s) ? s : `\\b${s}\\b`))
+		.join('|');
 /** Dynamic regex for replacements */
 const Condition = new RegExp(`(${Replacements.map(ForRegExp).join('|')})`, 'g');
 /** Testers caching */

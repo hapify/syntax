@@ -41,6 +41,7 @@
   "dependencies": {
     "@hapi/hoek": "^9.1.0",
     "@hapify/vm": "^0.3.3",
+    "escape-string-regexp": "^4.0.0",
     "line-column": "^1.0.2"
   },
   "engines": {

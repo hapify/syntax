@@ -2,7 +2,7 @@ import * as Fs from 'fs';
 import { expect, fail } from '@hapi/code';
 import 'mocha';
 import { HapifySyntax } from '../src';
-import { EvaluationError, TimeoutError, ArgumentsError } from '../src/errors';
+import { ArgumentsError, EvaluationError, TimeoutError } from '../src/errors';
 import { OutputError } from '@hapify/vm';
 
 const Model = require('./models/video.json');

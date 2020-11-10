@@ -4,7 +4,6 @@ export interface NumberedError extends Error {
 export interface Replacement {
 	search: string[];
 	replace: string;
-	escape?: boolean;
 }
 export type ReplacementCallback = (...params: string[]) => string;
 export interface Options {

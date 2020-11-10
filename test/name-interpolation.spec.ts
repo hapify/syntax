@@ -2,15 +2,15 @@ import * as Fs from 'fs';
 import { expect } from '@hapi/code';
 import 'mocha';
 import { HapifySyntax } from '../src';
-import { ParsingError } from '../src/errors';
 import { NameInterpolationPattern } from '../src/patterns/name-interpolation';
 
 const Model = require('./models/video.json');
 const Input = Fs.readFileSync(`${__dirname}/templates/name-interpolation.hpf`, 'utf8');
 const InputError = Fs.readFileSync(`${__dirname}/templates/name-interpolation-error.hpf`, 'utf8');
 const Output = Fs.readFileSync(`${__dirname}/output/name-interpolation.txt`, 'utf8');
+const OutputError = Fs.readFileSync(`${__dirname}/output/name-interpolation-error.txt`, 'utf8');
 
-describe('nam interpolation', () => {
+describe('name interpolation', () => {
 	it('run', async () => {
 		//Test input validity
 		expect(Input).to.be.a.string();
@@ -21,11 +21,12 @@ describe('nam interpolation', () => {
 	});
 
 	it('error', async () => {
-		//Test input validity
+		//Test malformed shortcode
 		expect(InputError).to.be.a.string();
+		expect(OutputError).to.be.a.string();
 		expect(Model).to.be.an.object();
 
-		expect(() => HapifySyntax.run(InputError, Model)).to.throw(ParsingError);
+		expect(HapifySyntax.run(InputError, Model)).to.equal(OutputError);
 	});
 
 	it('unit', async () => {
