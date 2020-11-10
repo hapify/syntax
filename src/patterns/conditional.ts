@@ -3,121 +3,122 @@ import { InternalError } from '../errors';
 import { Replacement } from '../interfaces';
 
 /** if () { pattern */
-const IfPattern = /<<\?(\d+)?\s+([a-zA-Z_.]+)(\s+[a-zA-Z()[\]!+*\-/]+)?\s*>>/g;
+const IfPattern = /<<(\?|if)(\d+)?\s+([a-zA-Z_.]+)(\s+[a-zA-Z()[\]!+*\-/\s]+)?\s*>>/g;
 /** else if () { pattern */
-const ElseIfPattern = /<<\?\?(\d+)?\s+([a-zA-Z_.]+)(\s+[a-zA-Z()[\]!+*\-/]+)?\s*>>/g;
+const ElseIfPattern = /<<(\?\?|elseif)(\d+)?\s+([a-zA-Z_.]+)(\s+[a-zA-Z()[\]!+*\-/\s]+)?\s*>>/g;
 /** else pattern */
-const ElsePattern = /<<\?\?>>/g;
+const ElsePattern = /<<(\?\?|else)>>/g;
 /** } pattern */
-const EndPattern = /<<\?>>/g;
+const EndPattern = /<<(\?|endif)>>/g;
 /** Conditions short codes & operators */
 const Replacements: Replacement[] = [
 	// Operators
-	{ search: '*', replace: ' && ', escape: true },
-	{ search: '/', replace: ' && !', escape: true },
-	{ search: '+', replace: ' || ', escape: true },
-	{ search: '-', replace: ' || !', escape: true },
+	{ search: ['/', 'andNot'], replace: ' && !', escape: true },
+	{ search: ['*', 'and'], replace: ' && ', escape: true },
+	{ search: ['-', 'orNot'], replace: ' || !', escape: true },
+	{ search: ['+', 'or'], replace: ' || ', escape: true },
+	{ search: ['not'], replace: ' ! ' },
 
 	// Fields properties
-	{ search: 'pr', replace: 'i.primary' },
-	{ search: 'un', replace: 'i.unique' },
-	{ search: 'lb', replace: 'i.label' },
-	{ search: 'nu', replace: 'i.nullable' },
-	{ search: 'ml', replace: 'i.multiple' },
-	{ search: 'em', replace: 'i.embedded' },
-	{ search: 'se', replace: 'i.searchable' },
-	{ search: 'so', replace: 'i.sortable' },
-	{ search: 'hd', replace: 'i.hidden' },
-	{ search: 'in', replace: 'i.internal' },
-	{ search: 'rs', replace: 'i.restricted' },
-	{ search: 'os', replace: 'i.ownership' },
+	{ search: ['primary', 'pr'], replace: 'i.primary' },
+	{ search: ['unique', 'un'], replace: 'i.unique' },
+	{ search: ['label', 'lb'], replace: 'i.label' },
+	{ search: ['nullable', 'nu'], replace: 'i.nullable' },
+	{ search: ['multiple', 'ml'], replace: 'i.multiple' },
+	{ search: ['embedded', 'em'], replace: 'i.embedded' },
+	{ search: ['searchable', 'se'], replace: 'i.searchable' },
+	{ search: ['sortable', 'so'], replace: 'i.sortable' },
+	{ search: ['hidden', 'hd'], replace: 'i.hidden' },
+	{ search: ['internal', 'in'], replace: 'i.internal' },
+	{ search: ['restricted', 'rs'], replace: 'i.restricted' },
+	{ search: ['ownership', 'os'], replace: 'i.ownership' },
 
 	// Fields types for string
-	{ search: 'tSe', replace: "(i.type === 'string' && i.subtype === 'email')" },
+	{ search: ['email', 'tSe'], replace: "(i.type === 'string' && i.subtype === 'email')" },
 	{
-		search: 'tSp',
+		search: ['password', 'tSp'],
 		replace: "(i.type === 'string' && i.subtype === 'password')",
 	},
-	{ search: 'tSu', replace: "(i.type === 'string' && i.subtype === 'url')" },
-	{ search: 'tSt', replace: "(i.type === 'string' && i.subtype === 'text')" },
-	{ search: 'tSr', replace: "(i.type === 'string' && i.subtype === 'rich')" },
-	{ search: 'tS', replace: "(i.type === 'string')" },
+	{ search: ['url', 'tSu'], replace: "(i.type === 'string' && i.subtype === 'url')" },
+	{ search: ['text', 'tSt'], replace: "(i.type === 'string' && i.subtype === 'text')" },
+	{ search: ['richText', 'tSr', 'rich'], replace: "(i.type === 'string' && i.subtype === 'rich')" },
+	{ search: ['string', 'tS'], replace: "(i.type === 'string')" },
 
 	// Fields types for number
 	{
-		search: 'tNi',
+		search: ['integer', 'tNi'],
 		replace: "(i.type === 'number' && i.subtype === 'integer')",
 	},
-	{ search: 'tNf', replace: "(i.type === 'number' && i.subtype === 'float')" },
+	{ search: ['float', 'tNf'], replace: "(i.type === 'number' && i.subtype === 'float')" },
 	{
-		search: 'tNt',
+		search: ['latitude', 'tNt'],
 		replace: "(i.type === 'number' && i.subtype === 'latitude')",
 	},
 	{
-		search: 'tNg',
+		search: ['longitude', 'tNg'],
 		replace: "(i.type === 'number' && i.subtype === 'longitude')",
 	},
-	{ search: 'tN', replace: "(i.type === 'number')" },
+	{ search: ['number', 'tN'], replace: "(i.type === 'number')" },
 
 	// Fields types for boolean
-	{ search: 'tB', replace: "(i.type === 'boolean')" },
+	{ search: ['boolean', 'tB'], replace: "(i.type === 'boolean')" },
 
 	// Fields types for datetime
-	{ search: 'tDd', replace: "(i.type === 'datetime' && i.subtype === 'date')" },
-	{ search: 'tDt', replace: "(i.type === 'datetime' && i.subtype === 'time')" },
-	{ search: 'tD', replace: "(i.type === 'datetime')" },
+	{ search: ['date', 'tDd'], replace: "(i.type === 'datetime' && i.subtype === 'date')" },
+	{ search: ['time', 'tDt'], replace: "(i.type === 'datetime' && i.subtype === 'time')" },
+	{ search: ['datetime', 'tD'], replace: "(i.type === 'datetime')" },
 
 	// Fields types for entity
-	{ search: 'tE', replace: "(i.type === 'entity')" },
+	{ search: ['entity', 'tE'], replace: "(i.type === 'entity')" },
 
 	// Fields types for object
-	{ search: 'tO', replace: "(i.type === 'object')" },
+	{ search: ['object', 'tO'], replace: "(i.type === 'object')" },
 
 	// Fields types for file
-	{ search: 'tFi', replace: "(i.type === 'file' && i.subtype === 'image')" },
-	{ search: 'tFv', replace: "(i.type === 'file' && i.subtype === 'video')" },
-	{ search: 'tFa', replace: "(i.type === 'file' && i.subtype === 'audio')" },
-	{ search: 'tFd', replace: "(i.type === 'file' && i.subtype === 'document')" },
-	{ search: 'tF', replace: "(i.type === 'file')" },
+	{ search: ['image', 'tFi'], replace: "(i.type === 'file' && i.subtype === 'image')" },
+	{ search: ['video', 'tFv'], replace: "(i.type === 'file' && i.subtype === 'video')" },
+	{ search: ['audio', 'tFa'], replace: "(i.type === 'file' && i.subtype === 'audio')" },
+	{ search: ['document', 'tFd'], replace: "(i.type === 'file' && i.subtype === 'document')" },
+	{ search: ['file', 'tF'], replace: "(i.type === 'file')" },
 
 	// Models computed properties
-	{ search: 'pMHd', replace: 'i.properties.mainlyHidden' },
-	{ search: 'pMIn', replace: 'i.properties.mainlyInternal' },
-	{ search: 'pGeo', replace: 'i.properties.isGeolocated' },
-	{ search: 'pGSe', replace: 'i.properties.isGeoSearchable' },
+	{ search: ['mainlyHidden', 'pMHd'], replace: 'i.properties.mainlyHidden' },
+	{ search: ['mainlyInternal', 'pMIn'], replace: 'i.properties.mainlyInternal' },
+	{ search: ['isGeolocated', 'pGeo'], replace: 'i.properties.isGeolocated' },
+	{ search: ['isGeoSearchable', 'pGSe'], replace: 'i.properties.isGeoSearchable' },
 
 	// Accesses actions properties
-	{ search: '[ad', replace: 'i.gteAdmin', escape: true },
-	{ search: '[ow', replace: 'i.gteOwner', escape: true },
-	{ search: '[au', replace: 'i.gteAuth', escape: true },
-	{ search: '[gs', replace: 'i.gteGuest', escape: true },
+	{ search: ['[ad', 'gteAdmin'], replace: 'i.gteAdmin', escape: true },
+	{ search: ['[ow', 'gteOwner'], replace: 'i.gteOwner', escape: true },
+	{ search: ['[au', 'gteAuth'], replace: 'i.gteAuth', escape: true },
+	{ search: ['[gs', 'gteGuest'], replace: 'i.gteGuest', escape: true },
 
-	{ search: 'ad]', replace: 'i.lteAdmin' },
-	{ search: 'ow]', replace: 'i.lteOwner' },
-	{ search: 'au]', replace: 'i.lteAuth' },
-	{ search: 'gs]', replace: 'i.lteGuest' },
+	{ search: ['lteAdmin', 'ad]'], replace: 'i.lteAdmin' },
+	{ search: ['lteOwner', 'ow]'], replace: 'i.lteOwner' },
+	{ search: ['lteAuth', 'au]'], replace: 'i.lteAuth' },
+	{ search: ['lteGuest', 'gs]'], replace: 'i.lteGuest' },
 
-	{ search: 'ad', replace: 'i.admin' },
-	{ search: 'ow', replace: 'i.owner' },
-	{ search: 'au', replace: 'i.auth' },
-	{ search: 'gs', replace: 'i.guest' },
+	{ search: ['admin', 'ad'], replace: 'i.admin' },
+	{ search: ['owner', 'ow'], replace: 'i.owner' },
+	{ search: ['auth', 'au'], replace: 'i.auth' },
+	{ search: ['guest', 'gs'], replace: 'i.guest' },
 
 	// Accesses computed properties
-	{ search: 'pOAd', replace: 'i.accesses.properties.onlyAdmin' },
-	{ search: 'pOOw', replace: 'i.accesses.properties.onlyOwner' },
-	{ search: 'pOAu', replace: 'i.accesses.properties.onlyAuth' },
-	{ search: 'pOGs', replace: 'i.accesses.properties.onlyGuest' },
-	{ search: 'pMAd', replace: 'i.accesses.properties.maxAdmin' },
-	{ search: 'pMOw', replace: 'i.accesses.properties.maxOwner' },
-	{ search: 'pMAu', replace: 'i.accesses.properties.maxAuth' },
-	{ search: 'pMGs', replace: 'i.accesses.properties.maxGuest' },
-	{ search: 'pNAd', replace: 'i.accesses.properties.noAdmin' },
-	{ search: 'pNOw', replace: 'i.accesses.properties.noOwner' },
-	{ search: 'pNAu', replace: 'i.accesses.properties.noAuth' },
-	{ search: 'pNGs', replace: 'i.accesses.properties.noGuest' },
+	{ search: ['onlyAdmin', 'pOAd'], replace: 'i.accesses.properties.onlyAdmin' },
+	{ search: ['onlyOwner', 'pOOw'], replace: 'i.accesses.properties.onlyOwner' },
+	{ search: ['onlyAuth', 'pOAu'], replace: 'i.accesses.properties.onlyAuth' },
+	{ search: ['onlyGuest', 'pOGs'], replace: 'i.accesses.properties.onlyGuest' },
+	{ search: ['maxAdmin', 'pMAd'], replace: 'i.accesses.properties.maxAdmin' },
+	{ search: ['maxOwner', 'pMOw'], replace: 'i.accesses.properties.maxOwner' },
+	{ search: ['maxAuth', 'pMAu'], replace: 'i.accesses.properties.maxAuth' },
+	{ search: ['maxGuest', 'pMGs'], replace: 'i.accesses.properties.maxGuest' },
+	{ search: ['noAdmin', 'pNAd'], replace: 'i.accesses.properties.noAdmin' },
+	{ search: ['noOwner', 'pNOw'], replace: 'i.accesses.properties.noOwner' },
+	{ search: ['noAuth', 'pNAu'], replace: 'i.accesses.properties.noAuth' },
+	{ search: ['noGuest', 'pNGs'], replace: 'i.accesses.properties.noGuest' },
 ];
 /** Convert replacement search for regexp */
-const ForRegExp = (r: Replacement): string => `${r.escape ? '\\' : ''}${r.search}`;
+const ForRegExp = (r: Replacement): string => `${r.escape ? '\\' : ''}${r.search.join('|')}`;
 /** Dynamic regex for replacements */
 const Condition = new RegExp(`(${Replacements.map(ForRegExp).join('|')})`, 'g');
 /** Testers caching */
@@ -127,11 +128,11 @@ const Testers: { [key: string]: string } = {};
 export class ConditionalPattern extends BasePattern {
 	/** Parser method */
 	execute(): void {
-		this.replace(IfPattern, (match, count, variable, condition) => {
+		this.replace(IfPattern, (match, statement, count, variable, condition) => {
 			const jsCondition = this.condition(count, this.variable(variable), this.tester(condition));
 			return this.dynamic(`if (${jsCondition}) {`);
 		})
-			.replace(ElseIfPattern, (match, count, variable, condition) => {
+			.replace(ElseIfPattern, (match, statement, count, variable, condition) => {
 				const jsCondition = this.condition(count, this.variable(variable), this.tester(condition));
 				return this.dynamic(`} else if (${jsCondition}) {`);
 			})
@@ -150,17 +151,23 @@ export class ConditionalPattern extends BasePattern {
 
 	/** Convert the condition short code to tester method */
 	protected tester(condition: string): string {
+		const noCondition = '((i) => i)';
+
 		// Quick exit
 		if (typeof condition === 'undefined') {
-			return '((i) => i)';
+			return noCondition;
 		}
 
 		const trimmed = condition.trim();
 
+		if (trimmed.length === 0) {
+			return noCondition;
+		}
+
 		if (typeof Testers[trimmed] === 'undefined') {
 			const condition = trimmed
 				.replace(Condition, (match) => {
-					const replacement = Replacements.find((l) => l.search === match);
+					const replacement = Replacements.find((l) => l.search.includes(match));
 					if (!replacement) {
 						throw new InternalError(`[ConditionalPattern.tester] Cannot find condition replacement for match: ${match} (in :${trimmed})`);
 					}
@@ -180,19 +187,19 @@ export class ConditionalPattern extends BasePattern {
 
 	/** Convert the input variable to the real variable */
 	protected variable(variable: string): string {
-		if (variable === 'M') return 'root';
-		else if (variable === 'F') return 'root.fields.list';
-		else if (variable === 'D') return 'root.dependencies';
-		else if (variable === 'R') return 'root.referencedIn';
-		else if (variable === 'P') return 'root.fields.primary';
+		if (['M', 'Models', 'Model'].includes(variable)) return 'root';
+		else if (['F', 'Fields'].includes(variable)) return 'root.fields.list';
+		else if (['D', 'Dependencies'].includes(variable)) return 'root.dependencies';
+		else if (['R', 'ReferencingModels'].includes(variable)) return 'root.referencedIn';
+		else if (['P', 'PrimaryField'].includes(variable)) return 'root.fields.primary';
 		// Accesses
-		else if (variable === 'A') return 'root.accesses.list';
-		else if (variable === 'Ac') return 'root.accesses.create';
-		else if (variable === 'Ar') return 'root.accesses.read';
-		else if (variable === 'Au') return 'root.accesses.update';
-		else if (variable === 'Ad') return 'root.accesses.remove';
-		else if (variable === 'As') return 'root.accesses.search';
-		else if (variable === 'An') return 'root.accesses.count';
+		else if (['A', 'Accesses'].includes(variable)) return 'root.accesses.list';
+		else if (['Ac', 'CreateAccess'].includes(variable)) return 'root.accesses.create';
+		else if (['Ar', 'ReadAccess'].includes(variable)) return 'root.accesses.read';
+		else if (['Au', 'UpdateAccess'].includes(variable)) return 'root.accesses.update';
+		else if (['Ad', 'RemoveAccess'].includes(variable)) return 'root.accesses.remove';
+		else if (['As', 'SearchAccess'].includes(variable)) return 'root.accesses.search';
+		else if (['An', 'CountAccess'].includes(variable)) return 'root.accesses.count';
 
 		return variable;
 	}

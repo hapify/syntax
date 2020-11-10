@@ -11,21 +11,21 @@ export class NameInterpolationPattern extends BasePattern {
 		this.replace(RegEx, (match, variable, property) => {
 			// Get the var
 			let jsVariable = variable;
-			if (jsVariable === 'M') jsVariable = 'root';
-			else if (jsVariable === 'P') jsVariable = 'root.fields.primary';
+			if (['M', 'Model'].includes(jsVariable)) jsVariable = 'root';
+			else if (['P', 'PrimaryField'].includes(jsVariable)) jsVariable = 'root.fields.primary';
 
 			// Get the property
 			let jsProperty = property;
-			if (jsProperty === 'aA') jsProperty = 'camel';
-			else if (jsProperty === 'AA') jsProperty = 'pascal';
-			else if (jsProperty === 'a') jsProperty = 'lower';
-			else if (jsProperty === 'A') jsProperty = 'capital';
-			else if (jsProperty === 'a-a') jsProperty = 'kebab';
-			else if (jsProperty === 'A-A') jsProperty = 'header';
-			else if (jsProperty === 'a_a') jsProperty = 'snake';
-			else if (jsProperty === 'A_A') jsProperty = 'constant';
-			else if (jsProperty === 'aa') jsProperty = 'compact';
-			else if (jsProperty === 'R') jsProperty = 'raw';
+			if (['aA', 'camel'].includes(jsProperty)) jsProperty = 'camel';
+			else if (['AA', 'pascal'].includes(jsProperty)) jsProperty = 'pascal';
+			else if (['a', 'lower'].includes(jsProperty)) jsProperty = 'lower';
+			else if (['A', 'capital'].includes(jsProperty)) jsProperty = 'capital';
+			else if (['a-a', 'kebab'].includes(jsProperty)) jsProperty = 'kebab';
+			else if (['A-A', 'header'].includes(jsProperty)) jsProperty = 'header';
+			else if (['a_a', 'snake'].includes(jsProperty)) jsProperty = 'snake';
+			else if (['A_A', 'constant'].includes(jsProperty)) jsProperty = 'constant';
+			else if (['aa', 'compact'].includes(jsProperty)) jsProperty = 'compact';
+			else if (['R', 'raw'].includes(jsProperty)) jsProperty = 'raw';
 			else throw new ParsingError(`[NameInterpolationPattern.execute] Unknown name property: ${jsProperty}`);
 
 			return `\${${jsVariable}.names.${jsProperty}}`;
