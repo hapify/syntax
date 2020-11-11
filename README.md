@@ -2,13 +2,13 @@
 
 ## Description
 
-This repository parses templates written with the Hapify Syntax.
+This package parses templates written with the Hapify Syntax.
 
 [![Build Status](https://travis-ci.org/hapify/syntax.svg?branch=master)](https://travis-ci.org/hapify/syntax) [![codecov](https://codecov.io/gh/hapify/syntax/branch/master/graph/badge.svg)](https://codecov.io/gh/hapify/syntax)
 
 ## Pre-requisites
 
-Before reading this article, we recommend that you read the documentation about [models and fields structure](https://www.hapify.io/documentation/templating).
+Before reading this article, we recommend that you read the documentation about [models and fields structure](https://www.hapify.io/documentation/templating-javascript).
 
 ## Wrappers
 
@@ -21,6 +21,23 @@ Escaped tags `\<\<` (and `\>\>`) are replaced by `<<` (and `>>`) in the generate
 
 ## Syntax
 
+Hapify templates can be written with a long or short syntax.
+
+Both have advantages:
+ - Short syntax does not interfere with the target code when reading the template, due to a shorter meta code.
+ - Long syntax is explicit and can be read naturally.
+
+In a template, you can mix both syntax.
+
+**A loop with long syntax**
+
+```
+<<for Fields searchable and sortable and not label f>>
+<<@>>
+```
+
+**Same loop with short syntax**
+
 ```
 <<@ F se*so/lb f>>
 <<@>>
@@ -28,35 +45,35 @@ Escaped tags `\<\<` (and `\>\>`) are replaced by `<<` (and `>>`) in the generate
 
 Explanations:
 
--   `@` is the operation
--   `F` is the variable
--   `se*so/lb` is the condition (optional)
+-   `for` (alias `@`) is the operation
+-   `Fields` (alias `F`) is the variable
+-   `searchable and sortable and not label` (short syntax: `se*so/lb`) is the condition (optional)
 -   `f` is the assignment variable
 
 ### Variable naming
 
-Lower case is for a dynamically defined variable.
-Upper case is for a pre-defined variable.
+As a convention, we use lower case to name dynamically defined variables (user variables) and upper case for pre-defined variables (system variables).
+An user variable cannot use system reserved words. To see the complete list of reserved words, please refer to the end of this file.
 
-To refer to the root variable, we use `M` (model or models).
-It refers to the model in a single model template and to the models list in a multiple model template.
+To refer to the root variable, we use `Model` or `Models` (short: `M`).
+It refers to the model in a single model template and to the models list in a multiple models template.
 
 In the template's scope, this root variable is named `root`.
-Therefore, `M` is just a shortcut to `root`.
+Therefore, `Model` or `Models` is just a shortcut to `root`.
 
 By default, in a case of a single model template:
 
--   `F` refers to the fields list: `root.fields.list`
--   `D` refers to the models list: `root.dependencies`
--   `R` refers to the models list: `root.referencedIn`
--   `P` refers to the models primary field: `root.fileds.primary`
--   `A` refers to the action's accesses list: `root.accesses.list`
--   `Ac` refers to the create action's access: `root.accesses.create`
--   `Ar` refers to the read action's access: `root.accesses.read`
--   `Au` refers to the update action's access: `root.accesses.update`
--   `Ad` refers to the delete (remove) action's access: `root.accesses.remove`
--   `As` refers to the search action's access: `root.accesses.search`
--   `An` refers to the count action's access: `root.accesses.count`
+-   `Fields` (short: `F`) refers to the fields list: `root.fields.list`
+-   `Dependencies` (short: `D`) refers to the models list: `root.dependencies`
+-   `ReferencedIn` (alias: `RefModels`, short: `R`) refers to the models list: `root.referencedIn`
+-   `PrimaryField` (short: `P`) refers to the models primary field: `root.fileds.primary`
+-   `Accesses` (short: `A`) refers to the action's accesses list: `root.accesses.list`
+-   `CreateAccess` (short: `Ac`) refers to the create action's access: `root.accesses.create`
+-   `ReadAccess` (short: `Ar`) refers to the read action's access: `root.accesses.read`
+-   `UpdateAccess` (short: `Au`) refers to the update action's access: `root.accesses.update`
+-   `RemoveAccess` (short: `Ad`) refers to the delete (remove) action's access: `root.accesses.remove`
+-   `SearchAccess` (short: `As`) refers to the search action's access: `root.accesses.search`
+-   `CountAccess` (short: `An`) refers to the count action's access: `root.accesses.count`
 
 ## Conditional operator
 
@@ -69,6 +86,16 @@ Then, this operator can test if a model has dependencies that has fields with a 
 
 ### Syntax
 
+**Long syntax**
+
+```
+<<if Fields entity and multiple>>
+<<endif>>
+```
+
+
+**Short syntax**
+
 ```
 <<? F tE*ml>>
 <<?>>
@@ -78,110 +105,156 @@ Tests if the model has at least one multiple entity.
 
 ### Operators
 
-We use algebra operands to represent logical operations.
+Operators can be written as words or as algebra operators.
 
--   `*` is an intersection: `se ∩ lb` => `se * lb` => `se && lb`.
--   `+` is an union: `se ∪ lb` => `se + lb` => `se || se`.
--   `/` is an intersection with the complementary: `se ∩ !lb` => `se * !lb` => `se / lb` => `se && !lb`.
--   `-` is an union with the complementary: `se ∪ !lb` => `se + !lb` => `se - lb` => `se || !lb`.
+-   `and` is an intersection. It can also be written `*` or `&&`. For example `sortable and searchable` equals `sortable * searchable` equals `sortable && searchable`.
+-   `or` is an union. It can also be written `+` or `||`. For example `sortable or searchable` equals `sortable + searchable` equals `sortable || searchable`.
+-   `and not` is an intersection with the complementary. It can also be written `andNot`, `/` or `&& !`. For example `sortable andNot searchable` equals `sortable and not searchable` equals `sortable * searchable` equals `sortable && !searchable`.
+-   `or not` is an union with the complementary. It can also be written `orNot`, `-` or `|| !`. For example `sortable orNot searchable` equals `sortable or not searchable` equals `sortable - searchable` equals `sortable || !searchable`.
 
-If the condition starts with `-` or `/` it will be assimilated to `!`.
-Therefore, `-se*so` and `/se*so` are equivalent to `!se*so`.
+If the condition starts with `andNot`, `orNot`, `-` or `/` it will be converted to `!`.
+Therefore, `-searchable*sortable` and `andNot searchable and sortable` are equivalent to `not searchable and sortable`.
+
+**Example**
+
+```
+<<if Fields not nullable andNot (number or not date)>>
+    ...
+<<endfor>>
+```
 
 ### Properties short-codes
 
-To filter an array or to test a field by its properties, we use short-codes.
+You can filter an array or to test a field by its properties.
 
-Short-codes available for a field:
+Available properties for a field:
 
--   `pr` for the boolean property `primary`
--   `un` for the boolean property `unique`
--   `lb` for the boolean property `label`
--   `nu` for the boolean property `nullable`
--   `ml` for the boolean property `multiple`
--   `em` for the boolean property `embedded`
--   `se` for the boolean property `searchable`
--   `so` for the boolean property `sortable`
--   `hd` for the boolean property `hidden`
--   `in` for the boolean property `internal`
--   `rs` for the boolean property `restricted`
--   `os` for the boolean property `ownership`
--   `tS` to test if property `type` is `string`
-    -   `tSe` to test if properties `type` is `string` and `subtype` is `email`
-    -   `tSp` to test if properties `type` is `string` and `subtype` is `password`
-    - `tSu` to test if properties `type` is `string` and `subtype` is `url`
-    -   `tSt` to test if properties `type` is `string` and `subtype` is `text`
-    -   `tSr` to test if properties `type` is `string` and `subtype` is `rich`
--   `tN` to test if property `type` is `number`
-    -   `tNi` to test if properties `type` is `number` and `subtype` is `integer`
-    -   `tNf` to test if properties `type` is `number` and `subtype` is `float`
-    -   `tNt` to test if properties `type` is `number` and `subtype` is `latitude`
-    -   `tNg` to test if properties `type` is `number` and `subtype` is `longitude`
--   `tB` to test if property `type` is `boolean`
--   `tD` to test if property `type` is `datetime`
-    -   `tDd` to test if properties `type` is `datetime` and `subtype` is `date`
-    -   `tDt` to test if properties `type` is `datetime` and `subtype` is `time`
--   `tE` to test if property `type` is `entity`
-- `tO` to test if property `type` is `object`
-- `tF` to test if property `type` is `file`
-    - `tFi` to test if properties `type` is `file` and `subtype` is `image`
-    - `tFv` to test if properties `type` is `file` and `subtype` is `video`
-    - `tFa` to test if properties `type` is `file` and `subtype` is `audio`
-    - `tFd` to test if properties `type` is `file` and `subtype` is `document`
+-   `primary` (short: `pr`) for boolean `primary`
+-   `unique` (short: `un`) for boolean `unique`
+-   `label` (short: `lb`) for boolean `label`
+-   `nullable` (short: `nu`) for boolean `nullable`
+-   `multiple` (short: `ml`) for boolean `multiple`
+-   `embedded` (short: `em`) for boolean `embedded`
+-   `searchable` (short: `se`) for boolean `searchable`
+-   `sortable` (short: `so`) for boolean `sortable`
+-   `hidden` (short: `hd`) for boolean `hidden`
+-   `internal` (short: `in`) for boolean `internal`
+-   `restricted` (short: `rs`) for boolean `restricted`
+-   `ownership` (short: `os`) for boolean `ownership`
+-   `string` (short: `tS`) for type `string`
+    -   `email` (short: `tSe`) for type `string` and subtype `email`
+    -   `password` (short: `tSp`) for type `string` and subtype `password`
+    -   `url` (short: `tSu`) for type `string` and subtype `url`
+    -   `text` (short: `tSt`) for type `string` and subtype `text`
+    -   `richText` (alias: `rich`, short: `tSr`) for type `string` and subtype `rich`
+-   `number` (short: `tN`) for type `number`
+    -   `integer` (short: `tNi`) for type `number` and subtype `integer`
+    -   `float` (short: `tNf`) for type `number` and subtype `float`
+    -   `latitude` (short: `tNt`) for type `number` and subtype `latitude`
+    -   `longitude` (short: `tNg`) for type `number` and subtype `longitude`
+-   `boolean` (short: `tB`) for type `boolean`
+-   `datetime` (short: `tD`) for type `datetime`
+    -   `date` (short: `tDd`) for type `datetime` and subtype `date`
+    -   `time` (short: `tDt`) for type `datetime` and subtype `time`
+-   `entity` (short: `tE`) for type `entity`
+-   `object` (short: `tO`) for type `object`
+-   `file` (short: `tF`) for type `file`
+    -   `image` (short: `tFi`) for type `file` and subtype `image`
+    -   `video` (short: `tFv`) for type `file` and subtype `video`
+    -   `audio` (short: `tFa`) for type `file` and subtype `audio`
+    -   `document` (short: `tFd`) for type `file` and subtype `document`
 
-Short-codes available for the properties of a model:
+**Example**
 
--   `pMHd` for the boolean property `mainlyHidden`
--   `pMIn` for the boolean property `mainlyInternal`
--   `pGeo` for the boolean property `isGeolocated`
--   `pGSe` for the boolean property `isGeoSearchable`
+```
+<<if Fields (restricted or internal) and not number>>
+    Current model has at least one field matching to the condition. Do some stuff...
+<<endfor>>
+```
+
+You can also test a model or filter a list of models by its pre-computed properties:
+
+-   `mainlyHidden` (short: `pMHd`) for boolean `mainlyHidden`
+-   `mainlyInternal` (short: `pMIn`) for boolean `mainlyInternal`
+-   `isGeolocated` (short: `pGeo`) for boolean `isGeolocated`
+-   `isGeoSearchable` (short: `pGSe`) for boolean `isGeoSearchable`
+
+**Example**
+
+```
+<<for Models isGeolocated model>>
+    For each model matching the condition, do some stuff
+<<endfor>>
+```
 
 #### Access controls
 
-To filter an array or to test an action by its properties, use those short-codes:
+You can filter an array of actions or to test an action by its access properties:
 
--   `ad` for the boolean property `admin`
--   `ow` for the boolean property `owner`
--   `au` for the boolean property `auth`
--   `gs` for the boolean property `guest`
--   `[ad` for the boolean property `gteAdmin`
--   `[ow` for the boolean property `gteOwner`
--   `[au` for the boolean property `gteAuth`
--   `[gs` for the boolean property `gteGuest`
--   `ad]` for the boolean property `lteAdmin`
--   `ow]` for the boolean property `lteOwner`
--   `au]` for the boolean property `lteAuth`
--   `gs]` for the boolean property `lteGuest`
+-   `admin` (short: `ad`) for boolean `admin`
+-   `owner` (short: `ow`) for boolean `owner`
+-   `auth` (short: `au`) for boolean `auth`
+-   `guest` (short: `gs`) for boolean `guest`
+-   `gteAdmin` (short: `[ad`) for boolean `gteAdmin`
+-   `gteOwner` (short: `[ow`) for boolean `gteOwner`
+-   `gteAuth` (short: `[au`) for boolean `gteAuth`
+-   `gteGuest` (short: `[gs`) for boolean `gteGuest`
+-   `lteAdmin` (short: `ad]`) for boolean `lteAdmin`
+-   `lteOwner` (short: `ow]`) for boolean `lteOwner`
+-   `lteAuth` (short: `au]`) for boolean `lteAuth`
+-   `lteGuest` (short: `gs]`) for boolean `lteGuest`
 
-Short-codes available for the access' properties of a model:
+**Examples**
 
--   `pOAd` for the boolean property `onlyAdmin`
--   `pOOw` for the boolean property `onlyOwner`
--   `pOAu` for the boolean property `onlyAuth`
--   `pOGs` for the boolean property `onlyGuest`
--   `pMAd` for the boolean property `maxAdmin`
--   `pMOw` for the boolean property `maxOwner`
--   `pMAu` for the boolean property `maxAuth`
--   `pMGs` for the boolean property `maxGuest`
--   `pNAd` for the boolean property `noAdmin`
--   `pNOw` for the boolean property `noOwner`
--   `pNAu` for the boolean property `noAuth`
--   `pNGs` for the boolean property `noGuest`
+```
+<<for Accesses gteAuth action>>
+    For each action of the current model that requires auth or admin accees
+<<endfor>>
+```
+
+```
+<<if ReadAccess guest>>
+    Read this model is public
+<<endfor>>
+```
+
+Words available for the access' properties of a model:
+
+-   `onlyAdmin` (short: `pOAd`) for boolean `onlyAdmin`
+-   `onlyOwner` (short: `pOOw`) for boolean `onlyOwner`
+-   `onlyAuth` (short: `pOAu`) for boolean `onlyAuth`
+-   `onlyGuest` (short: `pOGs`) for boolean `onlyGuest`
+-   `maxAdmin` (short: `pMAd`) for boolean `maxAdmin`
+-   `maxOwner` (short: `pMOw`) for boolean `maxOwner`
+-   `maxAuth` (short: `pMAu`) for boolean `maxAuth`
+-   `maxGuest` (short: `pMGs`) for boolean `maxGuest`
+-   `noAdmin` (short: `pNAd`) for boolean `noAdmin`
+-   `noOwner` (short: `pNOw`) for boolean `noOwner`
+-   `noAuth` (short: `pNAu`) for boolean `noAuth`
+-   `noGuest` (short: `pNGs`) for boolean `noGuest`
+
+**Example**
+
+```
+<<if Accesses onlyAdmin>>
+    All acrions on this model are reserved to admins
+<<endfor>>
+```
 
 ### Structure
 
 A complete conditional writing will look like this:
 
 ```
-<<?4 F hd>>
+<<if4 Fields hidden>>
     This model has at least 4 hidden fields
-<<??2 F lb+tB>>
+<<elseif2 Fields label or boolean>>
     This model has at least 2 label or boolean fields
-<<?? P tS>>
+<<elseif PrimaryField string>>
     The primary key of the model is a string
-<<??>>
+<<else>>
     Something else
-<<?>>
+<<endif>>
 ```
 
 Is equivalent to:
@@ -200,30 +273,30 @@ if (root.fields.list.filter(f => f.hidden).length >= 4) {
 }
 ```
 
-### Statements Analysis
+### Statements analysis
 
 #### if
 
-`<<?4 F hd>>` is equivalent to: `if (condition) {`.
+`<<if4 Fields hidden>>` is equivalent to: `if (condition) {`.
 
--   `<<?` is the opener.
+-   `<<if` is the opening tag.
 -   `4` is the minimum length of the filtered array. This value is optional and only usable if the variable is an array. If omitted, we assume the required length is 1.
--   `F` is the variable to test. It can be and array or an object.
--   `hd` is the condition to test the object or the items of an array.
+-   `Fields` is the variable to test. It can be and array or an object.
+-   `hidden` is the condition to test the object or the items of an array.
 -   `>>` closes the tag
 
 #### else if
 
-`<<??2 F lb+tB>>` Js equivalent would be: `} else if (condition) {`.
-It follows the same rules as an **if** statement, unless its opener is `<<??`.
+`<<elseif2 Fields label or boolean>>` Js equivalent would be: `} else if (condition) {`.
+It follows the same rules as an **if** statement, unless its opening tag is `<<elseif`.
 
-#### else 
+#### else
 
-`<<??>>` is equivalent to: `} else {`.
+`<<else>>` is equivalent to: `} else {`.
 
-#### closer 
+#### ending
 
-`<<?>>` is equivalent to: `}`.
+`<<endif>>` is equivalent to: `}`.
 
 
 ### Examples
@@ -231,6 +304,16 @@ It follows the same rules as an **if** statement, unless its opener is `<<??`.
 #### Example with conditions:
 
 This tests if the model has some searchable and sortable but not hidden fields
+
+**Long syntax**
+
+```
+<<if Fields searchable and sortable and not hidden>>
+    ...
+<<endif>>
+```
+
+**Short syntax**
 
 ```
 <<? F se*so/hd>>
@@ -241,15 +324,22 @@ This tests if the model has some searchable and sortable but not hidden fields
 Is equivalent to:
 
 ```javascript
-if (
-	root.fields.list.filter(f => f.searchable && f.sortable && !f.hidden)
-		.length > 0
-) {
+if (root.fields.list.filter(f => f.searchable && f.sortable && !f.hidden).length > 0) {
 	out += '...';
 }
 ```
 
 #### Example without condition:
+
+**Long syntax**
+
+```
+<<if Fields>>
+    .....
+<<endif>>
+```
+
+**Short syntax**
 
 ```
 <<? F>>
@@ -269,6 +359,16 @@ if (root.fields.list.length > 0) {
 
 Example to test if the model has at least two label fields
 
+**Long syntax**
+
+```
+<<if2 Fields label>>
+    .....
+<<endif>>
+```
+
+**Short syntax**
+
 ```
 <<?2 F lb>>
     ...
@@ -286,6 +386,16 @@ if (root.fields.list.filter(f => f.label).length >= 2) {
 #### Example for a specific action's access
 
 Example to test if the update action is restricted to admin or owner
+
+**Long syntax**
+
+```
+<<if UpdateAccess admin or owner>>
+    .....
+<<endif>>
+```
+
+**Short syntax**
 
 ```
 <<? Au ad+ow>>
@@ -305,6 +415,16 @@ if (root.accesses.update.admin || root.accesses.update.owner) {
 
 Example to test if at least one action is restricted to authenticated user or less
 
+**Long syntax**
+
+```
+<<if Accesses lteAuth>>
+    .....
+<<endif>>
+```
+
+**Short syntax**
+
 ```
 <<? A au]>>
     .....
@@ -321,7 +441,7 @@ if (root.accesses.filter(a => a.lteAuth).length > 0) {
 
 ## Iteration operator
 
-The loop operation (foreach) is `@`.
+The loop operation (foreach) is `for` (short: `@`).
 
 It applies only to an array.
 It uses the same conditions syntax as the conditional operator.
@@ -329,6 +449,15 @@ It uses the same conditions syntax as the conditional operator.
 Actually, it inherits from the conditional operator.
 
 ### Syntax
+
+**Long syntax**
+
+```
+<<for Fields entity and multiple f>>
+<<endfor>>
+```
+
+**Short syntax**
 
 ```
 <<@ F tE*ml f>>
@@ -341,6 +470,16 @@ This will loop over all fields of type entity and multiple and assign the curren
 ### Structure
 
 A complete iteration will look like this:
+
+**Long syntax**
+
+```
+<<for4 Fields hidden f>>
+    Do something
+<<endfor>>
+```
+
+**Short syntax**
 
 ```
 <<@4 F hd f>>
@@ -360,18 +499,18 @@ for (let f of root.fields.list.filter(f => f.hidden).slice(0, 4)) {
 
 #### loop
 
-`<<@4 F hd>>` is equivalent to: `for (assigment + condition) {`.
+`<<for4 Fields hidden f>>` is equivalent to: `for (assigment + condition) {`.
 
--   `<<@` is the opener.
+-   `<<for` is the opening tag.
 -   `4` is the maximum length of the filtered array. This value is optional. If omitted, we do not slice the filtered array.
--   `F` is the variable to filter and to loop on. It must be iterable.
--   `hd` is the condition to test the items of the array.
+-   `Fields` is the variable to filter and to loop on. It must be iterable.
+-   `hidden` is the condition to test the items of the array.
 -   `f` is the assignment variable. This variable will be available inside the loop's scope.
 -   `>>` closes the tag.
 
-#### closer 
+#### ending 
 
-`<<@>>` is equivalent to: `}`.
+`<<endfor>>` is equivalent to: `}`.
 
 
 ### Examples
@@ -379,6 +518,16 @@ for (let f of root.fields.list.filter(f => f.hidden).slice(0, 4)) {
 #### Example with conditions over fields:
 
 To loop over model's searchable entity fields
+
+**Long syntax**
+
+```
+<<for Fields searchable and entity f>>
+    ...
+<<endfor>>
+```
+
+**Short syntax**
 
 ```
 <<@ F se*tE f>>
@@ -398,6 +547,16 @@ for (let f of root.fields.list.filter(f => f.searchable && f.type === 'entity'))
 
 In the context of a multiple models template, this loops over all models that are geo-located.
 
+**Long syntax**
+
+```
+<<for Models isGeolocated m>>
+    .....
+<<endfor>>
+```
+
+**Short syntax**
+
 ```
 <<@ M pGeo m>>
     .....
@@ -415,6 +574,16 @@ for (let m of root.filter(i => i.properties.isGeolocated)) {
 #### Example with 2 elements
 
 This example will loop over the two first dependency models that have sortable fields.
+
+**Long syntax**
+
+```
+<<for2 Dependencies sortable d>>
+    ...
+<<endfor>>
+```
+
+**Short syntax**
 
 ```
 <<@2 D so d>>
@@ -434,6 +603,16 @@ for (let d of root.dependencies.filter(f => f.sortable).slice(0, 2)) {
 
 This will loop over all fields.
 
+**Long syntax**
+
+```
+<<for Fields f>>
+    .....
+<<endfor>>
+```
+
+**Short syntax**
+
 ```
 <<@ F f>>
     .....
@@ -451,6 +630,16 @@ for (let f of root.fields.list) {
 #### Example with accesses
 
 This will loop over all actions restricted to admin or owner.
+
+**Long syntax**
+
+```
+<<for Accesses admin or owner>>
+    .....
+<<endfor>>
+```
+
+**Short syntax**
 
 ```
 <<@ A ad+ow>>
@@ -473,11 +662,27 @@ To print the name of a variable (model or field), we omit the operation.
 
 Example for the root model's name as upper camel:
 
+**Long syntax**
+
+```
+<<Model pascal>>
+```
+
+**Short syntax**
+
 ```
 <<M AA>>
 ```
 
 Example for field's name as kebab:
+
+**Long syntax**
+
+```
+<<f kebab>>
+```
+
+**Short syntax**
 
 ```
 <<f a-a>>
@@ -485,16 +690,16 @@ Example for field's name as kebab:
 
 The values for the name are:
 
--   `aA` for `names.camel`
--   `AA` for `names.pascal`
--   `a` for `names.lower`
--   `A` for `names.capital`
--   `a-a` for `names.kebab`
--   `A-A` for `names.header`
--   `a_a` for `names.snake`
--   `A_A` for `names.constant`
--   `aa` for `names.compact`
--   `R` for `names.raw`
+-   `camel` (short: `aA`) for `names.camel`
+-   `pascal` (short: `AA`) for `names.pascal`
+-   `lower` (short: `a`) for `names.lower`
+-   `capital` (short: `A`) for `names.capital`
+-   `kebab` (short: `a-a`) for `names.kebab`
+-   `header` (short: `A-A`) for `names.header`
+-   `snake` (short: `a_a`) for `names.snake`
+-   `constant` (short: `A_A`) for `names.constant`
+-   `compact` (short: `aa`) for `names.compact`
+-   `raw` (short: `R`) for `names.raw`
 
 ## Raw inputs
 
@@ -502,8 +707,8 @@ This operator allows you to write pure Javascript.
 
 ### Syntax
 
--   Opener: `<<<`
--   Closer: `>>>`
+-   Opening tag: `<<<`
+-   Closing tag: `>>>`
 
 Those tags are also escapable.
 
