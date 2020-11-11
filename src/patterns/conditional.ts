@@ -211,3 +211,30 @@ export class ConditionalPattern extends BasePattern {
 		return variable;
 	}
 }
+
+// For dev only: Code block to output reserved word
+// console.log(
+// 	"`" + Replacements
+// 		.map(r => r.search)
+// 		.reduce((a, c) => a.concat(c), [])
+// 		.filter(s => !HasNonAlphaNumeric(s))
+// 		.concat([
+// 			'out', 'root',
+// 			'if', 'elseif', 'else', 'endif',
+// 			'for', 'endfor',
+// 			'M', 'Models', 'Model',
+// 			'F', 'Fields',
+// 			'D', 'Dependencies',
+// 			'R', 'ReferencedIn', 'RefModels',
+// 			'P', 'PrimaryField',
+// 			'A', 'Accesses',
+// 			'Ac', 'CreateAccess',
+// 			'Ar', 'ReadAccess',
+// 			'Au', 'UpdateAccess',
+// 			'Ad', 'RemoveAccess',
+// 			'As', 'SearchAccess',
+// 			'An', 'CountAccess'
+// 		])
+// 		.sort((a, b) => a.localeCompare(b))
+// 		.join("`, `") + "`"
+// );
