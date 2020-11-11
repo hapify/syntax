@@ -3,20 +3,21 @@
 ## [unreleased]
 
 ### Added
-- Handle single back-slash char in templates
 
 ### Changed
 
 ### Removed
+
+## [0.6.0] - 2020-11-10
+
+### Added
+- Handle single back-slash char in templates
+- Handle long syntax
 
 ## [0.4.3] - 2019-11-14
 
-### Added
-
 ### Changed
 - Use `Hapify-VM` to run code safely
-
-### Removed
 
 ## [0.4.2] - 2019-10-23
 
@@ -28,11 +29,7 @@
 - Ran `npm audit fix` and update packages
 - Ran `npm upgrade` and upgrade packages
 
-### Removed
-
 ## [0.4.1] - 2019-05-03
-
-### Added
 
 ### Changed
 - Renamed string variants
@@ -41,8 +38,6 @@
 - Add type `file` with sub-types `image`, `video`, `audio` and `document`
 - Map `A-A` to header case rather than big case
 - Fix conditional pattern with more than 9
-
-### Removed
 
 ## [0.3.0] - 2018-11-15
 
@@ -56,5 +51,3 @@
 
 ### Changed
 - Use of `safer-eval` for evaluation
-
-### Removed
