@@ -212,7 +212,7 @@ export class ConditionalPattern extends BasePattern {
 	}
 }
 
-// For dev only: Code block to output reserved word
+// For dev only: Code block to output reserved words
 // console.log(
 // 	"`" + Replacements
 // 		.map(r => r.search)
