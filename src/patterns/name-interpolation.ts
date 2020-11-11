@@ -19,7 +19,6 @@ const Cases: Replacement[] = [
 /** Convert case words for regexp */
 const ForRegExp = (r: Replacement): string => r.search.map(EscapeStringRegexp).join('|');
 /** Name interpolation pattern */
-// const RegEx = /<<([a-zA-Z_.]+)\s+([a-zA-Z-_]+)\s*>>/g;
 const RegEx = new RegExp(`<<([a-zA-Z_.]+)\\s+(${Cases.map(ForRegExp).join('|')})\\s*>>`, 'g');
 
 /** NameInterpolation pattern */

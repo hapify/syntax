@@ -42,7 +42,7 @@ const Replacements: Replacement[] = [
 	},
 	{ search: ['url', 'tSu'], replace: "(i.type === 'string' && i.subtype === 'url')" },
 	{ search: ['text', 'tSt'], replace: "(i.type === 'string' && i.subtype === 'text')" },
-	{ search: ['richText', 'tSr'], replace: "(i.type === 'string' && i.subtype === 'rich')" },
+	{ search: ['richText', 'rich', 'tSr'], replace: "(i.type === 'string' && i.subtype === 'rich')" },
 	{ search: ['string', 'tS'], replace: "(i.type === 'string')" },
 
 	// Fields types for number
@@ -197,7 +197,7 @@ export class ConditionalPattern extends BasePattern {
 		if (['M', 'Models', 'Model'].includes(variable)) return 'root';
 		else if (['F', 'Fields'].includes(variable)) return 'root.fields.list';
 		else if (['D', 'Dependencies'].includes(variable)) return 'root.dependencies';
-		else if (['R', 'ReferencingModels'].includes(variable)) return 'root.referencedIn';
+		else if (['R', 'ReferencedIn', 'RefModels'].includes(variable)) return 'root.referencedIn';
 		else if (['P', 'PrimaryField'].includes(variable)) return 'root.fields.primary';
 		// Accesses
 		else if (['A', 'Accesses'].includes(variable)) return 'root.accesses.list';

@@ -68,7 +68,8 @@ describe('iteration long', () => {
 
 		// relations
 		expect(IterationPatternExecute('<<for Dependencies d>>')).to.equal(Condition('i', 0, 'd', 'dependencies'));
-		expect(IterationPatternExecute('<<for ReferencingModels r>>')).to.equal(Condition('i', 0, 'r', 'referencedIn'));
+		expect(IterationPatternExecute('<<for ReferencedIn r>>')).to.equal(Condition('i', 0, 'r', 'referencedIn'));
+		expect(IterationPatternExecute('<<for RefModels r>>')).to.equal(Condition('i', 0, 'r', 'referencedIn'));
 		expect(IterationPatternExecute('<<for PrimaryField p>>')).to.equal(Condition('i', 0, 'p', 'fields.primary'));
 
 		// spaces
