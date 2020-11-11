@@ -1,8 +1,25 @@
 import { BasePattern } from './base';
 import { ParsingError } from '../errors';
+import { Replacement } from '../interfaces';
+import EscapeStringRegexp from 'escape-string-regexp';
 
+const Cases: Replacement[] = [
+	{ search: ['aA', 'camel'], replace: 'camel' },
+	{ search: ['AA', 'pascal'], replace: 'pascal' },
+	{ search: ['a', 'lower'], replace: 'lower' },
+	{ search: ['A', 'capital'], replace: 'capital' },
+	{ search: ['a-a', 'kebab'], replace: 'kebab' },
+	{ search: ['A-A', 'header'], replace: 'header' },
+	{ search: ['a_a', 'snake'], replace: 'snake' },
+	{ search: ['A_A', 'constant'], replace: 'constant' },
+	{ search: ['aa', 'compact'], replace: 'compact' },
+	{ search: ['R', 'raw'], replace: 'raw' },
+];
+
+/** Convert case words for regexp */
+const ForRegExp = (r: Replacement): string => r.search.map(EscapeStringRegexp).join('|');
 /** Name interpolation pattern */
-const RegEx = /<<([a-zA-Z_.]+)\s+([aA_\-R]+)\s*>>/g;
+const RegEx = new RegExp(`<<([a-zA-Z_.]+)\\s+(${Cases.map(ForRegExp).join('|')})\\s*>>`, 'g');
 
 /** NameInterpolation pattern */
 export class NameInterpolationPattern extends BasePattern {
@@ -11,22 +28,15 @@ export class NameInterpolationPattern extends BasePattern {
 		this.replace(RegEx, (match, variable, property) => {
 			// Get the var
 			let jsVariable = variable;
-			if (jsVariable === 'M') jsVariable = 'root';
-			else if (jsVariable === 'P') jsVariable = 'root.fields.primary';
+			if (['M', 'Model'].includes(jsVariable)) jsVariable = 'root';
+			else if (['P', 'PrimaryField'].includes(jsVariable)) jsVariable = 'root.fields.primary';
 
 			// Get the property
-			let jsProperty = property;
-			if (jsProperty === 'aA') jsProperty = 'camel';
-			else if (jsProperty === 'AA') jsProperty = 'pascal';
-			else if (jsProperty === 'a') jsProperty = 'lower';
-			else if (jsProperty === 'A') jsProperty = 'capital';
-			else if (jsProperty === 'a-a') jsProperty = 'kebab';
-			else if (jsProperty === 'A-A') jsProperty = 'header';
-			else if (jsProperty === 'a_a') jsProperty = 'snake';
-			else if (jsProperty === 'A_A') jsProperty = 'constant';
-			else if (jsProperty === 'aa') jsProperty = 'compact';
-			else if (jsProperty === 'R') jsProperty = 'raw';
-			else throw new ParsingError(`[NameInterpolationPattern.execute] Unknown name property: ${jsProperty}`);
+			const matchingCase = Cases.find((c) => c.search.includes(property));
+			if (!matchingCase) {
+				throw new ParsingError(`[NameInterpolationPattern.execute] Unknown name property: ${property}`);
+			}
+			const jsProperty = matchingCase.replace;
 
 			return `\${${jsVariable}.names.${jsProperty}}`;
 		});

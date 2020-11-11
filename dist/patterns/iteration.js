@@ -3,14 +3,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.IterationPattern = void 0;
 const conditional_1 = require("./conditional");
 /** for() { pattern */
-const ForPattern = /<<@(\d+)?\s+([a-zA-Z_.]+)(\s+[a-zA-Z()!+*\-/]+)?\s*([a-zA-Z_]+)\s*>>/g;
+const ForPattern = /<<(@|for)(\d+)?\s+([a-zA-Z_.]+)(\s+[a-zA-Z()!+*\-/\s]+)?\s*([a-zA-Z_]+)\s*>>/g;
 /** pattern */
-const EndPattern = /<<@>>/g;
+const EndPattern = /<<(@|endfor)>>/g;
 /** Conditional pattern */
 class IterationPattern extends conditional_1.ConditionalPattern {
     /** Parser method */
     execute() {
-        this.replace(ForPattern, (match, count, variable, condition, assignment) => {
+        this.replace(ForPattern, (match, statement, count, variable, condition, assignment) => {
             const jsFilter = this.filter(count, this.variable(variable), this.tester(condition));
             return this.dynamic(`for (const ${assignment} of ${jsFilter}) {`);
         }).replace(EndPattern, () => this.dynamic('}'));

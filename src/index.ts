@@ -1,4 +1,4 @@
-import { HapifyVM, EvaluationError as VMEvaluationError } from '@hapify/vm';
+import { EvaluationError as VMEvaluationError, HapifyVM } from '@hapify/vm';
 import LineColumn from 'line-column';
 import * as Hoek from '@hapi/hoek';
 import { ArgumentsError, EvaluationError, TimeoutError } from './errors';
