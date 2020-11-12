@@ -24,7 +24,8 @@ for (const file of files) {
 	const template = Fs.readFileSync(file.path, { encoding: 'utf8' });
 	const converter = new ShortToLongConverter(template);
 	const newTemplate = converter.execute();
-	Fs.writeFileSync(file.path, newTemplate, { encoding: 'utf8' });
+	console.log(newTemplate);
+	// Fs.writeFileSync(file.path, newTemplate, { encoding: 'utf8' });
 }
 
 console.log(`Converted ${files.length} file(s) to long syntax`);

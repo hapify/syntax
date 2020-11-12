@@ -36,14 +36,16 @@
  @
 <<@>>
 
-<<for R nu/primary r>>
+<<for R /nu/pr/os/ml+ml r>>
  @
 <<endfor>>
 
-<<for34 F nu f>>
+<<for34 F -nu f>>
  @
 <<endfor>>
 
+<<? R>>
+<<?>>
 
 <<< ifar = root >>>
 <<ifar camel>>
@@ -59,3 +61,16 @@ Multi line comments
 <<<
 // Multiline evaluation
 >>>
+
+<<m.f aA>>
+<<M AA>>
+<<f a>>
+<<f A>>
+<<f a-a>>
+<<f A-A>>
+<<f a_a>>
+<<f A_A>>
+<<f aa>>
+<<f R>>
+
+method: Pres.GetEntity('<<M a_a>>', 'params.<<P a_a>>'), assign: '<<M a_a>>' }

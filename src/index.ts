@@ -18,10 +18,10 @@ const PatternsStack = [
 	EscapeBackSlashesPattern,
 	EscapeQuotesPattern,
 	CommentPattern,
-	NameInterpolationPattern,
-	InterpolationPattern,
 	ConditionalPattern,
 	IterationPattern,
+	InterpolationPattern,
+	NameInterpolationPattern,
 	EvaluatePattern,
 	EscapePattern,
 ];

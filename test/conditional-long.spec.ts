@@ -162,4 +162,8 @@ describe('conditional long', () => {
 	it('collisions', async () => {
 		expect(ConditionalPatternExecute('<<if F in+integer >>')).to.equal(Condition(`i.internal || (i.type === 'number' && i.subtype === 'integer')`));
 	});
+
+	it('fix', async () => {
+		expect(() => HapifySyntax.run('<<if R>>yes<<endif>>', Model)).to.not.throw();
+	});
 });
