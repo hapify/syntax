@@ -8,7 +8,8 @@
     "update": "npm-check -u",
     "test": "nyc mocha",
     "lint": "prettier --write '**/*.ts'",
-    "build": "rimraf dist && tsc -p ."
+    "build": "rimraf dist && tsc -p .",
+    "convert-to-long": "ts-node utils/convert-to-long.ts"
   },
   "repository": {
     "type": "git",

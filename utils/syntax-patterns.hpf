@@ -1,0 +1,61 @@
+'use strict';
+
+<<? F nullable>>
+ ...
+<<?? F nu*(in+rs)>>
+ ...
+<<??>>
+ ...
+<<?>>
+
+<<?34 F nullable or internal>>
+ ...
+<<??76 Ac [ad/gs]>>
+ ...
+<<?>>
+
+<<if F nullable-pr>>
+ ...
+<<elseif F primary>>
+ ...
+<<else>>
+ ...
+<<endif>>
+
+<<if34 F nullable>>
+ ...
+<<elseif76 F primary>>
+ ...
+<<endif>>
+
+<<@ F nu f>>
+ @
+<<@>>
+
+<<@30 F nu f>>
+ @
+<<@>>
+
+<<for R nu/primary r>>
+ @
+<<endfor>>
+
+<<for34 F nu f>>
+ @
+<<endfor>>
+
+
+<<< ifar = root >>>
+<<ifar camel>>
+<<ifar R>>
+
+<<='yes'>>
+
+<<# comment >>
+<<#
+Multi line comments
+>>
+
+<<<
+// Multiline evaluation
+>>>

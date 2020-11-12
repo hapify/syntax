@@ -4,6 +4,8 @@
 
 ### Added
 
+- Added short to long syntax conversion tool
+
 ### Changed
 
 ### Removed
