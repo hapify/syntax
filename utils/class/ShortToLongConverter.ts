@@ -6,7 +6,7 @@ export class ShortToLongConverter extends SyntaxConverter {
 		{ search: /^\?$/, replace: 'endif' },
 		{ search: /^\?\?/, replace: 'elseif' },
 		{ search: /^\?/, replace: 'if' },
-		{ search: /≈@$/, replace: 'endfor' },
+		{ search: /^@$/, replace: 'endfor' },
 		{ search: /^@/, replace: 'for' },
 
 		{ search: /\ba-a$/, replace: 'kebab' },
