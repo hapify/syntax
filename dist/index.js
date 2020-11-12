@@ -41,10 +41,10 @@ const PatternsStack = [
     escape_back_slashes_1.EscapeBackSlashesPattern,
     escape_quotes_1.EscapeQuotesPattern,
     comment_1.CommentPattern,
-    name_interpolation_1.NameInterpolationPattern,
-    interpolation_1.InterpolationPattern,
     conditional_1.ConditionalPattern,
     iteration_1.IterationPattern,
+    interpolation_1.InterpolationPattern,
+    name_interpolation_1.NameInterpolationPattern,
     evaluate_1.EvaluatePattern,
     escape_1.EscapePattern,
 ];
