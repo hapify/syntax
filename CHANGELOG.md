@@ -4,11 +4,17 @@
 
 ### Added
 
-- Added short to long syntax conversion tool
-
 ### Changed
 
 ### Removed
+
+## [0.7.0] - 2020-11-13
+
+### Added
+
+- Added short to long syntax conversion tool
+- Add remove indent pattern
+- Clear double lines after generation
 
 ## [0.6.0] - 2020-11-10
 
