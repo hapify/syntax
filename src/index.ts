@@ -12,9 +12,11 @@ import { IterationPattern } from './patterns/iteration';
 import { EvaluatePattern } from './patterns/evaluate';
 import { EscapePattern } from './patterns/escape';
 import { Action, ModelInput, Options } from './interfaces';
+import { IndentPattern } from './patterns/indent';
 
 /** Ordered patterns */
 const PatternsStack = [
+	IndentPattern,
 	EscapeBackSlashesPattern,
 	EscapeQuotesPattern,
 	CommentPattern,
@@ -85,7 +87,8 @@ export class HapifySyntax {
 		// Cannot inject object with key root in context.
 		const script = `const root = _root; let out = \n\`${this.template}\`\n; return out;`;
 		try {
-			return new HapifyVM({ timeout: this.options.timeout }).run(script, { _root: this.model });
+			const result = new HapifyVM({ timeout: this.options.timeout }).run(script, { _root: this.model });
+			return this.postProcess(result);
 		} catch (error) {
 			if (error.code === 6003) {
 				throw new TimeoutError(`Template processing timed out (${this.options.timeout}ms)`);
@@ -127,5 +130,20 @@ export class HapifySyntax {
 		evalError.details = `Error: ${evalError.message}. Line: ${evalError.lineNumber}, Column: ${evalError.columnNumber}`;
 
 		return evalError;
+	}
+
+	/** Cleanup generated code */
+	private postProcess(code: string): string {
+		// Removes double empty lines
+		const doubleLine = /\r?\n\r?\n/g;
+		while (code.match(doubleLine)) {
+			code = code.replace(doubleLine, '\n');
+		}
+
+		const doubleLineWithSpace = /\r?\n *\r?\n/g;
+		code = code.replace(doubleLineWithSpace, '\n\n');
+		code = code.replace(doubleLineWithSpace, '\n\n');
+
+		return code;
 	}
 }
