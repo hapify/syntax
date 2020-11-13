@@ -1,0 +1,1 @@
+{"version":3,"file":"indent.js","sourceRoot":"","sources":["../../src/patterns/indent.ts"],"names":[],"mappings":";;;AAAA,iCAAqC;AAErC,MAAM,cAAc,GAAG,oEAAoE,CAAC;AAC5F,MAAM,aAAa,GAAG,UAAU,CAAC;AAEjC,qBAAqB;AACrB,MAAa,aAAc,SAAQ,kBAAW;IAC7C,oBAAoB;IACpB,OAAO;QACN,IAAI,CAAC,OAAO,CAAC,cAAc,EAAE,aAAa,CAAC,CAAC;IAC7C,CAAC;CACD;AALD,sCAKC"}

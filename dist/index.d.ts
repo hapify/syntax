@@ -18,4 +18,6 @@ export declare class HapifySyntax {
     private evaluate;
     /** Reverse all action to find the error line and column in the input file */
     private getReversedActionError;
+    /** Cleanup generated code */
+    private postProcess;
 }

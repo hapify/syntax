@@ -36,8 +36,10 @@ const conditional_1 = require("./patterns/conditional");
 const iteration_1 = require("./patterns/iteration");
 const evaluate_1 = require("./patterns/evaluate");
 const escape_1 = require("./patterns/escape");
+const indent_1 = require("./patterns/indent");
 /** Ordered patterns */
 const PatternsStack = [
+    indent_1.IndentPattern,
     escape_back_slashes_1.EscapeBackSlashesPattern,
     escape_quotes_1.EscapeQuotesPattern,
     comment_1.CommentPattern,
@@ -96,7 +98,8 @@ class HapifySyntax {
         // Cannot inject object with key root in context.
         const script = `const root = _root; let out = \n\`${this.template}\`\n; return out;`;
         try {
-            return new vm_1.HapifyVM({ timeout: this.options.timeout }).run(script, { _root: this.model });
+            const result = new vm_1.HapifyVM({ timeout: this.options.timeout }).run(script, { _root: this.model });
+            return this.postProcess(result);
         }
         catch (error) {
             if (error.code === 6003) {
@@ -135,6 +138,18 @@ class HapifySyntax {
         evalError.columnNumber = errorLineColumn ? errorLineColumn.col : null;
         evalError.details = `Error: ${evalError.message}. Line: ${evalError.lineNumber}, Column: ${evalError.columnNumber}`;
         return evalError;
+    }
+    /** Cleanup generated code */
+    postProcess(code) {
+        // Removes double empty lines
+        const doubleLine = /\r?\n\r?\n/g;
+        while (code.match(doubleLine)) {
+            code = code.replace(doubleLine, '\n');
+        }
+        const doubleLineWithSpace = /\r?\n *\r?\n/g;
+        code = code.replace(doubleLineWithSpace, '\n\n');
+        code = code.replace(doubleLineWithSpace, '\n\n');
+        return code;
     }
 }
 exports.HapifySyntax = HapifySyntax;
