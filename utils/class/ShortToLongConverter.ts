@@ -18,7 +18,7 @@ export class ShortToLongConverter extends SyntaxConverter {
 		{ search: /\baa$/, replace: 'compact' },
 		{ search: /\ba$/, replace: 'lower' },
 		{ search: /\bA$/, replace: 'capital' },
-		{ search: /\bR$/, replace: 'raw', bypass: (inner) => /^(\?\?|\?|@|if|for)(\d*?)\s+/.test(inner) },
+		{ search: /\bR$/, replace: 'raw', bypass: (inner) => /^(\?\?|\?|@|if|elseif|for)(\d+)?\s+/.test(inner) },
 
 		{ search: /\s\//g, replace: ' not ' },
 		{ search: /\s-/g, replace: ' not ' },

@@ -44,7 +44,9 @@
  @
 <<endfor>>
 
-<<? R>>
+<<if2 R>>
+<<elseif51 R>>
+<<??66 R>>
 <<?>>
 
 <<< ifar = root >>>
