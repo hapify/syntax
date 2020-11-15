@@ -3,10 +3,13 @@ Iteration testing.
 <<for Fields primary and internal f>>
 This model has one primary internal field<<endfor>>
 
-<<for Fields not nullable f>>
-This model has 6 not nullable fields<<endfor>>
+<<for Fields not nullable field>>
+This model has not nullable fields<<endfor>>
+
+<<for F field>>
+This model has fields<<endfor>>
 
 <<for2 Fields not nullable f>>
-This model has 6 not nullable fields again<<endfor>>
+This model has at least 2 not nullable fields<<endfor>>
 
 End
