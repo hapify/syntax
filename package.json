@@ -1,6 +1,6 @@
 {
   "name": "@hapify/syntax",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Templating syntax optimized for Hapify models handling.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

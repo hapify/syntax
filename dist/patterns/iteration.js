@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.IterationPattern = void 0;
 const conditional_1 = require("./conditional");
 /** for() { pattern */
-const ForPattern = /<<(@|for)(\d+)?\s+([a-zA-Z_.]+)(\s+[a-zA-Z()!+*\-/\s]+)?\s*([a-zA-Z_]+)\s*>>/g;
+const ForPattern = /<<(@|for)(\d+)?\s+([a-zA-Z_.]+)(\s+[a-zA-Z()!+*\-/\s]+)?\s+([a-zA-Z_]+)\s*>>/g;
 /** pattern */
 const EndPattern = /<<(@|endfor)>>/g;
 /** Conditional pattern */
