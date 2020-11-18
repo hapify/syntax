@@ -1,6 +1,6 @@
 {
   "name": "@hapify/syntax",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "Templating syntax optimized for Hapify models handling.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -27,8 +27,8 @@
     "@commitlint/config-conventional": "^11.0.0",
     "@hapi/code": "^8.0.2",
     "@types/line-column": "^1.0.0",
-    "@types/mocha": "^8.0.3",
-    "@types/node": "^14.14.6",
+    "@types/mocha": "^8.0.4",
+    "@types/node": "^14.14.8",
     "husky": "^4.3.0",
     "mocha": "^8.2.1",
     "npm-check": "^5.9.2",
@@ -41,7 +41,7 @@
   },
   "dependencies": {
     "@hapi/hoek": "^9.1.0",
-    "@hapify/vm": "^0.3.3",
+    "@hapify/vm": "^0.3.4",
     "escape-string-regexp": "^4.0.0",
     "line-column": "^1.0.2"
   },
