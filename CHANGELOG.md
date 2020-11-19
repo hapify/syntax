@@ -8,6 +8,12 @@
 
 ### Removed
 
+## [0.8.0] - 2020-11-19
+
+### Added
+
+- Handle enum fields
+
 ## [0.7.0] - 2020-11-13
 
 ### Added
