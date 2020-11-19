@@ -12,4 +12,8 @@ This model has fields<<@>>
 <<@2 F !nu f>>
 This model has at least 2 not nullable fields<<@>>
 
+<<@ F tU f>>
+<<f aA>>:<<@ f.e e>> '<<e a-a>>'<<@>>
+<<@>>
+
 End

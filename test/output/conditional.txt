@@ -7,4 +7,5 @@ This has something else
 Big condition
 At least 2 primary or label
 This model has some fields
+This model has some enum
 End

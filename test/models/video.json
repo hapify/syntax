@@ -1958,6 +1958,128 @@
           "pascal": "Global",
           "camel": "global"
         }
+      },
+      {
+        "name": "type",
+        "type": "enum",
+        "subtype": null,
+        "value": ["advertising", "movie", "user asset"],
+        "primary": false,
+        "unique": false,
+        "label": false,
+        "nullable": false,
+        "multiple": false,
+        "searchable": false,
+        "sortable": false,
+        "hidden": false,
+        "internal": false,
+        "embedded": false,
+        "names": {
+          "raw": "type",
+          "kebab": "type",
+          "header": "TYPE",
+          "snake": "type",
+          "constant": "TYPE",
+          "compact": "type",
+          "capital": "Type",
+          "lower": "type",
+          "pascal": "Type",
+          "camel": "type"
+        },
+        "enum": [
+          {
+            "name": "advertising",
+            "names": {
+              "raw": "advertising",
+              "kebab": "advertising",
+              "header": "ADVERTISING",
+              "snake": "advertising",
+              "constant": "ADVERTISING",
+              "compact": "advertising",
+              "capital": "Advertising",
+              "lower": "advertising",
+              "pascal": "Advertising",
+              "camel": "advertising"
+            }
+          },
+          {
+            "name": "movie",
+            "names": {
+              "raw": "movie",
+              "kebab": "movie",
+              "header": "MOVIE",
+              "snake": "movie",
+              "constant": "MOVIE",
+              "compact": "movie",
+              "capital": "Movie",
+              "lower": "movie",
+              "pascal": "Movie",
+              "camel": "movie"
+            }
+          },
+          {
+            "name": "user asset",
+            "names": {
+              "raw": "user asset",
+              "kebab": "user-asset",
+              "header": "USER-ASSET",
+              "snake": "user_asset",
+              "constant": "USER_ASSET",
+              "compact": "userasset",
+              "capital": "User Asset",
+              "lower": "user asset",
+              "pascal": "UserAsset",
+              "camel": "userAsset"
+            }
+          }
+        ],
+        "e": [
+          {
+            "name": "advertising",
+            "names": {
+              "raw": "advertising",
+              "kebab": "advertising",
+              "header": "ADVERTISING",
+              "snake": "advertising",
+              "constant": "ADVERTISING",
+              "compact": "advertising",
+              "capital": "Advertising",
+              "lower": "advertising",
+              "pascal": "Advertising",
+              "camel": "advertising"
+            }
+          },
+          {
+            "name": "movie",
+            "names": {
+              "raw": "movie",
+              "kebab": "movie",
+              "header": "MOVIE",
+              "snake": "movie",
+              "constant": "MOVIE",
+              "compact": "movie",
+              "capital": "Movie",
+              "lower": "movie",
+              "pascal": "Movie",
+              "camel": "movie"
+            }
+          },
+          {
+            "name": "user asset",
+            "names": {
+              "raw": "user asset",
+              "kebab": "user-asset",
+              "header": "USER-ASSET",
+              "snake": "user_asset",
+              "constant": "USER_ASSET",
+              "compact": "userasset",
+              "capital": "User Asset",
+              "lower": "user asset",
+              "pascal": "UserAsset",
+              "camel": "userAsset"
+            }
+          }
+        ]
       }
     ],
     "l": [
@@ -3916,6 +4038,128 @@
           "pascal": "Global",
           "camel": "global"
         }
+      },
+      {
+        "name": "type",
+        "type": "enum",
+        "subtype": null,
+        "value": ["advertising", "movie", "user asset"],
+        "primary": false,
+        "unique": false,
+        "label": false,
+        "nullable": false,
+        "multiple": false,
+        "searchable": false,
+        "sortable": false,
+        "hidden": false,
+        "internal": false,
+        "embedded": false,
+        "names": {
+          "raw": "type",
+          "kebab": "type",
+          "header": "TYPE",
+          "snake": "type",
+          "constant": "TYPE",
+          "compact": "type",
+          "capital": "Type",
+          "lower": "type",
+          "pascal": "Type",
+          "camel": "type"
+        },
+        "enum": [
+          {
+            "name": "advertising",
+            "names": {
+              "raw": "advertising",
+              "kebab": "advertising",
+              "header": "ADVERTISING",
+              "snake": "advertising",
+              "constant": "ADVERTISING",
+              "compact": "advertising",
+              "capital": "Advertising",
+              "lower": "advertising",
+              "pascal": "Advertising",
+              "camel": "advertising"
+            }
+          },
+          {
+            "name": "movie",
+            "names": {
+              "raw": "movie",
+              "kebab": "movie",
+              "header": "MOVIE",
+              "snake": "movie",
+              "constant": "MOVIE",
+              "compact": "movie",
+              "capital": "Movie",
+              "lower": "movie",
+              "pascal": "Movie",
+              "camel": "movie"
+            }
+          },
+          {
+            "name": "user asset",
+            "names": {
+              "raw": "user asset",
+              "kebab": "user-asset",
+              "header": "USER-ASSET",
+              "snake": "user_asset",
+              "constant": "USER_ASSET",
+              "compact": "userasset",
+              "capital": "User Asset",
+              "lower": "user asset",
+              "pascal": "UserAsset",
+              "camel": "userAsset"
+            }
+          }
+        ],
+        "e": [
+          {
+            "name": "advertising",
+            "names": {
+              "raw": "advertising",
+              "kebab": "advertising",
+              "header": "ADVERTISING",
+              "snake": "advertising",
+              "constant": "ADVERTISING",
+              "compact": "advertising",
+              "capital": "Advertising",
+              "lower": "advertising",
+              "pascal": "Advertising",
+              "camel": "advertising"
+            }
+          },
+          {
+            "name": "movie",
+            "names": {
+              "raw": "movie",
+              "kebab": "movie",
+              "header": "MOVIE",
+              "snake": "movie",
+              "constant": "MOVIE",
+              "compact": "movie",
+              "capital": "Movie",
+              "lower": "movie",
+              "pascal": "Movie",
+              "camel": "movie"
+            }
+          },
+          {
+            "name": "user asset",
+            "names": {
+              "raw": "user asset",
+              "kebab": "user-asset",
+              "header": "USER-ASSET",
+              "snake": "user_asset",
+              "constant": "USER_ASSET",
+              "compact": "userasset",
+              "capital": "User Asset",
+              "lower": "user asset",
+              "pascal": "UserAsset",
+              "camel": "userAsset"
+            }
+          }
+        ]
       }
     ],
     "primary": {
