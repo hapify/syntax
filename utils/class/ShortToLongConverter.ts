@@ -108,4 +108,10 @@ export class ShortToLongConverter extends SyntaxConverter {
 		{ search: /\bAs\b/g, replace: 'SearchAccess' },
 		{ search: /\bAn\b/g, replace: 'CountAccess' },
 	];
+
+
+	protected cleanUp(inner: string): string {
+		const newInner = inner.replace(/^for\s+Model(?!s)/gm, 'for Models');
+		return super.cleanUp(newInner);
+	}
 }
