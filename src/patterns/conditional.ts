@@ -45,6 +45,9 @@ const Replacements: Replacement[] = [
 	{ search: ['richText', 'rich', 'tSr'], replace: "(i.type === 'string' && i.subtype === 'rich')" },
 	{ search: ['string', 'tS'], replace: "(i.type === 'string')" },
 
+	// Fields types for enum
+	{ search: ['enum', 'tU'], replace: "(i.type === 'enum')" },
+
 	// Fields types for number
 	{
 		search: ['integer', 'tNi'],

@@ -76,6 +76,8 @@ describe('conditional long', () => {
 		expect(ConditionalPatternExecute('<<if Fields richText>>')).to.equal(Condition("(i.type === 'string' && i.subtype === 'rich')"));
 		expect(ConditionalPatternExecute('<<if Fields rich>>')).to.equal(Condition("(i.type === 'string' && i.subtype === 'rich')"));
 
+		expect(ConditionalPatternExecute('<<if Fields enum>>')).to.equal(Condition("(i.type === 'enum')"));
+
 		expect(ConditionalPatternExecute('<<if Fields number>>')).to.equal(Condition("(i.type === 'number')"));
 		expect(ConditionalPatternExecute('<<if Fields integer>>')).to.equal(Condition("(i.type === 'number' && i.subtype === 'integer')"));
 		expect(ConditionalPatternExecute('<<if Fields float>>')).to.equal(Condition("(i.type === 'number' && i.subtype === 'float')"));

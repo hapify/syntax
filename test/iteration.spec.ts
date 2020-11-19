@@ -50,6 +50,8 @@ describe('iteration', () => {
 		expect(IterationPattern.execute('<<@ F tSp f>>')).to.equal(condition("(i.type === 'string' && i.subtype === 'password')"));
 		expect(IterationPattern.execute('<<@ F tSt f>>')).to.equal(condition("(i.type === 'string' && i.subtype === 'text')"));
 
+		expect(IterationPattern.execute('<<@ F tU f>>')).to.equal(condition("(i.type === 'enum')"));
+
 		expect(IterationPattern.execute('<<@ F tN f>>')).to.equal(condition("(i.type === 'number')"));
 		expect(IterationPattern.execute('<<@ F tNi f>>')).to.equal(condition("(i.type === 'number' && i.subtype === 'integer')"));
 		expect(IterationPattern.execute('<<@ F tNf f>>')).to.equal(condition("(i.type === 'number' && i.subtype === 'float')"));

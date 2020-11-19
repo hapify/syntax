@@ -52,6 +52,8 @@ describe('iteration long', () => {
 		expect(IterationPatternExecute('<<for Fields password f>>')).to.equal(Condition("(i.type === 'string' && i.subtype === 'password')"));
 		expect(IterationPatternExecute('<<for Fields text f>>')).to.equal(Condition("(i.type === 'string' && i.subtype === 'text')"));
 
+		expect(IterationPatternExecute('<<for Fields enum f>>')).to.equal(Condition("(i.type === 'enum')"));
+
 		expect(IterationPatternExecute('<<for Fields number f>>')).to.equal(Condition("(i.type === 'number')"));
 		expect(IterationPatternExecute('<<for Fields integer f>>')).to.equal(Condition("(i.type === 'number' && i.subtype === 'integer')"));
 		expect(IterationPatternExecute('<<for Fields float f>>')).to.equal(Condition("(i.type === 'number' && i.subtype === 'float')"));

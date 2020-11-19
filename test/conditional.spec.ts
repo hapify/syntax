@@ -62,6 +62,8 @@ describe('conditional', () => {
 		expect(ConditionalPattern.execute('<<? F tSt>>')).to.equal(condition("(i.type === 'string' && i.subtype === 'text')"));
 		expect(ConditionalPattern.execute('<<? F tSr>>')).to.equal(condition("(i.type === 'string' && i.subtype === 'rich')"));
 
+		expect(ConditionalPattern.execute('<<? F tU>>')).to.equal(condition("(i.type === 'enum')"));
+
 		expect(ConditionalPattern.execute('<<? F tN>>')).to.equal(condition("(i.type === 'number')"));
 		expect(ConditionalPattern.execute('<<? F tNi>>')).to.equal(condition("(i.type === 'number' && i.subtype === 'integer')"));
 		expect(ConditionalPattern.execute('<<? F tNf>>')).to.equal(condition("(i.type === 'number' && i.subtype === 'float')"));

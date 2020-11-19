@@ -50,6 +50,7 @@ export class ShortToLongConverter extends SyntaxConverter {
 		{ search: /\btSt\b/g, replace: 'text' },
 		{ search: /\btSr\b/g, replace: 'richText' },
 		{ search: /\btS\b/g, replace: 'string' },
+		{ search: /\btU\b/g, replace: 'enum' },
 		{ search: /\btNi\b/g, replace: 'integer' },
 		{ search: /\btNf\b/g, replace: 'float' },
 		{ search: /\btNt\b/g, replace: 'latitude' },
@@ -108,7 +109,6 @@ export class ShortToLongConverter extends SyntaxConverter {
 		{ search: /\bAs\b/g, replace: 'SearchAccess' },
 		{ search: /\bAn\b/g, replace: 'CountAccess' },
 	];
-
 
 	protected cleanUp(inner: string): string {
 		const newInner = inner.replace(/^for\s+Model(?!s)/gm, 'for Models');
