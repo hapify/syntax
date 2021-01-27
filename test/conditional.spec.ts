@@ -77,6 +77,9 @@ describe('conditional', () => {
 		expect(ConditionalPattern.execute('<<? F tDt>>')).to.equal(condition("(i.type === 'datetime' && i.subtype === 'time')"));
 
 		expect(ConditionalPattern.execute('<<? F tE>>')).to.equal(condition("(i.type === 'entity')"));
+		expect(ConditionalPattern.execute('<<? F tEoo>>')).to.equal(condition("(i.type === 'entity' && i.subtype === 'oneOne')"));
+		expect(ConditionalPattern.execute('<<? F tEom>>')).to.equal(condition("(i.type === 'entity' && i.subtype === 'oneMany')"));
+		expect(ConditionalPattern.execute('<<? F tEmm>>')).to.equal(condition("(i.type === 'entity' && i.subtype === 'manyMany')"));
 
 		expect(ConditionalPattern.execute('<<? F tO>>')).to.equal(condition("(i.type === 'object')"));
 
