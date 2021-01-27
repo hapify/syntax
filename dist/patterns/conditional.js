@@ -71,6 +71,9 @@ const Replacements = [
     { search: ['datetime', 'tD'], replace: "(i.type === 'datetime')" },
     // Fields types for entity
     { search: ['entity', 'tE'], replace: "(i.type === 'entity')" },
+    { search: ['oneOne', 'tEoo'], replace: "(i.type === 'entity' && i.subtype === 'oneOne')" },
+    { search: ['oneMany', 'tEom'], replace: "(i.type === 'entity' && i.subtype === 'oneMany')" },
+    { search: ['manyMany', 'tEmm'], replace: "(i.type === 'entity' && i.subtype === 'manyMany')" },
     // Fields types for object
     { search: ['object', 'tO'], replace: "(i.type === 'object')" },
     // Fields types for file
