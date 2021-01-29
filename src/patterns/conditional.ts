@@ -76,6 +76,7 @@ const Replacements: Replacement[] = [
 	{ search: ['entity', 'tE'], replace: "(i.type === 'entity')" },
 	{ search: ['oneOne', 'tEoo'], replace: "(i.type === 'entity' && i.subtype === 'oneOne')" },
 	{ search: ['oneMany', 'tEom'], replace: "(i.type === 'entity' && i.subtype === 'oneMany')" },
+	{ search: ['manyOne', 'tEmo'], replace: "(i.type === 'entity' && i.subtype === 'manyOne')" },
 	{ search: ['manyMany', 'tEmm'], replace: "(i.type === 'entity' && i.subtype === 'manyMany')" },
 
 	// Fields types for object

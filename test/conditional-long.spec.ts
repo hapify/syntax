@@ -93,6 +93,7 @@ describe('conditional long', () => {
 		expect(ConditionalPatternExecute('<<if Fields entity>>')).to.equal(Condition("(i.type === 'entity')"));
 		expect(ConditionalPatternExecute('<<if Fields oneOne>>')).to.equal(Condition("(i.type === 'entity' && i.subtype === 'oneOne')"));
 		expect(ConditionalPatternExecute('<<if Fields oneMany>>')).to.equal(Condition("(i.type === 'entity' && i.subtype === 'oneMany')"));
+		expect(ConditionalPatternExecute('<<if Fields manyOne>>')).to.equal(Condition("(i.type === 'entity' && i.subtype === 'manyOne')"));
 		expect(ConditionalPatternExecute('<<if Fields manyMany>>')).to.equal(Condition("(i.type === 'entity' && i.subtype === 'manyMany')"));
 
 		expect(ConditionalPatternExecute('<<if Fields object>>')).to.equal(Condition("(i.type === 'object')"));
